@@ -13,9 +13,11 @@ class Signup extends React.Component{
     seePreview = (e) => {
         e.preventDefault();
         console.log(e.target.files[0]);
+        if(e.target.files[0].size <= 10485760){
         let newImg = URL.createObjectURL(e.target.files[0])
         img = newImg;
         this.props.changeFile(e.target.files[0])
+    }
         // this.setState({imageFile: e.target.files[0]})
 
     }
