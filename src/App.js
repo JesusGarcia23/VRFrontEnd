@@ -6,8 +6,9 @@ import PostForm from './Components/PostForm';
 import Signup from './Components/user-pages/Signup'
 import Login from './Components/user-pages/Login'
 import Profile from './Components/Profile';
-import "./index.css"
+import "./index.css";
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 
 //CLOUDINARY
 import service from './api/service';
@@ -187,7 +188,14 @@ this.setState({imageUrl: e})
                     .then(theData => {
                         console.log("NEW USER!")
                         console.log(theData)
-                        this.setState({finished: true})
+                        this.setState({finished: true,
+                          username: "",
+                            email: "",
+                            password: "",
+                            imageUrl: "",
+                            imageFile: [],
+                     })
+
                     })
                     .catch(err => console.log(err));
 
@@ -204,19 +212,25 @@ this.setState({imageUrl: e})
                    .then(theData => {
                        console.log("NEW USER!")
                        console.log(theData)
-                       this.setState({finished: true})
+                       this.setState({finished: true,
+                        username: "",
+                          email: "",
+                          password: "",
+                          imageUrl: "",
+                          imageFile: [],
                    })
+                  })
                    .catch(err => console.log(err));
             
                 }
 
-                this.setState({
-                  username: "",
-                  email: "",
-                  password: "",
-                  imageUrl: "",
-                  imageFile: [],
-                })
+                // this.setState({
+                //   username: "",
+                //   email: "",
+                //   password: "",
+                //   imageUrl: "",
+                //   imageFile: [],
+                // })
 
          
 }
