@@ -94,6 +94,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
     })
     .catch(err => {
       console.log("Error while uploading the file: ", err);
+      console.log(err)
     });
    
   }
@@ -167,8 +168,12 @@ this.setState({imageUrl: e})
 
   changeFile = (e) => {
     console.log(e)
-    this.setState({imageFile: e})
-    console.log(typeof this.state.imageFile)
+    if(e.size <= 10485760){
+    this.setState({imageFile: e,
+    message: ""})
+  }else{
+    this.setState({message: "File size is too big!"})
+  }
   }
 
   makeNewUser = (e) => {

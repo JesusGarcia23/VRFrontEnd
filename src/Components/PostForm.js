@@ -69,7 +69,7 @@ console.log(e.target);
         e.preventDefault();
 
         console.log(e.target.files);
-        if(e.target.files[0]){
+        if(e.target.files[0] && e.target.files[0].size <= 10485760){
         let newImg = URL.createObjectURL(e.target.files[0])
         this.props.changeFile(e.target.files[0])
         this.props.changeUrl(newImg)
@@ -84,8 +84,7 @@ console.log(e.target);
         myInput.setAttribute('disabled', true);
         myInput.className = "inputDisabled"
     }else{
-        // this.setState({imageUrl: "",
-        //     imageFile: []})
+        this.props.changeFile(e.target.files[0])
     }
     }
 
@@ -121,10 +120,12 @@ console.log(e.target);
         return(
             <div className="formPost">
             <h1>New Post</h1>
+            {this.props.formValues.message}
             <form style={this.formStyle} onSubmit={this.props.handleSubmit}>
 
             <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
             <label for="myFileList">Choose a file</label>
+            <label>(File size max 10 Mb)</label>
 
             <button onClick={this.removePicture} className="removeBtn">REMOVE</button>
           
