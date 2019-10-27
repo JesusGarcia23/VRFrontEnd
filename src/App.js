@@ -10,12 +10,11 @@ import Home from './Components/Home'
 import "./index.css";
 import axios from "axios";
 import HomeFeed from './Components/HomeFeed';
-
+import WorldPost from './Components/WorldPost';
 
 //CLOUDINARY
 import service from './api/service';
 import Navbar from "./Components/Navbar";
-import Axios from "axios";
 
 class App extends Component {
 
@@ -132,24 +131,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
   // END OF MAKE A NEW POST
 
 
-  renderImages = () => {
-    const {images} = this.state.images
-    return images.map(image => {
-      return (
-        <div>
-        <div>
-        <ThreeMap 
-          key={image._id}
-          {...image}
-          url={image.imageUrl}
-        />
-        </div>
-        <div>HELLO MY NAME IS JESUS </div>
-        </div>
-      )
-    })
-  };
-
+  // GET ALL THE POSTS TO RENDER FROM DB
   get_data_torender = async () => {
     try {
       // const {url} = this.state
@@ -164,7 +146,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
     }
   };
 
-  //SIGN UP NEW USER
+  //uPDATE FORMS VALUES
   updateForm = (e) => {
     console.log(e.currentTarget)
     this.setState({
@@ -172,10 +154,12 @@ await uploadData.append("imageUrl", this.state.imageFile);
     })
   }
 
+  //CHANGE IMAGE URL
   changeImgUrl = (e) => {
 this.setState({imageUrl: e})
   }
 
+  //CHANGE IMAGE FILES
   changeFile = (e) => {
     console.log(e)
     if(e.size <= 10485760){
@@ -186,6 +170,7 @@ this.setState({imageUrl: e})
   }
   }
 
+  //START OF SIGN UP
   makeNewUser = (e) => {
     e.preventDefault();
     if(this.state.imageFile){
@@ -288,24 +273,27 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 })
 }
 
-//REDIRECT USERS
-redirectToTarget = (value) => {
-  this.props.history.push(`/${value}`)
+// WORLD POSTS RENDER
+worldRender = () => {
+  const {images} = this.state.images
+    return images.map(image => {
+      return  <div className="worldPost">Heheh</div> 
+    })
 }
 
   // {this.state.images && this.renderImages()}
   render() {
-    console.log("My State")
-    console.log(this.state);
-    console.log(this.match)
+    // console.log("My State")
+    // console.log(this.state);
+    // console.log(this.match)
     return (
       <div className="App">
        
         <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
           
         <Switch>
-      
-    
+
+        <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
@@ -322,3 +310,24 @@ redirectToTarget = (value) => {
 //<Route exact path="/">{this.state.images && this.renderImages()}</Route>
 
 export default App;
+
+
+
+//OLD CODE 
+ // renderImages = () => {
+  //   const {images} = this.state.images
+  //   return images.map(image => {
+  //     return (
+  //       <div>
+  //       <div>
+  //       <ThreeMap 
+  //         key={image._id}
+  //         {...image}
+  //         url={image.imageUrl}
+  //       />
+  //       </div>
+  //       <div>HELLO MY NAME IS JESUS </div>
+  //       </div>
+  //     )
+  //   })
+  // };
