@@ -158,7 +158,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
         this.setState({
           images: response.data
         });
-      });
+      })
     } catch (err) {
       console.log(err);
     }

@@ -73,6 +73,7 @@ class SinglePost extends React.Component {
         if(this.props.myUrl[0]){
             return(
                 <div className="singlePost">
+                <div>{this.props.myUrl[1].owner.username}</div>
                 <ThreeMap url={this.props.myUrl[1].image} height={height} width={width}/>
                 <div>{this.props.myUrl[1].caption}</div>
                 <button onClick={this.fullScreen}>GO FULLSCREEN</button>
