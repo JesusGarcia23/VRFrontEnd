@@ -4,16 +4,30 @@ import {Link} from 'react-router-dom';
 class Navbar extends React.Component{
 
     render(){
-      console.log(this.props)
+      if(this.props.currentUser){
         return(
-            <nav className="navbar navbar-dark bg-dark">
- 
-</nav>
+          <div>
+          <ul>
+          <li><button onClick={this.props.logoutUser}>Logout</button></li>
+          <li><Link to="/newPost">New Experience</Link></li>
+          </ul>
+          </div>
         )
+      }else{
+        return(
+          <div>      
+ <ul>
+ <li><Link to="/login">Login</Link></li>
+ <li><Link to="/signup">Signup</Link></li>
+
+ </ul>
+ </div>
+        )
+}
+
     }
 
 }
-<Link to="/newPost">New Experience</Link>
-<Link to="/signup">Signup</Link>
-<Link to="/login">Login</Link>
+
+
 export default Navbar;

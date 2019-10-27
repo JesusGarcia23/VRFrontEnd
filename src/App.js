@@ -6,6 +6,7 @@ import PostForm from './Components/PostForm';
 import Signup from './Components/user-pages/Signup'
 import Login from './Components/user-pages/Login'
 import Profile from './Components/Profile';
+import Home from './Components/Home'
 import "./index.css";
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
@@ -14,6 +15,8 @@ import HomeFeed from './Components/HomeFeed';
 
 //CLOUDINARY
 import service from './api/service';
+import Navbar from "./Components/Navbar";
+import Axios from "axios";
 
 class App extends Component {
 
@@ -269,6 +272,17 @@ axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: tru
 // END OF LOGIN
 
 
+// LOG OUT USER
+logoutUser = () => {
+axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
+.then(theUser => {
+  console.log("DISCONNECTED!")
+  console.log(theUser)
+  this.syncCurrentUser(null)
+  this.setState({currentUser: null})
+})
+}
+
 
   // {this.state.images && this.renderImages()}
   render() {
@@ -278,8 +292,11 @@ axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: tru
     return (
       <div className="App">
         <div>
+        <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
           
         <Switch>
+      
+        <Route exact path={"/"} component={Home} />
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>

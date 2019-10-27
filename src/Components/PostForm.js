@@ -1,6 +1,6 @@
 import React from 'react';
 import ThreeMap from './ThreeMap';
-
+import { Redirect } from 'react-router-dom';
 class PostForm extends React.Component{
 
     
@@ -116,7 +116,9 @@ console.log(e.target);
     }
 
     render(){
-        const {caption} = this.props.formValues
+        const {caption, currentUser} = this.props.formValues
+        console.log(currentUser)
+        if(currentUser){
         return(
             <div className="formPost">
             <h1>New Post</h1>
@@ -143,6 +145,11 @@ console.log(e.target);
             </div>
             </div>
         )
+    }else{
+        return(
+       <Redirect to='/login'/>
+       )
+    }
     }
 
 }

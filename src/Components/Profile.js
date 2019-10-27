@@ -2,13 +2,10 @@ import React from 'react';
 
 class Profile extends React.Component{
   
-        state = {
-            user: this.props.currentUser
-
-        }
 
 render(){
-    if(this.props.currentUser){
+    const { currentUser } = this.props
+    if(currentUser !== null){
         return (
             <div>
             <h1> HELL YEAH! PROFILE PAGE!</h1>
