@@ -9,6 +9,8 @@ import Profile from './Components/Profile';
 import "./index.css";
 import axios from "axios";
 import { Redirect } from 'react-router-dom';
+import HomeFeed from './Components/HomeFeed';
+
 
 //CLOUDINARY
 import service from './api/service';
@@ -142,8 +144,8 @@ await uploadData.append("imageUrl", this.state.imageFile);
 
   get_data_torender = async () => {
     try {
-      const {url} = this.state
-      await axios.get(url).then(response => {
+      // const {url} = this.state
+      await axios.get("http://localhost:5000/createNewPost").then(response => {
         console.log(response)
         this.setState({
           images: response.data
@@ -279,6 +281,7 @@ axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: tru
           
         <Switch>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
+        <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>

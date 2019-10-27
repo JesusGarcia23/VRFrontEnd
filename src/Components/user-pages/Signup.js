@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import Navbar from '../Navbar'
 // import the service file since we need it to send (and get) the data to(from) server
 
 let img = ""
@@ -32,6 +33,8 @@ class Signup extends React.Component{
             )
         }
         return(
+            <div>
+            <Navbar/>
             <section>
             <h2>Sign Up</h2>
             <form onSubmit={this.props.handleSubmit}>
@@ -47,6 +50,7 @@ class Signup extends React.Component{
             <button>Submit</button>
             </form>
             </section>
+            </div>
         )
     }
 
