@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Switch, Link, Route } from 'react-router-dom'
+import {Switch, Link, Route, Redirect } from 'react-router-dom'
 import ThreeMap from "./Components/ThreeMap";
 import SinglePost from './Components/SinglePost';
 import PostForm from './Components/PostForm';
@@ -9,7 +9,6 @@ import Profile from './Components/Profile';
 import Home from './Components/Home'
 import "./index.css";
 import axios from "axios";
-import { Redirect } from 'react-router-dom';
 import HomeFeed from './Components/HomeFeed';
 
 
@@ -34,6 +33,7 @@ class App extends Component {
       newPostUrl: 'http://localhost:5000',
       images: [],
       selectedFile: null,
+      postMade: false,
       message: ""
     };
   
@@ -89,7 +89,12 @@ await uploadData.append("imageUrl", this.state.imageFile);
  .then(theData => {
      console.log("NEW POST!")
      console.log(theData)
-   //  this.setState({finished: true})
+     
+     this.setState({postMade: true,
+    caption: ""})
+
+     setTimeout(
+       this.setState({postMade: false}), 5000)
  })
  .catch(err => console.log(err));
 
@@ -283,20 +288,24 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 })
 }
 
+//REDIRECT USERS
+redirectToTarget = (value) => {
+  this.props.history.push(`/${value}`)
+}
 
   // {this.state.images && this.renderImages()}
   render() {
     console.log("My State")
     console.log(this.state);
-    console.log(typeof this.state.imageFile)
+    console.log(this.match)
     return (
       <div className="App">
-        <div>
+       
         <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
           
         <Switch>
       
-        <Route exact path={"/"} component={Home} />
+    
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
@@ -305,7 +314,7 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
         <Route exact path="/profile" render={(props) => <Profile {...props} currentUser = {this.state.currentUser}/>}/>
         </Switch>
         
-        </div>
+        
       </div>
     );
   }

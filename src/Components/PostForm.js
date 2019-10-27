@@ -116,9 +116,9 @@ console.log(e.target);
     }
 
     render(){
-        const {caption, currentUser} = this.props.formValues
+        const {caption, currentUser, postMade} = this.props.formValues
         console.log(currentUser)
-        if(currentUser){
+        if(currentUser && !postMade){
         return(
             <div className="formPost">
             <h1>New Post</h1>
@@ -145,7 +145,10 @@ console.log(e.target);
             </div>
             </div>
         )
-    }else{
+    }else if(currentUser && postMade){
+       return( <Redirect to='/'/> )
+    }
+    else{
         return(
        <Redirect to='/login'/>
        )
