@@ -3,16 +3,6 @@ import {Link} from 'react-router-dom';
 
 const WorldPost = props => {
 
-//SINGLE POST
-const showSinglePost = (e) => {
-    console.log(e.target);
-    let parent = e.target.firstChild;
-    let postId = parent.id;
-    console.log(props.history)
-    props.history.push(`/post/${postId}`)
-  }
-  
-  // END OF SINGLE POST
 
         console.log(props)
      return(
@@ -37,7 +27,7 @@ const showSinglePost = (e) => {
             </div>
             </Link>
             </div>
-            <p>{images.caption}</p>
+            <p>{images.likes.length} Likes</p>
            
             
             

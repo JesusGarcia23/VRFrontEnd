@@ -146,7 +146,7 @@ console.log(e.target);
             </div>
         )
     }else if(currentUser && postMade){
-       return( <Redirect to='/'/> )
+       return( <Redirect to='/world'/> )
     }
     else{
         return(

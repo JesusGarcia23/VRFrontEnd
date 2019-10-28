@@ -154,7 +154,7 @@ img:fullscreen {
 .worldContainer .col{
   border: 1px solid green;
   width: 32%;
-  padding-bottom: 5%; /* 32:18, i.e. 16:9 */
+  padding-bottom: 2%; /* 32:18, i.e. 16:9 */
   margin-bottom: 2%;
 }
 
