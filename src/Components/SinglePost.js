@@ -37,7 +37,7 @@ window.addEventListener('MSFullscreenChange', exitFullscreen);
 class SinglePost extends React.Component {
 
         state = {
-            images: [],
+            images: null,
             height: "70vh"
         }
 
@@ -48,7 +48,7 @@ class SinglePost extends React.Component {
         getData = async() => { 
             // return this.props.myUrl
             try {
-                await axios.get('http://localhost:5000/api/things').then(response => {
+                await axios.get(`http://localhost:5000${this.props.match.url}`).then(response => {
                   this.setState({
                     images: response.data
                   });
@@ -66,16 +66,14 @@ class SinglePost extends React.Component {
 
 
     render(){
-        console.log("MY IMAGE IS")
-        console.log(this.state.images[0])
-        console.log("MY URL IS")
-        console.log(this.props.myUrl);
-        if(this.props.myUrl[0]){
+      console.log(this.props)
+      console.log(this.state)
+        if(this.state.images){
             return(
                 <div className="singlePost">
-                <div>{this.props.myUrl[1].owner.username}</div>
-                <ThreeMap url={this.props.myUrl[1].image} height={height} width={width}/>
-                <div>{this.props.myUrl[1].caption}</div>
+                <div></div>
+                <ThreeMap url={this.state.images.image} height={height} width={width}/>
+                <div>{}</div>
                 <button onClick={this.fullScreen}>GO FULLSCREEN</button>
                 </div>
             )

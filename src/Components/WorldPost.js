@@ -3,6 +3,19 @@ import {Link} from 'react-router-dom';
 
 class WorldPost extends React.Component {
 
+
+    
+//SINGLE POST
+showSinglePost = (e) => {
+    console.log(e.target);
+    let parent = e.target.firstChild;
+    let postId = parent.id;
+    console.log(this.props.history)
+    this.props.history.push(`/post/${postId}`)
+  }
+  
+  // END OF SINGLE POST
+
     render(){
         console.log(this.props)
      return(
@@ -21,7 +34,7 @@ class WorldPost extends React.Component {
             <div className="worldImgContainer">
             <img  className="worldImg" src={images.image}  alt="worldPic" width="100%" height="300px"></img>
 
-            <div className="overlayContainer" onClick={(e) => this.props.showSinglePost(e)}>
+            <div className="overlayContainer" onClick={(e) => this.showSinglePost(e)}>
             <div className="textOverlay" id={images._id}>See the full Post</div>
             </div>
             </div>
