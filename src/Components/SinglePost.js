@@ -2,7 +2,7 @@ import React from 'react';
 import ThreeMap from './ThreeMap';
 import axios from 'axios'
 
-let height = "70vh"
+let height = "50vh"
 let width = "100vw"
 var requestFullscreen = function (ele) {
 	if (ele.requestFullscreen) {
@@ -34,55 +34,66 @@ window.addEventListener('webkitfullscreenchange', exitFullscreen);
 window.addEventListener('mozfullscreenchange', exitFullscreen);
 window.addEventListener('MSFullscreenChange', exitFullscreen);
 
-class SinglePost extends React.Component {
+const SinglePost = props => {
 
-        state = {
-            images: null,
-            height: "70vh"
-        }
+      
 
-      async  componentDidMount(){
-        await this.getData();
-        }
+        // getData = async() => { 
+        //     // return this.props.myUrl
+        //     try {
+        //         await axios.get(`http://localhost:5000${this.props.match.url}`).then(response => {
+        //           this.setState({
+        //             images: response.data
+        //           });
+        //         });
+        //       } catch (err) {
+        //         console.log(err);
+        //       }
+        // }
 
-        getData = async() => { 
-            // return this.props.myUrl
-            try {
-                await axios.get(`http://localhost:5000${this.props.match.url}`).then(response => {
-                  this.setState({
-                    images: response.data
-                  });
-                });
-              } catch (err) {
-                console.log(err);
-              }
-        }
-
-        fullScreen = (e) => {
+        const fullScreen = (e) => {
           e.preventDefault();
           let myDiv = document.getElementById('WebGL-output');
          requestFullscreen(myDiv)
         }
 
 
-    render(){
-      console.log(this.props)
-      console.log(this.state)
-        if(this.state.images){
+        console.log("PROPS!")
+      console.log(props)
+      const id = props.match.params.id
+
+      const theArr = props.postValues.filter(eachItem => {
+        return eachItem._id === id
+      })
+
+      const thePost = theArr[0];
+        if(thePost){
             return(
+              <React.Fragment>
                 <div className="singlePost">
-                <div></div>
-                <ThreeMap url={this.state.images.image} height={height} width={width}/>
-                <div>{}</div>
-                <button onClick={this.fullScreen}>GO FULLSCREEN</button>
+                <div className="singlePostHeader">
+                <img src={thePost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
+            
+                {thePost.owner.username}
                 </div>
+                <ThreeMap url={thePost.image} height={height} width={width}/>
+                <div>{}</div>
+                <button onClick={fullScreen}>GO FULLSCREEN</button>
+                <div className="singleFooter">
+                <div className="singleLikes">
+                {thePost.likes.length} Likes
+                </div>
+                {thePost.caption}
+                </div>
+                </div>
+                </React.Fragment>
             )
         }
         return(
             <div>OH NO!</div>
         )
       
-    }
+   
 
 }
 

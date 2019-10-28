@@ -1,28 +1,26 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-class WorldPost extends React.Component {
+const WorldPost = props => {
 
-
-    
 //SINGLE POST
-showSinglePost = (e) => {
+const showSinglePost = (e) => {
     console.log(e.target);
     let parent = e.target.firstChild;
     let postId = parent.id;
-    console.log(this.props.history)
-    this.props.history.push(`/post/${postId}`)
+    console.log(props.history)
+    props.history.push(`/post/${postId}`)
   }
   
   // END OF SINGLE POST
 
-    render(){
-        console.log(this.props)
+        console.log(props)
      return(
+        <React.Fragment>
          <div>
          <h1>World</h1>
          <div className="worldContainer">
-         {this.props.allPosts && this.props.allPosts.map(images => {
+         {props.allPosts && props.allPosts.map(images => {
              console.log(images)
             return <div className="col col-s-12 worldPost" key={images._id} >
             <div>
@@ -34,9 +32,10 @@ showSinglePost = (e) => {
             <div className="worldImgContainer">
             <img  className="worldImg" src={images.image}  alt="worldPic" width="100%" height="300px"></img>
 
-            <div className="overlayContainer" onClick={(e) => this.showSinglePost(e)}>
+            <Link to={`/post/${images._id}`}> <div className="overlayContainer" >
             <div className="textOverlay" id={images._id}>See the full Post</div>
             </div>
+            </Link>
             </div>
             <p>{images.caption}</p>
            
@@ -47,8 +46,9 @@ showSinglePost = (e) => {
          
          </div>
          </div>
+        </React.Fragment>
      )
-}
+
 }
 
 export default WorldPost;

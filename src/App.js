@@ -111,27 +111,6 @@ await uploadData.append("imageUrl", this.state.imageFile);
 }
 
 
-  //OLD WAY OF MAKE A NEW POST
-  // post_new_experience = async e => {
-  //   try{
-  //   e.preventDefault();
-  //   const { postImgUrl } = this.state;
-  //   const clone = [...this.state.images];
-  //   await axios.post(postImgUrl, this.state.selectedFile)
-  //   .then(response => {
-  //     clone.push(response.data);
-  //     this.setState({
-  //       images: clone
-  //     });
-  //   });
-  // }catch(err){
-  //   console.log(err)
-  // }  
-  // };
-
-  // END OF MAKE A NEW POST
-
-
   // GET ALL THE POSTS TO RENDER FROM DB
   get_data_torender = async () => {
     try {
@@ -284,8 +263,6 @@ worldRender = () => {
 // END OF WORLD POSTS RENDER
 
 
-
-
   // {this.state.images && this.renderImages()}
   render() {
     // console.log("My State")
@@ -305,7 +282,7 @@ worldRender = () => {
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>
         <Route exact path="/profile" render={(props) => <Profile {...props} currentUser = {this.state.currentUser}/>}/>
-       <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.singlePost} />}></Route>
+       <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} />}></Route>
         </Switch>
         
         
@@ -337,3 +314,39 @@ export default App;
   //     )
   //   })
   // };
+
+  //SINGLE POST
+// getData = async() => { 
+//   // return this.props.myUrl
+//   try {
+//       await axios.get(`http://localhost:5000${this.props.match.url}`).then(response => {
+//         this.setState({
+//           images: response.data
+//         });
+//       });
+//     } catch (err) {
+//       console.log(err);
+//     }
+// }
+
+//END SINGLE POST
+
+ //OLD WAY OF MAKE A NEW POST
+  // post_new_experience = async e => {
+  //   try{
+  //   e.preventDefault();
+  //   const { postImgUrl } = this.state;
+  //   const clone = [...this.state.images];
+  //   await axios.post(postImgUrl, this.state.selectedFile)
+  //   .then(response => {
+  //     clone.push(response.data);
+  //     this.setState({
+  //       images: clone
+  //     });
+  //   });
+  // }catch(err){
+  //   console.log(err)
+  // }  
+  // };
+
+  // END OF MAKE A NEW POST
