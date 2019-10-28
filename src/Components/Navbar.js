@@ -10,6 +10,7 @@ class Navbar extends React.Component{
           <ul>
           <li><button onClick={this.props.logoutUser}>Logout</button></li>
           <li><Link to="/newPost">New Experience</Link></li>
+          <li><Link to="/world">World</Link></li>
           </ul>
           </div>
         )

@@ -145,6 +145,7 @@ img:fullscreen {
 
 .worldContainer{
   display: flex;
+  flex-direction: row;
   border: 1px solid yellow;
   flex-wrap: wrap;
   justify-content: space-between;

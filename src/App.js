@@ -280,6 +280,18 @@ worldRender = () => {
       return  <div className="worldPost">Heheh</div> 
     })
 }
+// END OF WORLD POSTS RENDER
+
+//SINGLE POST
+showSinglePost = (e) => {
+  console.log(e.target);
+  let parent = e.target.firstChild;
+  let postId = parent.id;
+}
+
+// END OF SINGLE POST
+
+
 
   // {this.state.images && this.renderImages()}
   render() {
@@ -293,7 +305,7 @@ worldRender = () => {
           
         <Switch>
 
-        <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender}/>}/>
+        <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} showSinglePost={this.showSinglePost}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
