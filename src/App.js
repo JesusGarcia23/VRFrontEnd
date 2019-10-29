@@ -274,7 +274,7 @@ worldRender = () => {
         <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
           
         <Switch>
-
+        <Route exact path="/" component={Home}/>
         <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>

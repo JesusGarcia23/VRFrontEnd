@@ -105,7 +105,7 @@ console.log(e.target);
     // }
 
     removePicture = (e) => {
-      //  e.preventDefault();
+       e.preventDefault();
         let myFileList = document.getElementById('myFileList');
         myFileList.removeAttribute('disabled');
         myFileList.value = null

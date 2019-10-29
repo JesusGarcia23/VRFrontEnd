@@ -23,7 +23,7 @@ var exitFullscreen = function () {
        let theCanvas = document.getElementsByTagName('canvas')[0];
           console.log(theCanvas);
           if(theCanvas.style.height === "100vh"){
-            theCanvas.style.height = "70vh"
+            theCanvas.style.height = "50vh"
           }else{
             theCanvas.style.height ="100vh"
           }
