@@ -6,7 +6,6 @@ const WorldPost = props => {
 
 
    function isLiked(value, theArray, postId){
-      console.log(value, theArray)
       if(value){
          const myId = value._id;
          if(theArray.indexOf(myId) >= 0){
@@ -17,14 +16,12 @@ const WorldPost = props => {
       }
    }
 
-        console.log(props)
      return(
         <React.Fragment>
          <div>
          <h1>World</h1>
          <div className="worldContainer">
          {props.allPosts && props.allPosts.map(image => {
-             console.log(image)
             return <div className="col col-s-12 worldPost" key={image._id} >
             <div>
             <img src={image.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>

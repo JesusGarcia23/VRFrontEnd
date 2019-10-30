@@ -255,11 +255,17 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 
 //LIKE POST
 handleLike = (e) => {
-  console.log(e)
-
-  axios.post(`http://localhost:5000/update/${e}`, this.state.currentUser)
-  .then(thePost => {
-    console.log(thePost)
+  axios.post(`http://localhost:5000/update/${e}`, this.state.currentUser, {withCredentials: true})
+  .then(responseFromBack => {
+    console.log(responseFromBack)
+    console.log(responseFromBack.data)
+    const newPost = responseFromBack.data
+    const clone = [...this.state.images]
+    console.log(clone.indexOf(newPost))
+    const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
+    console.log(clone[theIndex]);
+    clone[theIndex].likes = newPost.likes
+this.setState({images: clone})
   })
   .catch(err => console.log(err));
 }
