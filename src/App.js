@@ -253,15 +253,6 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 })
 }
 
-// WORLD POSTS RENDER
-worldRender = () => {
-  const {images} = this.state.images
-    return images.map(image => {
-      return  <div className="worldPost">Heheh</div> 
-    })
-}
-// END OF WORLD POSTS RENDER
-
 //LIKE POST
 handleLike = (e) => {
   console.log(e)
@@ -272,7 +263,6 @@ handleLike = (e) => {
   })
   .catch(err => console.log(err));
 }
-
 
 
   // {this.state.images && this.renderImages()}
@@ -287,7 +277,7 @@ handleLike = (e) => {
           
         <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike}/>}/>
+        <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>

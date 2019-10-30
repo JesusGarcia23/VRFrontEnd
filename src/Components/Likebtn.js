@@ -1,10 +1,11 @@
 import React from 'react';
 
 const Likebtn = (props) => {
-
+    console.log(props.postId)
     return (
-        <button onClick={() => props.onLike(props.postId)}>Like</button>
+        <button className="likeBtn" onClick={() => props.onLike(props.postId)}><i className={props.theIcon}></i></button>
     )
 }
 
 export default Likebtn
+

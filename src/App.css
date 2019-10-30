@@ -226,3 +226,25 @@ opacity: 1;
   margin: 0px 1.5vw;
   border: 1px solid red;
 }
+
+.iconContainer {
+  height: 100px;
+  width: 100px;
+}
+
+.likeBtn {
+  border: transparent;
+  background-color: transparent;
+  height: 50px;
+  width: 50px;
+}
+
+.likeIcon{
+  font-size:24px;
+}
+
+.likeIcon:hover{
+  cursor: pointer;
+}
+
+button:focus {outline:0;}

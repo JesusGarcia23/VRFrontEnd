@@ -5,34 +5,43 @@ import Likebtn from './Likebtn';
 const WorldPost = props => {
 
 
+   function isLiked(value, theArray, postId){
+      console.log(value, theArray)
+      if(value){
+         const myId = value._id;
+         if(theArray.indexOf(myId) >= 0){
+           return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIcon"/>)
+         }else{
+            return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIcon"/>)
+         }
+      }
+   }
+
         console.log(props)
      return(
         <React.Fragment>
          <div>
          <h1>World</h1>
          <div className="worldContainer">
-         {props.allPosts && props.allPosts.map(images => {
-             console.log(images)
-            return <div className="col col-s-12 worldPost" key={images._id} >
+         {props.allPosts && props.allPosts.map(image => {
+             console.log(image)
+            return <div className="col col-s-12 worldPost" key={image._id} >
             <div>
-            <img src={images.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
+            <img src={image.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
             
-            {images.owner.username}
+            {image.owner.username}
             </div>
 
             <div className="worldImgContainer">
-            <img  className="worldImg" src={images.image}  alt="worldPic" width="100%" height="300px"></img>
+            <img  className="worldImg" src={image.image}  alt="worldPic" width="100%" height="300px"></img>
 
-            <Link to={`/post/${images._id}`}> <div className="overlayContainer" >
-            <div className="textOverlay" id={images._id}>See the full Post</div>
+            <Link to={`/post/${image._id}`}> <div className="overlayContainer" >
+            <div className="textOverlay" id={image._id}>See the full Post</div>
             </div>
             </Link>
             </div>
-            <p>{images.likes.length} Likes</p>
-            <Likebtn onLike={props.handleLike} postId={images._id}/>
-           
-            
-            
+            <p>{image.likes.length} Likes</p>
+            {isLiked(props.currentUser, image.likes, image._id)}
             </div>
          })}
          
