@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import Likebtn from './Likebtn';
 
 const WorldPost = props => {
 
@@ -28,6 +29,7 @@ const WorldPost = props => {
             </Link>
             </div>
             <p>{images.likes.length} Likes</p>
+            <Likebtn onLike={props.handleLike} postId={images._id}/>
            
             
             
