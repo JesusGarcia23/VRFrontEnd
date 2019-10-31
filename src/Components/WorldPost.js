@@ -15,7 +15,8 @@ const WorldPost = props => {
          }
       }
    }
-
+console.log(props)
+if(props.allPosts.length > 0){
      return(
         <React.Fragment>
          <div>
@@ -46,6 +47,11 @@ const WorldPost = props => {
          </div>
         </React.Fragment>
      )
+   }else{
+      return (
+         <div>NO POSTS!</div>
+      )
+   }
 
 }
 

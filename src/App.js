@@ -86,15 +86,18 @@ await uploadData.append("imageUrl", this.state.imageFile);
 
  //CALL TO THE NEW POST ROUTE
  axios.post('http://localhost:5000/createNewPost', this.state, {withCredentials: true})
- .then(theData => {
+ .then(theNewPost => {
      console.log("NEW POST!")
-     console.log(theData)
-     
+     console.log(theNewPost.data)
+     const newPost = theNewPost.data
+     const clone = [...this.state.images]
+     clone.push(newPost);
      this.setState({postMade: true,
-    caption: ""})
+    caption: "",
+  images: clone})
 
      setTimeout(
-       this.setState({postMade: false}), 5000)
+       this.setState({postMade: false}), 2000)
  })
  .catch(err => console.log(err));
 
@@ -289,7 +292,7 @@ this.setState({images: clone})
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>
-        <Route exact path="/profile" render={(props) => this.state.currentUser ? (<UserProfile {...props} currentUser = {this.state.currentUser}/>) : (<Redirect to="/login"/>)}/>
+        <Route exact path="/profile" render={(props) => this.state.currentUser ? (<UserProfile {...props} images = {this.state.images} currentUser = {this.state.currentUser}/>) : (<Redirect to="/login"/>)}/>
        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} />}></Route>
         </Switch>
         

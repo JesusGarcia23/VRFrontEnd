@@ -148,7 +148,7 @@ img:fullscreen {
   flex-direction: row;
   border: 1px solid yellow;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .worldContainer .col{
@@ -156,6 +156,7 @@ img:fullscreen {
   width: 32%;
   padding-bottom: 2%; /* 32:18, i.e. 16:9 */
   margin-bottom: 2%;
+  margin-left: 1%;
 }
 
 .worldImgContainer{
