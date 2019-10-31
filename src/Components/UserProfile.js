@@ -82,7 +82,6 @@ const UserProfile = (props) => {
                             </div>
                             )})
                         }       
-                    }
                         </div>
                 {!pics.length && <p>You dont have any posts </p>}
             </div>
@@ -93,7 +92,6 @@ const UserProfile = (props) => {
             <Redirect to='/login' />
         )
     }
-    return(<div></div>)
 
 }
 

@@ -296,6 +296,10 @@ console.log(theIndex)
    images: postArray,
    showConfirm: false
  })
+
+ axios.post(`http://localhost:5000/delete/${thePostId}`)
+ .then(responseFromBackend => console.log(responseFromBackend))
+ .catch(err => console.log(err))
 }
 
 confirmDelete = e => {
