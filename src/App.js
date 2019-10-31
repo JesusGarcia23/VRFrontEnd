@@ -5,7 +5,7 @@ import SinglePost from './Components/SinglePost';
 import PostForm from './Components/PostForm';
 import Signup from './Components/user-pages/Signup'
 import Login from './Components/user-pages/Login'
-import Profile from './Components/Profile';
+import UserProfile from './Components/UserProfile';
 import Home from './Components/Home'
 import "./index.css";
 import axios from "axios";
@@ -273,8 +273,8 @@ this.setState({images: clone})
 
   // {this.state.images && this.renderImages()}
   render() {
-    console.log("My USER")
-    console.log(this.state);
+  //  console.log("My USER")
+ //   console.log(this.state);
     // console.log(this.match)
     return (
       <div className="App">
@@ -289,7 +289,7 @@ this.setState({images: clone})
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>
-        <Route exact path="/profile" render={(props) => <Profile {...props} currentUser = {this.state.currentUser}/>}/>
+        <Route exact path="/profile" render={(props) => this.state.currentUser ? (<UserProfile {...props} currentUser = {this.state.currentUser}/>) : (<Redirect to="/login"/>)}/>
        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} />}></Route>
         </Switch>
         
