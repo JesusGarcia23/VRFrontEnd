@@ -341,7 +341,7 @@ cancelDelete = e => {
             currentUser = {this.state.currentUser} 
             users={this.state.users}
             confirmDelete={this.confirmDelete}
-            onLogout={this.logoutUsers}
+            onLogout={this.logoutUser}
             onDelete={this.handleDelete}
             cancelDelete={this.cancelDelete}
             showConfirm={this.state.showConfirm}/>) : 
