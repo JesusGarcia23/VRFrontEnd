@@ -249,3 +249,8 @@ opacity: 1;
 }
 
 button:focus {outline:0;}
+
+.confirmDelete{
+  background-color: red;
+  color: white;
+}

@@ -70,6 +70,7 @@ const UserProfile = (props) => {
                                         confirmBtnText="Confirm!"
                                         confirmBtnBsStyle="danger"
                                         cancelBtnBsStyle="default"
+                                        confirmBtnCssClass="confirmDelete"
                                         title="Are you sure?"
                                         onConfirm={e => props.onDelete(pic._id)}
                                         onCancel={e => props.cancelDelete()}

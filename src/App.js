@@ -28,6 +28,7 @@ class App extends Component {
       imagePost: "",
       caption: "",
       // imageFile: [],
+      showConfirm: false,
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
       newPostUrl: 'http://localhost:5000',
@@ -250,8 +251,6 @@ axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: tru
     // if(err.response.data) return this.setState({message: err.response.data.message})
 })
 }
-
-
 // END OF LOGIN
 
 
@@ -265,6 +264,7 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
   this.setState({currentUser: null})
 })
 }
+//END OF LOG OUT USER
 
 //LIKE POST
 handleLike = (e) => {
@@ -274,7 +274,6 @@ handleLike = (e) => {
     console.log(responseFromBack.data)
     const newPost = responseFromBack.data
     const clone = [...this.state.images]
-    console.log(clone.indexOf(newPost))
     const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
     console.log(clone[theIndex]);
     clone[theIndex].likes = newPost.likes
@@ -282,12 +281,40 @@ this.setState({images: clone})
   })
   .catch(err => console.log(err));
 }
+//END OF LIKE POST
 
+
+
+//DELETING POSTS
+handleDelete = (thePostId) => {
+console.log(thePostId)
+const postArray = [...this.state.images]
+const theIndex = postArray.findIndex(postToFind => postToFind._id === thePostId)
+console.log(theIndex)
+ postArray.splice(theIndex, 1)
+ this.setState({
+   images: postArray,
+   showConfirm: false
+ })
+}
+
+confirmDelete = e => {
+  this.setState({
+    showConfirm: true
+  })
+}
+
+cancelDelete = e => {
+  this.setState({
+    showConfirm: false
+  })
+}
+// END OF DELETING POSTS
 
   // {this.state.images && this.renderImages()}
   render() {
-  //  console.log("My USER")
- //   console.log(this.state);
+   console.log("My Total posts")
+   console.log(this.state.images);
     // console.log(this.match)
     return (
       <div className="App">
@@ -299,11 +326,23 @@ this.setState({images: clone})
         <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
-        <Route exact path="/profile/:id" render={(props) => this.state.currentUser ? (<UserProfile {...props} images = {this.state.images} currentUser = {this.state.currentUser} users={this.state.users} />) : (<Redirect to="/login"/>)}/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>
-       <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}></Route>
+        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}></Route>
+        <Route exact path="/profile/:id" render={(props) => 
+          this.state.currentUser ? 
+          (<UserProfile {...props} 
+            images = {this.state.images} 
+            currentUser = {this.state.currentUser} 
+            users={this.state.users}
+            confirmDelete={this.confirmDelete}
+            onLogout={this.logoutUsers}
+            onDelete={this.handleDelete}
+            cancelDelete={this.cancelDelete}
+            showConfirm={this.state.showConfirm}/>) : 
+          (<Redirect to="/login"/>)}/>
+        
         </Switch>
         
         
