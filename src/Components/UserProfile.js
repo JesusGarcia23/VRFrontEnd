@@ -6,28 +6,48 @@ import SweetAlert from 'react-bootstrap-sweetalert'
 const UserProfile = (props) => {
     console.log("PROFILE")
     console.log(props)
-    const { images, currentUser } = props
+    const { images, currentUser, users } = props
+    const theUserId = currentUser._id
+    const profileId = props.match.params.id
 
-    const pics = images.filter(image => image.owner._id === currentUser._id)
+    function haveLogout(){
+        if(theUserId === profileId){
+            return   <div className="buttons" >
+            <button
+                onClick={props.onLogout}
+                className="btn btn-sm btn-danger">
+                Logout
+            </button>
+
+
+        </div>
+        }else{
+
+        }
+    }
+
+    function havePermission(){
+        if(theUserId === profileId){
+        return <button className="btn btn-sm btn-danger" onClick={e => props.confirmDelete()} >
+        Delete
+    </button>
+        }else{
+
+        }
+    }
+
+    const pics = images.filter(image => image.owner._id === profileId)
     console.log(pics)
 
-
-
+    const userDetails = users.filter(theUser => theUser._id === profileId)[0]
+    console.log(userDetails)
     if (currentUser) {
         return (
             <div>
                 <div className="user-profile">
-                    {currentUser && <p>Welcome {currentUser.username}    </p>}
-                    {currentUser && <img src={currentUser.imageUrl} style={{ borderRadius: 70 }} alt="profile-img" />}
-                    <div className="buttons" >
-                        <button
-                            onClick={props.onLogout}
-                            className="btn btn-sm btn-danger">
-                            Logout
-                        </button>
-
-
-                    </div>
+                    {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
+                    <p>{userDetails.username}</p>
+                  {haveLogout()}
                 </div>
                     <div className="worldContainer" >
                         {pics && pics.map(pic => {
@@ -40,9 +60,7 @@ const UserProfile = (props) => {
                                     </div>
                                     </Link>
                                 </div>
-                                <button className="btn btn-sm btn-danger" onClick={e => props.confirmDelete()} >
-                                    Delete
-                                </button>
+                                {havePermission()}
 
 
                                 {props.showConfirm === true &&
@@ -74,7 +92,7 @@ const UserProfile = (props) => {
             <Redirect to='/login' />
         )
     }
-    // return(<div></div>)
+    return(<div></div>)
 
 }
 

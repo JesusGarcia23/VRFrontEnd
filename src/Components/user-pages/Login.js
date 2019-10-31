@@ -8,7 +8,7 @@ class Login extends React.Component {
         const { username, password, currentUser } = this.props.formValues
         if(currentUser){
             return (
-                <Redirect to="/profile"/>
+                <Redirect to={`/profile/${currentUser._id}`}/>
             )
         }else{
         return(

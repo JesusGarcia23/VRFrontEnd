@@ -1,6 +1,6 @@
 import React from 'react';
 import ThreeMap from './ThreeMap';
-import axios from 'axios'
+import Likebtn from './/Likebtn'
 
 let height = "50vh"
 let width = "100vw"
@@ -51,6 +51,17 @@ const SinglePost = props => {
         //       }
         // }
 
+        function isLiked(value, theArray, postId){
+          if(value){
+             const myId = value._id;
+             if(theArray.indexOf(myId) >= 0){
+               return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIcon"/>)
+             }else{
+                return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIcon"/>)
+             }
+          }
+       }
+
         const fullScreen = (e) => {
           e.preventDefault();
           let myDiv = document.getElementById('WebGL-output');
@@ -82,6 +93,7 @@ const SinglePost = props => {
                 <div className="singleFooter">
                 <div className="singleLikes">
                 {thePost.likes.length} Likes
+                {isLiked(props.currentUser, thePost.likes, thePost._id)}
                 </div>
                 {thePost.caption}
                 </div>

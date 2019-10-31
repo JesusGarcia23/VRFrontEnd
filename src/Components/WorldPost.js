@@ -27,7 +27,7 @@ if(props.allPosts.length > 0){
             <div>
             <img src={image.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
             
-            {image.owner.username}
+           <Link to={`/profile/${image.owner._id}`}> {image.owner.username}</Link>
             </div>
 
             <div className="worldImgContainer">
