@@ -315,11 +315,33 @@ cancelDelete = e => {
 }
 // END OF DELETING POSTS
 
-  // {this.state.images && this.renderImages()}
+//FOLLOWING FUNCTIONALITY
+handleFollow = userToFollow => {
+console.log(userToFollow)
+const { currentUser } = this.state
+
+axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
+.then(responseFromBackend => {
+  const userList = [...this.state.users]
+  const users = responseFromBackend.data
+  const user1 = users[0]
+  const user2 = users[1]
+  const theIndex1 = userList.findIndex(userToFind => userToFind._id === user1._id)
+  console.log(theIndex1)
+  const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)
+  console.log(theIndex2)
+  userList[theIndex1] = user1
+  userList[theIndex2] = user2
+  console.log("NEW USER LIST")
+  console.log(userList)
+  this.setState({users: userList})
+})
+
+}
+//END OF FOLLOWING FUNCTIONALITY
+
+
   render() {
-   console.log("My Total posts")
-   console.log(this.state.images);
-    // console.log(this.match)
     return (
       <div className="App">
        
@@ -344,7 +366,9 @@ cancelDelete = e => {
             onLogout={this.logoutUser}
             onDelete={this.handleDelete}
             cancelDelete={this.cancelDelete}
-            showConfirm={this.state.showConfirm}/>) : 
+            showConfirm={this.state.showConfirm}
+            handleFollow={this.handleFollow}
+            />) : 
           (<Redirect to="/login"/>)}/>
         
         </Switch>

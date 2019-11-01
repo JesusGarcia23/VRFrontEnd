@@ -10,7 +10,7 @@ const UserProfile = (props) => {
     const theUserId = currentUser._id
     const profileId = props.match.params.id
 
-    function haveLogout(){
+    function haveLogout(userFollowers){
         if(theUserId === profileId){
             return   <div className="buttons" >
             <button
@@ -22,8 +22,26 @@ const UserProfile = (props) => {
 
         </div>
         }else{
-
+            if(userFollowers.indexOf(theUserId) < 0){
+return (
+    <button
+                    className="btn btn-sm  btn-primary"
+                    onClick={e => props.handleFollow(profileId)}
+                >
+                    <i className="fa fa-user-plus"> Follow </i>
+                </button>
+)
+        }else{
+            return (
+                <button
+                                className="btn btn-sm  btn-primary"
+                                onClick={e => props.handleFollow(profileId)}
+                            >
+                                <i className="fa fa-user-minus"> Unfollow </i>
+                            </button>
+            )
         }
+    }
     }
 
     function havePermission(){
@@ -47,7 +65,8 @@ const UserProfile = (props) => {
                 <div className="user-profile">
                     {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
                     <p>{userDetails.username}</p>
-                  {haveLogout()}
+                    <p>Followers: {userDetails.followers.length} Following: {userDetails.following.length}</p>
+                  {haveLogout(userDetails.followers)}
                 </div>
                     <div className="worldContainer" >
                         {pics && pics.map(pic => {
