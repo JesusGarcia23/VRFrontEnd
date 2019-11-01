@@ -6,7 +6,9 @@ import PostForm from './Components/PostForm';
 import Signup from './Components/user-pages/Signup'
 import Login from './Components/user-pages/Login'
 import UserProfile from './Components/UserProfile';
-import Home from './Components/Home'
+import Home from './Components/Home';
+import FollowerList from './Components/FollowerList'
+import FollowingList from './Components/FollowingList'
 import "./index.css";
 import axios from "axios";
 import HomeFeed from './Components/HomeFeed';
@@ -322,16 +324,20 @@ const { currentUser } = this.state
 
 axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
 .then(responseFromBackend => {
+  console.log(responseFromBackend.data)
   const userList = [...this.state.users]
   const users = responseFromBackend.data
   const user1 = users[0]
   const user2 = users[1]
+
   const theIndex1 = userList.findIndex(userToFind => userToFind._id === user1._id)
   console.log(theIndex1)
   const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)
   console.log(theIndex2)
-  userList[theIndex1] = user1
-  userList[theIndex2] = user2
+  userList[theIndex1].followers = user1.followers
+  userList[theIndex1].following = user1.following
+  userList[theIndex2].followers = user2.followers
+  userList[theIndex2].following = user2.following
   console.log("NEW USER LIST")
   console.log(userList)
   this.setState({users: userList})
@@ -342,6 +348,10 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
 
 
   render() {
+    console.log("USERS")
+    console.log(this.state.users)
+    console.log("MY USER")
+    console.log(this.state.currentUser)
     return (
       <div className="App">
        
@@ -351,11 +361,13 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
         <Route exact path="/" component={Home}/>
         <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
-        <Route exact path="/public" render={(props) => <HomeFeed {...props} allPosts={this.state.images} />}/>
+        <Route exact path="/feed" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} />) }/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>
         <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}></Route>
+        <Route exact path='/followers/:id' render={(props) => <FollowerList {...props} allUsers={this.state.users}/>}/>
+        <Route exact path='/following/:id' render={(props) => <FollowingList {...props} allUsers={this.state.users}/>}/>
         <Route exact path="/profile/:id" render={(props) => 
           this.state.currentUser ? 
           (<UserProfile {...props} 

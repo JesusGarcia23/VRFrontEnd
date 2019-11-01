@@ -11,6 +11,9 @@ const UserProfile = (props) => {
     const profileId = props.match.params.id
 
     function haveLogout(userFollowers){
+        console.log("MY INDEX!")
+        console.log(userFollowers)
+        console.log(userFollowers.findIndex(userToFind => userToFind._id === theUserId))
         if(theUserId === profileId){
             return   <div className="buttons" >
             <button
@@ -22,13 +25,13 @@ const UserProfile = (props) => {
 
         </div>
         }else{
-            if(userFollowers.indexOf(theUserId) < 0){
+            if(userFollowers.indexOf(theUserId) >= 0){
 return (
     <button
                     className="btn btn-sm  btn-primary"
                     onClick={e => props.handleFollow(profileId)}
                 >
-                    <i className="fa fa-user-plus"> Follow </i>
+                    <i className="fa fa-user-minus"> Unfollow </i>
                 </button>
 )
         }else{
@@ -37,7 +40,7 @@ return (
                                 className="btn btn-sm  btn-primary"
                                 onClick={e => props.handleFollow(profileId)}
                             >
-                                <i className="fa fa-user-minus"> Unfollow </i>
+                                <i className="fa fa-user-plus"> Follow </i>
                             </button>
             )
         }
@@ -65,7 +68,8 @@ return (
                 <div className="user-profile">
                     {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
                     <p>{userDetails.username}</p>
-                    <p>Followers: {userDetails.followers.length} Following: {userDetails.following.length}</p>
+                    <Link to={`/followers/${profileId}`}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
+                  <Link to={`/following/${profileId}`}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
                   {haveLogout(userDetails.followers)}
                 </div>
                     <div className="worldContainer" >

@@ -254,3 +254,13 @@ button:focus {outline:0;}
   background-color: red;
   color: white;
 }
+
+.followUser{
+  height: 100px;
+  width: 150px;
+  margin: 20px;
+}
+
+.followUser:hover{
+  cursor: pointer;
+}
