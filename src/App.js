@@ -34,6 +34,7 @@ class App extends Component {
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
       newPostUrl: 'http://localhost:5000',
+      lastUrl: '/world',
       images: [],
       selectedFile: null,
       postMade: false,
@@ -348,14 +349,14 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
 
 
   render() {
-    console.log("USERS")
-    console.log(this.state.users)
-    console.log("MY USER")
-    console.log(this.state.currentUser)
+    // console.log("USERS")
+    // console.log(this.state.users)
+    // console.log("MY USER")
+    // console.log(this.state.currentUser)
     return (
       <div className="App">
        
-        <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser}/>
+        <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}/>
           
         <Switch>
         <Route exact path="/" component={Home}/>

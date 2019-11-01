@@ -50,6 +50,10 @@ const SinglePost = props => {
         //         console.log(err);
         //       }
         // }
+        function goBack(){
+          const  { goBack } = props.history
+          goBack();
+         }
 
         function isLiked(value, theArray, postId){
           if(value){
@@ -81,6 +85,7 @@ const SinglePost = props => {
         if(thePost){
             return(
               <React.Fragment>
+              <button onClick={goBack}>Go back</button>
                 <div className="singlePost">
                 <div className="singlePostHeader">
                 <img src={thePost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>

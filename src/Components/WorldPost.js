@@ -4,6 +4,7 @@ import Likebtn from './Likebtn';
 
 const WorldPost = props => {
 
+   console.log(props)
 
    function isLiked(value, theArray, postId){
       if(value){
