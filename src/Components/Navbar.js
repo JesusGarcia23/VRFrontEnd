@@ -11,6 +11,7 @@ class Navbar extends React.Component{
           <li><button onClick={this.props.logoutUser}>Logout</button></li>
           <li><Link to="/newPost">New Experience</Link></li>
           <li><Link to="/world">World</Link></li>
+          <li><Link to="/home">Home</Link></li>
           </ul>
           </div>
         )

@@ -16,7 +16,7 @@ function goBack(){
     return (
         <div>
         <button onClick={goBack}>Go back</button>
-        <div>FOLLOWER LIST</div>
+        <div>FOLLOWERS</div>
         {followerList.map(eachUser => {
             return <div key={eachUser.username}>
                 <div>

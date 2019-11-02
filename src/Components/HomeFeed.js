@@ -3,8 +3,18 @@ import PostCard from './PostCard';
 import { Redirect, Link } from 'react-router-dom';
 
 const HomeFeed = props => {
+    let feedList = []
+    let userList = []
+const {currentUser, allPosts} = props
+if(currentUser){
+     userList = currentUser.following
+    if(allPosts.length){
+        feedList = allPosts.filter(eachPost => { return userList.indexOf(eachPost.owner._id) >= 0 || eachPost.owner._id === currentUser._id })
+    }
+}
 
-const {currentUser} = props
+console.log(feedList)
+
 
     if(currentUser !== null){
         return(

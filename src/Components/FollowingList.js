@@ -5,10 +5,10 @@ const FollowingList = props => {
     const theId = props.match.params.id
     const followingList = allUsers.filter(eachUser => {return eachUser.followers.indexOf(theId) >= 0})
 
-    function goBack(){
-        const  { goBack } = props.history
-        goBack();
-       }
+   function goBack(){
+    const  { goBack } = props.history
+    goBack();
+   }
 
 
         return (

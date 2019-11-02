@@ -10,6 +10,11 @@ const UserProfile = (props) => {
     const theUserId = currentUser._id
     const profileId = props.match.params.id
 
+    function goBack(){
+        const  { goBack } = props.history
+        goBack();
+       }
+
     function haveLogout(userFollowers){
         console.log("MY INDEX!")
         console.log(userFollowers)
@@ -65,6 +70,7 @@ return (
     if (currentUser) {
         return (
             <div>
+            <button onClick={goBack}>Go back</button>
                 <div className="user-profile">
                     {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
                     <p>{userDetails.username}</p>
