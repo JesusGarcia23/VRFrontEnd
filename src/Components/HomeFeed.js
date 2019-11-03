@@ -25,6 +25,11 @@ function isLiked(value, theArray, postId){
     }
  }
 
+  //GET THE POST CREATION DATE
+  const postTime = (e) => {
+    return new Date(e).toDateString()
+  }
+
  //SORT ALL THE IMAGES FROM THE RECENT TO THE OLDEST ONE
 const sortedList = feedList.sort((a, b) => {
     return new Date(b.createdAt) - new Date(a.createdAt)
@@ -54,8 +59,8 @@ const sortedList = feedList.sort((a, b) => {
             <p>{eachPost.likes.length} Likes</p>
             {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
             <p>{eachPost.caption}</p>
+            <p>{postTime(eachPost.createdAt)}</p>
             </div>
-
             })}
             </div>
             </div>
