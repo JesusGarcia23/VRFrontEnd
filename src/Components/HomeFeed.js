@@ -1,5 +1,6 @@
 import React from 'react';
 import PostCard from './PostCard';
+import Likebtn from './Likebtn'
 import { Redirect, Link } from 'react-router-dom';
 
 const HomeFeed = props => {
@@ -13,14 +14,52 @@ if(currentUser){
     }
 }
 
+function isLiked(value, theArray, postId){
+    if(value){
+       const myId = value._id;
+       if(theArray.indexOf(myId) >= 0){
+         return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIcon"/>)
+       }else{
+          return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIcon"/>)
+       }
+    }
+ }
+
 console.log(feedList)
 
 
     if(currentUser !== null){
         return(
             <div>
+
+            <div>
             <h1>HELLO HOME FEED</h1>
+            </div>
+
+            <div>
+            {feedList.length && feedList.map(eachPost => {
+                return <div className="col col-s-12 feedPost" key={eachPost._id} >
+            <div>
+            <img src={eachPost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
             
+           <Link to={`/profile/${eachPost.owner._id}`}> {eachPost.owner.username}</Link>
+            </div>
+
+            <div className="worldImgContainer">
+            <img  className="worldImg" src={eachPost.image}  alt="worldPic" width="100%" height="300px"></img>
+
+            <Link to={`/post/${eachPost._id}`}> <div className="overlayContainer" >
+            <div className="textOverlay" id={eachPost._id}>See the full Post</div>
+            </div>
+            </Link>
+            </div>
+            <p>{eachPost.likes.length} Likes</p>
+            {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
+            <p>{eachPost.caption}</p>
+            </div>
+
+            })}
+            </div>
             </div>
         )
     }else{
