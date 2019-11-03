@@ -25,8 +25,10 @@ function isLiked(value, theArray, postId){
     }
  }
 
-console.log(feedList)
-
+ //SORT ALL THE IMAGES FROM THE RECENT TO THE OLDEST ONE
+const sortedList = feedList.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt)
+})
 
     if(currentUser !== null){
         return(
@@ -34,7 +36,7 @@ console.log(feedList)
 
             <div>
             {feedList.length && feedList.map(eachPost => {
-                return <div className="col col-s-12 feedPost" key={eachPost._id} >
+                return <div className=" col-s-12 feedPost" key={eachPost._id} >
             <div>
             <img src={eachPost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
             

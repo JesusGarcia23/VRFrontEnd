@@ -72,6 +72,11 @@ const SinglePost = props => {
          requestFullscreen(myDiv)
         }
 
+        //GET THE POST CREATION DATE
+        const postTime = (e) => {
+          return new Date(e).toDateString()
+        }
+
 
         console.log("PROPS!")
       console.log(props)
@@ -102,6 +107,7 @@ const SinglePost = props => {
                 </div>
                 {thePost.caption}
                 </div>
+               <p>{postTime(thePost.createdAt)}</p>
                 </div>
                 </React.Fragment>
             )

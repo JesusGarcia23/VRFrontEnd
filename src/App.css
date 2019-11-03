@@ -267,6 +267,7 @@ button:focus {outline:0;}
 .followUser:hover{
   cursor: pointer;
 }
+
 .feedPost {
   margin: auto;
   width: 50vw;
