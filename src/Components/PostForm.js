@@ -1,14 +1,22 @@
 import React from 'react';
 import ThreeMap from './ThreeMap';
 import { Redirect } from 'react-router-dom';
+
+
 class PostForm extends React.Component{
 
     
      state = {
     imageUrl: "",
     imageFile: [],
+    redirect: false
 
 
+    }
+
+    componentDidMount(){
+        setTimeout(() => {
+            this.setState({redirect: true})}, 2000)
     }
 
 
@@ -147,11 +155,10 @@ console.log(e.target);
         )
     }else if(currentUser && postMade){
        return( <Redirect to='/world'/> )
-    }
-    else{
-        return(
-       <Redirect to='/login'/>
-       )
+    }else if(this.state.redirect){
+        return( <Redirect to='/login'/> )
+    }else{
+        return (<div>LOADING...</div>)
     }
     }
 

@@ -10,7 +10,7 @@ const NavBar = (props) =>{
           <Navbar.Collapse id="basic-navbar-nav">
           {props.currentUser ? <Nav className="mr-auto">
               <Nav.Link href="/world">World</Nav.Link>
-              <Nav.Link href="/home">New Experience</Nav.Link>
+              <Nav.Link href="/newPost">New Experience</Nav.Link>
               <NavDropdown title="Notifications" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
