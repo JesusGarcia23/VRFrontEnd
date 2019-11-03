@@ -24,7 +24,7 @@ if(props.allPosts.length > 0){
          <h1>World</h1>
          <div className="worldContainer">
          {props.allPosts && props.allPosts.map(image => {
-            return <div className="col col-s-12 worldPost" key={image._id} >
+            return <div className="worldPost" key={image._id} >
             <div>
             <img src={image.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
             

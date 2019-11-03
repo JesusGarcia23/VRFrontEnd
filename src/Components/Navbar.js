@@ -1,35 +1,37 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
 
-class Navbar extends React.Component{
+const NavBar = (props) =>{
 
-    render(){
-      if(this.props.currentUser){
         return(
-          <div>
-          <ul>
-          <li><button onClick={this.props.logoutUser}>Logout</button></li>
-          <li><Link to="/newPost">New Experience</Link></li>
-          <li><Link to="/world">World</Link></li>
-          <li><Link to="/home">Home</Link></li>
-          </ul>
-          </div>
+          <Navbar bg="dark" variant='dark' expand="lg">
+          <Navbar.Brand href="/home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          {props.currentUser ? <Nav className="mr-auto">
+              <Nav.Link href="/world">World</Nav.Link>
+              <Nav.Link href="/home">New Experience</Nav.Link>
+              <NavDropdown title="Notifications" id="basic-nav-dropdown">
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              </NavDropdown>
+              <Form inline>
+              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            </Form>
+            <Nav.Link href={`/profile/${props.currentUser._id}`}>Profile</Nav.Link>
+              </Nav> : 
+              <Nav className="mr-auto">
+              <Nav.Link href="/login">Login</Nav.Link>
+              <Nav.Link href="/signup">Signup</Nav.Link>
+              </Nav>
+            }
+          </Navbar.Collapse>
+        </Navbar>
+  
         )
-      }else{
-        return(
-          <div>      
- <ul>
- <li><Link to="/login">Login</Link></li>
- <li><Link to="/signup">Signup</Link></li>
+          }
 
- </ul>
- </div>
-        )
-}
-
-    }
-
-}
-
-
-export default Navbar;
+export default NavBar;

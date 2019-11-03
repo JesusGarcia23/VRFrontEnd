@@ -33,10 +33,6 @@ console.log(feedList)
             <div>
 
             <div>
-            <h1>HELLO HOME FEED</h1>
-            </div>
-
-            <div>
             {feedList.length && feedList.map(eachPost => {
                 return <div className="col col-s-12 feedPost" key={eachPost._id} >
             <div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import Navbar from '../Navbar'
+import Navbar from '../NavBar'
 // import the service file since we need it to send (and get) the data to(from) server
 
 let img = ""

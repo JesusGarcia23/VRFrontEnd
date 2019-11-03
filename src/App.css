@@ -21,6 +21,9 @@
   color: #09d3ac;
 }
 
+.navbar {
+  color: white;
+}
 /* #WebGL-output{
   margin-top: 20px;
 	width: 100vw;
@@ -151,7 +154,7 @@ img:fullscreen {
   justify-content: flex-start;
 }
 
-.worldContainer .col{
+.worldContainer .worldPost{
   border: 1px solid green;
   width: 32%;
   padding-bottom: 2%; /* 32:18, i.e. 16:9 */
@@ -264,7 +267,6 @@ button:focus {outline:0;}
 .followUser:hover{
   cursor: pointer;
 }
-
 .feedPost {
   margin: auto;
   width: 50vw;

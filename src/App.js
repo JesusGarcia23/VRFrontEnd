@@ -10,13 +10,14 @@ import Home from './Components/Home';
 import FollowerList from './Components/FollowerList'
 import FollowingList from './Components/FollowingList'
 import "./index.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import HomeFeed from './Components/HomeFeed';
 import WorldPost from './Components/WorldPost';
-
+import NavBar from "./Components/NavBar";
 //CLOUDINARY
 import service from './api/service';
-import Navbar from "./Components/Navbar";
+
 
 class App extends Component {
 
@@ -354,7 +355,7 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
     return (
       <div className="App">
        
-        <Navbar currentUser={this.state.currentUser} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}/>
+        <NavBar currentUser={this.state.currentUser} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}/>
           
         <Switch>
         <Route exact path="/" component={Home}/>
