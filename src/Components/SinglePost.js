@@ -1,6 +1,7 @@
 import React from 'react';
 import ThreeMap from './ThreeMap';
-import Likebtn from './/Likebtn'
+import Likebtn from './/Likebtn';
+import { Link } from 'react-router-dom'
 
 let height = "50vh"
 let width = "100vw"
@@ -94,8 +95,8 @@ const SinglePost = props => {
                 <div className="singlePost">
                 <div className="singlePostHeader">
                 <img src={thePost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
-            
-                {thePost.owner.username}
+            <Link to={`/profile/${thePost.owner._id}`}>{thePost.owner.username}</Link>
+                
                 </div>
                 <ThreeMap url={thePost.image} height={height} width={width}/>
                 <div>{}</div>
