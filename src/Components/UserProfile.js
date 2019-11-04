@@ -15,14 +15,6 @@ const UserProfile = (props) => {
         goBack();
        }
 
-       function checkImage(image){
-           if(image !== ""){
-               return image
-           }else{
-               return '../../public/emptyImage.png'
-           }
-       }
-
     function haveLogout(userFollowers){
         console.log("MY INDEX!")
         console.log(userFollowers)

@@ -1,9 +1,13 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
 
 const NavBar = (props) =>{
-
+  
+if(props){
+  console.log(props.currentUser)
         return(
+          <React.Fragment>
           <Navbar bg="dark" variant='dark' expand="lg">
           <Navbar.Brand href="/home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -21,7 +25,7 @@ const NavBar = (props) =>{
               <Form inline>
               <FormControl type="text" placeholder="Search" className="mr-sm-2" />
             </Form>
-            <Nav.Link href={`/profile/${props.currentUser._id}`}>Profile</Nav.Link>
+            <Link to={`/profile/${props.currentUser._id}`}>Profile</Link>
               </Nav> : 
               <Nav className="mr-auto">
               <Nav.Link href="/login">Login</Nav.Link>
@@ -30,8 +34,9 @@ const NavBar = (props) =>{
             }
           </Navbar.Collapse>
         </Navbar>
-  
+        </React.Fragment>
         )
           }
+        }
 
 export default NavBar;

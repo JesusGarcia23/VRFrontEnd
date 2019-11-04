@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import {Switch, Link, Route, Redirect } from 'react-router-dom'
-import ThreeMap from "./Components/ThreeMap";
+import {Switch, Route, Redirect } from 'react-router-dom'
 import SinglePost from './Components/SinglePost';
 import PostForm from './Components/PostForm';
 import Signup from './Components/user-pages/Signup'
@@ -329,11 +328,13 @@ const { currentUser } = this.state
 axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
 .then(responseFromBackend => {
   console.log(responseFromBackend.data)
+  console.log(currentUser._id)
   const userList = [...this.state.users]
   const users = responseFromBackend.data
-  const user1 = users[0]
-  const user2 = users[1]
-
+  const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
+  const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
+console.log(user1)
+console.log(user2)
   const theIndex1 = userList.findIndex(userToFind => userToFind._id === user1._id)
   console.log(theIndex1)
   const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)

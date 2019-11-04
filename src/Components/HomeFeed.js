@@ -1,7 +1,6 @@
 import React from 'react';
-import PostCard from './PostCard';
 import Likebtn from './Likebtn'
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const HomeFeed = props => {
     let feedList = []
@@ -40,7 +39,7 @@ const sortedList = feedList.sort((a, b) => {
             <div>
 
             <div>
-            {feedList.length > 0 ? feedList.map(eachPost => {
+            {feedList.length > 0 ? sortedList.map(eachPost => {
                 return <div className=" col-s-12 feedPost" key={eachPost._id} >
             <div>
             <img src={eachPost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
