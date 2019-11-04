@@ -19,14 +19,6 @@ class PostForm extends React.Component{
             this.setState({redirect: true})}, 2000)
     }
 
-    //TEST TAGS
-    testTags = (e) => {
-    this.setState({
-        [e.currentTarget.name]: e.currentTarget.value
-    })
-    }
-
-
     //STYLING 
     canvasStyle = {
         height: "200px",
@@ -145,15 +137,6 @@ console.log(e.target);
     })
     }
 
-    // makeTagsArray = (e) => {
-    //     e.preventDefault();
-    //     console.log(this.state.tags)
-    //     let tags = this.state.tags
-    //     let tagsArray = tags.split(/[.,\/ -#]/)
-    //     let finalArray = tagsArray.filter(eachTag =>{ return eachTag !== "" })
-    //     console.log(finalArray)
-    // }
-
     render(){
         const {caption, tags, currentUser, postMade} = this.props.formValues
         if(currentUser && !postMade){
@@ -180,7 +163,6 @@ console.log(e.target);
            <span className="tagTitleAndTextarea">
            <span className="tagsTitle">Tags: </span>
            <textarea style={this.textTagsArea} type="text" value={tags} onChange={ e => this.props.onChangeValue(e)} name="tags" placeholder="e.g: #Beach #Sun #Ocean"></textarea>
-           <button onClick={this.makeTagsArray}>Test Tags</button>
            </span>
            </div>
 

@@ -37,6 +37,7 @@ class App extends Component {
       newPostUrl: 'http://localhost:5000',
       lastUrl: '/world',
       images: [],
+      profileImgDefault: 'https://res.cloudinary.com/thejacex/image/upload/v1572846104/emptyImage_qqqtqp.png',
       selectedFile: null,
       postMade: false,
       message: "",
@@ -167,7 +168,7 @@ this.setState({imageUrl: e})
   }
 
   //TAGS
-  
+
 
   //START OF SIGN UP
   makeNewUser = (e) => {
@@ -351,8 +352,8 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
 
 
   render() {
-    // console.log("USERS")
-    // console.log(this.state.users)
+    console.log("USERS")
+    console.log(this.state.users)
     // console.log("MY USER")
     // console.log(this.state.currentUser)
     return (

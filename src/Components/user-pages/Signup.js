@@ -28,7 +28,7 @@ class Signup extends React.Component{
         const {username, email, password} = this.props.formValues
         if(this.finished || this.props.currentUser){
             return (
-                <Redirect to="/profile"/>
+                <Redirect to={`/profile/${this.props.currentUser._id}`}/>
             )
         }
         return(

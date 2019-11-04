@@ -15,6 +15,14 @@ const UserProfile = (props) => {
         goBack();
        }
 
+       function checkImage(image){
+           if(image !== ""){
+               return image
+           }else{
+               return '../../public/emptyImage.png'
+           }
+       }
+
     function haveLogout(userFollowers){
         console.log("MY INDEX!")
         console.log(userFollowers)
@@ -74,8 +82,10 @@ return (
                 <div className="user-profile">
                     {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
                     <p>{userDetails.username}</p>
+                    <p>{userDetails.bio}</p>
                     <Link to={`/followers/${profileId}`}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
                   <Link to={`/following/${profileId}`}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
+                  
                   {haveLogout(userDetails.followers)}
                 </div>
                     <div className="worldContainer" >

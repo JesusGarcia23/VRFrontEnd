@@ -40,7 +40,7 @@ const sortedList = feedList.sort((a, b) => {
             <div>
 
             <div>
-            {feedList.length && feedList.map(eachPost => {
+            {feedList.length > 0 ? feedList.map(eachPost => {
                 return <div className=" col-s-12 feedPost" key={eachPost._id} >
             <div>
             <img src={eachPost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
@@ -61,7 +61,7 @@ const sortedList = feedList.sort((a, b) => {
             <p>{eachPost.caption}</p>
             <p>{postTime(eachPost.createdAt)}</p>
             </div>
-            })}
+            }): <div>START FOLLOWING PEOPLE <Link to='/world'>(SEE WORLD) </Link>OR UPLOAD YOUR OWN EXPERIENCES!</div>}
             </div>
             </div>
         )
