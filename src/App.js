@@ -30,7 +30,7 @@ class App extends Component {
       imageUrl: "",
       imagePost: "",
       caption: "",
-      // imageFile: [],
+      tags: [],
       showConfirm: false,
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
@@ -165,6 +165,9 @@ this.setState({imageUrl: e})
     this.setState({message: "File size is too big!"})
   }
   }
+
+  //TAGS
+  
 
   //START OF SIGN UP
   makeNewUser = (e) => {

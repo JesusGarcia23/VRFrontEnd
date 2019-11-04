@@ -9,7 +9,7 @@ class PostForm extends React.Component{
      state = {
     imageUrl: "",
     imageFile: [],
-    redirect: false
+    redirect: false,
 
 
     }
@@ -17,6 +17,13 @@ class PostForm extends React.Component{
     componentDidMount(){
         setTimeout(() => {
             this.setState({redirect: true})}, 2000)
+    }
+
+    //TEST TAGS
+    testTags = (e) => {
+    this.setState({
+        [e.currentTarget.name]: e.currentTarget.value
+    })
     }
 
 
@@ -45,7 +52,14 @@ class PostForm extends React.Component{
         width: "40vw",
         "margin": "20px auto",
         'resize': 'none',
-        fontSize: "20px"
+        fontSize: "20px",
+        display: "block"
+    }
+
+    textTagsArea = {
+        height: "50px",
+        width: "40vw",
+        'margin-right': '50px'
     }
 
     canvasContainer = {
@@ -65,6 +79,14 @@ class PostForm extends React.Component{
     formStyle = {
         justifyContent: "center",
         alignText: "center"
+    }
+
+    tagsContainer = {
+        display: "flex",
+        'justify-content': 'flex-start',
+        'align-items': "center",
+        border: "1px solid black",
+
     }
 // END OF STYLING
 
@@ -123,9 +145,17 @@ console.log(e.target);
     })
     }
 
+    // makeTagsArray = (e) => {
+    //     e.preventDefault();
+    //     console.log(this.state.tags)
+    //     let tags = this.state.tags
+    //     let tagsArray = tags.split(/[.,\/ -#]/)
+    //     let finalArray = tagsArray.filter(eachTag =>{ return eachTag !== "" })
+    //     console.log(finalArray)
+    // }
+
     render(){
-        const {caption, currentUser, postMade} = this.props.formValues
-        console.log(currentUser)
+        const {caption, tags, currentUser, postMade} = this.props.formValues
         if(currentUser && !postMade){
         return(
             <div className="formPost">
@@ -144,7 +174,16 @@ console.log(e.target);
             {this.changePreview(this.state.imageUrl)}
             </div>
            
+           
             <textarea style={this.textAreaStyle} type="text" value={caption} onChange={ e => this.props.onChangeValue(e)} name="caption" placeholder="write a caption..."></textarea>
+           <div style={this.tagsContainer}>
+           <span className="tagTitleAndTextarea">
+           <span className="tagsTitle">Tags: </span>
+           <textarea style={this.textTagsArea} type="text" value={tags} onChange={ e => this.props.onChangeValue(e)} name="tags" placeholder="e.g: #Beach #Sun #Ocean"></textarea>
+           <button onClick={this.makeTagsArray}>Test Tags</button>
+           </span>
+           </div>
+
             <button style={this.createButton}>CREATE NEW EXPERIENCE</button>
             </form>
 

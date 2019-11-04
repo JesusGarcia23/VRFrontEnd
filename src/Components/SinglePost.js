@@ -107,6 +107,12 @@ const SinglePost = props => {
                 {isLiked(props.currentUser, thePost.likes, thePost._id)}
                 </div>
                 {thePost.caption}
+                <div className='tagName'>
+                {thePost.tags.map(eachTag => {
+                  return <Link>#{eachTag} </Link>
+                }
+                  )}
+                </div>
                 </div>
                <p>{postTime(thePost.createdAt)}</p>
                 </div>
