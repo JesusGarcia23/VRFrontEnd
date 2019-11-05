@@ -52,11 +52,15 @@ return (
     }
     }
 
-    function havePermission(){
+    function havePermission(thePostId){
         if(theUserId === profileId){
-        return <button className="btn btn-sm btn-danger" onClick={e => props.confirmDelete()} >
+        return (
+        <React.Fragment>
+        <button className="btn btn-sm btn-danger" onClick={e => props.confirmDelete()} >
         Delete
-    </button>
+        </button>
+        <button onClick={ e => {props.handleEdit(e, thePostId)}}>Edit</button>
+    </React.Fragment>)
         }else{
 
         }
@@ -91,7 +95,7 @@ return (
                                     </div>
                                     </Link>
                                 </div>
-                                {havePermission()}
+                                {havePermission(pic._id)}
 
 
                                 {props.showConfirm === true &&

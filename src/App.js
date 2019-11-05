@@ -320,6 +320,21 @@ cancelDelete = e => {
 }
 // END OF DELETING POSTS
 
+//EDIT POSTS
+editPost = (e, theValue) => {
+  e.preventDefault();
+  const postList = [...this.state.images]
+  const theIndex = postList.findIndex(thePost => thePost._id === theValue)
+ let postToEdit = postList[theIndex]
+ console.log(postToEdit)
+ postToEdit.modal = !postList[theIndex].modal
+ this.setState({
+   images: postList
+ })
+}
+
+
+
 //FOLLOWING FUNCTIONALITY
 handleFollow = userToFollow => {
 console.log(userToFollow)
@@ -385,6 +400,7 @@ console.log(user2)
             cancelDelete={this.cancelDelete}
             showConfirm={this.state.showConfirm}
             handleFollow={this.handleFollow}
+            handleEdit={this.editPost}
             />) : 
           (<Redirect to="/login"/>)}/>
         
