@@ -418,7 +418,7 @@ console.log(user2)
         <Route exact path="/" component={Home}/>
         <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
-        <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} />) }/>
+        <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />) }/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state}/>}></Route>
