@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import EditUser from './EditUser'
 import Editpost from '../Components/Editpost'
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 
 const UserProfile = (props) => {
-    const { images, currentUser, users } = props
+    const { images, currentUser, users, showEdit } = props
     const theUserId = currentUser._id
     const profileId = props.match.params.id
 
@@ -22,7 +23,7 @@ const UserProfile = (props) => {
                 className="btn btn-sm btn-danger">
                 Logout
             </button>
-
+            <button onClick={props.handleEditProfile}>Edit Profile</button>
 
         </div>
         }else{
@@ -65,7 +66,7 @@ return (
     const pics = images.filter(image => image.owner._id === profileId)
 
     const userDetails = users.filter(theUser => theUser._id === profileId)[0]
-    if (currentUser) {
+    if (currentUser && userDetails) {
         return (
             <div>
             <button onClick={goBack}>Go back</button>
@@ -77,6 +78,7 @@ return (
                   <Link to={`/following/${profileId}`}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
                   
                   {haveLogout(userDetails.followers)}
+                  {showEdit && <EditUser handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile}/>}
                 </div>
                     <div className="worldContainer" >
                         {pics && pics.map(pic => {
@@ -119,7 +121,7 @@ return (
         )
     } else {
         return (
-            <Redirect to='/login' />
+            <div>LOADING...</div>
         )
     }
 

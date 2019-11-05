@@ -27,9 +27,11 @@ class App extends Component {
       email: "",
       password: "",
       imageUrl: "",
+      bio: "",
       imagePost: "",
       caption: "",
       tags: [],
+      imageFile: [],
       showConfirm: false,
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
@@ -40,7 +42,8 @@ class App extends Component {
       selectedFile: null,
       postMade: false,
       message: "",
-      singlePost: null
+      singlePost: null,
+      showEdit: false
     };
   
   // state = {
@@ -61,7 +64,7 @@ class App extends Component {
   }
 
   syncCurrentUser(user){
-    this.setState({ currentUser: user })
+    this.setState({ currentUser: user})
   }
 
   file_upload_change = e => {
@@ -144,6 +147,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
+    console.log(e.currentTarget.value)
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
@@ -171,7 +175,7 @@ this.setState({imageUrl: e})
   //START OF SIGN UP
   makeNewUser = (e) => {
     e.preventDefault();
-    if(this.state.imageFile){
+    if(this.state.imageFile.length !== 0){
                //UPLOAD TO CLOUDINARY
                const uploadData = new FormData();
                uploadData.append("imageUrl", this.state.imageFile);
@@ -374,6 +378,86 @@ axios.put(`http://localhost:5000/updatePost/${thePost._id}`, {caption: captionTo
 
 //END OF EDIT POST
 
+//EDIT USER BIO/PICTURE
+showEditUser = () => {
+  this.setState({
+    showEdit: !this.state.showEdit
+  }, () => {
+    console.log(this.state.showEdit)
+  }) 
+}
+
+updateUser = (e, theUser) => {
+  e.preventDefault();
+  const { bio, imageFile, currentUser} = this.state
+  console.log(this.state.bio)
+  console.log(this.state.imageFile)
+  if(this.state.imageFile.length !== 0){
+
+    //UPLOAD TO CLOUDINARY
+    const uploadData = new FormData();
+    uploadData.append("imageUrl", this.state.imageFile);
+
+    service.handleUpload(uploadData)
+    .then(response => {
+        console.log('response is: ', response);
+        // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
+        this.setState({ imagePost: response.imageUrl }, () => {
+         //CALL TO THE SIGNUP ROUTE
+         axios.put(`http://localhost:5000/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser}, {withCredentials: true})
+         .then(theData => {
+             console.log("PROFILE UPDATED!")
+             console.log(theData.data)
+             const listUsers = [...this.state.users]
+             const {bio, imageUrl} = theData.data
+             const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
+             listUsers[theIndex].bio = bio
+             listUsers[theIndex].imageUrl = imageUrl
+
+             this.setState({
+              users: listUsers,
+                imageUrl: "",
+                imageFile: [],
+                showEdit: !this.state.showEdit
+         })
+
+         window.location = `/profile/${currentUser._id}`
+         })
+         .catch(err => console.log(err));
+
+
+       })
+       
+  }).catch(err => {
+   console.log("Error while uploading the file: ", err);
+ })   
+     }else{
+      axios.put(`http://localhost:5000/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser}, {withCredentials: true})
+      .then(theData => {
+          console.log("PROFILE UPDATED!")
+          console.log(theData.data)
+          const listUsers = [...this.state.users]
+          const {bio} = theData.data
+          const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
+          listUsers[theIndex].bio = bio
+          
+          this.setState({
+            users: listUsers,
+              imageUrl: "",
+              imageFile: [],
+              showEdit: !this.state.showEdit
+       })
+       window.location = `/profile/${currentUser._id}`
+      })
+      .catch(err => console.log(err));
+
+     }
+
+}
+
+//END OF EDIT USER BIO/PICTURE
+
+
 //FOLLOWING FUNCTIONALITY
 handleFollow = userToFollow => {
 console.log(userToFollow)
@@ -431,6 +515,7 @@ console.log(user2)
             images = {this.state.images} 
             currentUser = {this.state.currentUser} 
             users={this.state.users}
+            showEdit={this.state.showEdit}
             confirmDelete={this.confirmDelete}
             onLogout={this.logoutUser}
             onDelete={this.handleDelete}
@@ -439,6 +524,9 @@ console.log(user2)
             handleFollow={this.handleFollow}
             handleEdit={this.editPost}
             onChangeValue={this.updateForm}
+            handleEditProfile={this.showEditUser}
+            changeFile={this.changeFile}
+            updateUser={this.updateUser}
             updatePost={this.updatePost}
             />) : 
           (<Redirect to="/login"/>)}/>
