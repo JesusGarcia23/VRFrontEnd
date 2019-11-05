@@ -144,7 +144,6 @@ await uploadData.append("imageUrl", this.state.imageFile);
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
-    console.log(e.currentTarget)
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
@@ -273,7 +272,7 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 
 //LIKE POST
 handleLike = (e) => {
-  axios.post(`http://localhost:5000/update/${e}`, this.state.currentUser, {withCredentials: true})
+  axios.post(`http://localhost:5000/updateLikes/${e}`, this.state.currentUser, {withCredentials: true})
   .then(responseFromBack => {
     console.log(responseFromBack)
     console.log(responseFromBack.data)
@@ -326,14 +325,54 @@ editPost = (e, theValue) => {
   const postList = [...this.state.images]
   const theIndex = postList.findIndex(thePost => thePost._id === theValue)
  let postToEdit = postList[theIndex]
- console.log(postToEdit)
  postToEdit.modal = !postList[theIndex].modal
  this.setState({
    images: postList
  })
 }
 
+updatePost = (e, thePost) => {
+  e.preventDefault();
+const {caption, tags} = this.state
+console.log(caption)
+const imageList = [...this.state.images];
+const theIndex = imageList.indexOf(thePost)
+let captionToUse = '';
+let tagToUse = []
+tagToUse = tags
+captionToUse = caption
 
+if(captionToUse.length === 0){
+  console.log("THERE IS NOTHING!")
+  captionToUse = imageList[theIndex].caption
+}if(tagToUse.length === 0){
+  tagToUse = imageList[theIndex].tags 
+}else{
+imageList[theIndex].caption = caption
+imageList[theIndex].tags = [tags]
+}
+
+console.log(tagToUse)
+console.log(captionToUse)
+imageList[theIndex].modal = !imageList[theIndex].modal
+
+this.setState({images: imageList}, () => 
+axios.put(`http://localhost:5000/updatePost/${thePost._id}`, {caption: captionToUse, tags: tagToUse})
+.then(theValues => {
+  this.setState({
+    caption: '',
+    tags: []
+  })
+  window.location = `/post/${thePost._id}`
+// const NewCaption = theValues.data.caption
+// const NewTags = theValues.data.tags
+// imageList[theIndex].caption = NewCaption
+// imageList[theIndex].tags = NewTags
+}).catch(err => console.log("A problem happened getting the values!"))
+)
+}
+
+//END OF EDIT POST
 
 //FOLLOWING FUNCTIONALITY
 handleFollow = userToFollow => {
@@ -368,10 +407,8 @@ console.log(user2)
 
 
   render() {
-    console.log("USERS")
-    console.log(this.state.users)
-    // console.log("MY USER")
-    // console.log(this.state.currentUser)
+    // console.log("LIST OF ALL POSTS")
+    // console.log(this.state.images)
     return (
       <div className="App">
        
@@ -401,6 +438,8 @@ console.log(user2)
             showConfirm={this.state.showConfirm}
             handleFollow={this.handleFollow}
             handleEdit={this.editPost}
+            onChangeValue={this.updateForm}
+            updatePost={this.updatePost}
             />) : 
           (<Redirect to="/login"/>)}/>
         

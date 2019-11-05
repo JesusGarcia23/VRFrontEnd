@@ -1,11 +1,10 @@
 import React from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import Editpost from '../Components/Editpost'
 import SweetAlert from 'react-bootstrap-sweetalert'
 
 
 const UserProfile = (props) => {
-    console.log("PROFILE")
-    console.log(props)
     const { images, currentUser, users } = props
     const theUserId = currentUser._id
     const profileId = props.match.params.id
@@ -16,9 +15,6 @@ const UserProfile = (props) => {
        }
 
     function haveLogout(userFollowers){
-        console.log("MY INDEX!")
-        console.log(userFollowers)
-        console.log(userFollowers.findIndex(userToFind => userToFind._id === theUserId))
         if(theUserId === profileId){
             return   <div className="buttons" >
             <button
@@ -67,10 +63,8 @@ return (
     }
 
     const pics = images.filter(image => image.owner._id === profileId)
-    console.log(pics)
 
     const userDetails = users.filter(theUser => theUser._id === profileId)[0]
-    console.log(userDetails)
     if (currentUser) {
         return (
             <div>
@@ -96,6 +90,7 @@ return (
                                     </Link>
                                 </div>
                                 {havePermission(pic._id)}
+                                {pic.modal && <Editpost image={pic} handleUpdate={props.onChangeValue} submitUpdate={props.updatePost}></Editpost>}
 
 
                                 {props.showConfirm === true &&

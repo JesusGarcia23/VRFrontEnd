@@ -5,7 +5,6 @@ import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
 const NavBar = (props) =>{
   
 if(props){
-  console.log(props.currentUser)
         return(
           <React.Fragment>
           <Navbar bg="dark" variant='dark' expand="lg">
