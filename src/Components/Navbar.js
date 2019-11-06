@@ -22,7 +22,7 @@ if(props){
                 <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
               </NavDropdown>
               <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <FormControl type="text" placeholder="Search" value={props.queryInput}  onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2" />
             </Form>
             <Link to={`/profile/${props.currentUser._id}`}>Profile</Link>
               </Nav> : 

@@ -5,6 +5,7 @@ import Likebtn from './Likebtn';
 const WorldPost = props => {
 
    console.log(props)
+   let arrayOfPosts = []
 
    function isLiked(value, theArray, postId){
       if(value){
@@ -16,14 +17,26 @@ const WorldPost = props => {
          }
       }
    }
-console.log(props)
-if(props.allPosts.length > 0){
+let {query} = props
+console.log(props.allPosts)
+
+
+if(query !== ''){
+let queryList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(query) })
+arrayOfPosts = queryList
+}else{
+   if(props.allPosts.length > 0){
+   arrayOfPosts = props.allPosts
+   }
+}
+
+if(arrayOfPosts.length > 0){
      return(
         <React.Fragment>
          <div>
          <h1>World</h1>
          <div className="worldContainer">
-         {props.allPosts && props.allPosts.map(image => {
+         {arrayOfPosts && arrayOfPosts.map(image => {
             return <div className="worldPost" key={image._id} >
             <div>
             <img src={image.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
@@ -53,7 +66,7 @@ if(props.allPosts.length > 0){
          <div>NO POSTS!</div>
       )
    }
-
 }
+
 
 export default WorldPost;
