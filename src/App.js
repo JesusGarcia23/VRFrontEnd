@@ -147,7 +147,6 @@ await uploadData.append("imageUrl", this.state.imageFile);
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
-    console.log(e.currentTarget.value)
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
@@ -278,12 +277,12 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 handleLike = (e) => {
   axios.post(`http://localhost:5000/updateLikes/${e}`, this.state.currentUser, {withCredentials: true})
   .then(responseFromBack => {
-    console.log(responseFromBack)
-    console.log(responseFromBack.data)
+    // console.log(responseFromBack)
+    // console.log(responseFromBack.data)
     const newPost = responseFromBack.data
     const clone = [...this.state.images]
     const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
-    console.log(clone[theIndex]);
+   // console.log(clone[theIndex]);
     clone[theIndex].likes = newPost.likes
 this.setState({images: clone})
   })

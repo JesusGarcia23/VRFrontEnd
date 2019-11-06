@@ -59,7 +59,9 @@ const SinglePost = props => {
         function isLiked(value, theArray, postId){
           if(value){
              const myId = value._id;
-             if(theArray.indexOf(myId) >= 0){
+            //  console.log(theArray)
+            //  console.log(theArray.findIndex(theId => theId._id === myId))
+             if(theArray.findIndex(theId => theId._id === myId) >= 0){
                return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIcon"/>)
              }else{
                 return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIcon"/>)
