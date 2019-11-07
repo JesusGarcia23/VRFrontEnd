@@ -1,6 +1,7 @@
 import React from 'react';
 import ThreeMap from './ThreeMap';
 import Likebtn from './/Likebtn';
+import CommentSection from './CommentSection';
 import { Link } from 'react-router-dom'
 
 let height = "50vh"
@@ -117,6 +118,7 @@ const SinglePost = props => {
                 </div>
                 </div>
                <p>{postTime(thePost.createdAt)}</p>
+               <CommentSection comment={props.comment}/>
                 </div>
                 </React.Fragment>
             )
