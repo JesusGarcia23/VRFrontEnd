@@ -1,9 +1,7 @@
-import {Link} from "react-router-dom"
 import "../App.css";
 import React, { Component } from "react";
 import * as THREE from "three";
 import Orbitcontrols from "three-orbitcontrols";
-import axios from "axios";
 
 
 class ThreeMap extends Component {
@@ -39,9 +37,9 @@ class ThreeMap extends Component {
     const {url} = this.props
     console.log("MY URL");
     console.log(url);
-    let stats;
+   // let stats;
     let camera, scene, renderer;
-    let group;
+   // let group;
     let container = document.getElementById("WebGL-output");
     let width = container.clientWidth,
       height = container.clientHeight;
@@ -64,11 +62,11 @@ class ThreeMap extends Component {
       camera.target = new THREE.Vector3(0, 0, 0);
       // camera.lookAt( scene.position );
 
-      //控制地球
+      //TO CONTROL THE IMAGE MOVEMENT
       let orbitControls = new /*THREE.OrbitControls*/ Orbitcontrols(camera, container);
       orbitControls.autoRotate = false;
       // let clock = new THREE.Clock();
-      //光源
+      //THE AMBIENT LIGHT
       let ambi = new THREE.AmbientLight(0x686868);
       scene.add(ambi);
 
@@ -96,7 +94,7 @@ class ThreeMap extends Component {
       renderer.setSize(width, height);
       container.appendChild(renderer.domElement);
       // stats = new Stats();
-      // container.appendChild( stats.dom );  //增加状态信息
+      // container.appendChild( stats.dom );  //Increase status information
     }
 
     function animate() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import EditUser from './EditUser'
 import Editpost from '../Components/Editpost'
 import SweetAlert from 'react-bootstrap-sweetalert'
@@ -112,7 +112,8 @@ return (
                                 }
 
                             </div>
-                            )})
+                            )
+                        })
                         }       
                         </div>
                 {!pics.length && <p>You dont have any posts </p>}

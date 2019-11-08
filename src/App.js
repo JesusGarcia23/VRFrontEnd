@@ -448,7 +448,7 @@ updateUser = (e, theUser) => {
               imageFile: [],
               showEdit: !this.state.showEdit
        })
-       window.location = `/profile/${currentUser._id}`
+       window.location.reload(); 
       })
       .catch(err => console.log(err));
 
@@ -490,9 +490,41 @@ console.log(user2)
 }
 //END OF FOLLOWING FUNCTIONALITY
 
+// ADD COMMENTS
+handleComment = (e, postId) => {
+  e.preventDefault();
+  console.log(this.state.comment)
+  console.log(postId)
+  const newComment = {
+    owner: this.state.currentUser,
+    message: this.state.comment
+  }
+  const clone = [...this.state.images]
+  console.log(clone.findIndex(thePost => thePost._id === postId))
+  const theIndex = clone.findIndex(thePost => thePost._id === postId)
+if(theIndex >= 0){
+  clone[theIndex].comments.push({user: this.state.currentUser._id, comment: this.state.comment})
+}
+
+this.setState({
+  images: clone,
+  comment: ''
+})
+
+  axios.put(`http://localhost:5000/addComment/${postId}`, newComment)
+  .then(responseFromBackend => console.log(responseFromBackend))
+  
+  .catch(err => console.log(err))
+
+}
+
+//END OF ADD COMMENTS
+
+
 
   render() {
-    // console.log("LIST OF ALL POSTS")
+    console.log("LIST OF ALL POSTS")
+    console.log(this.state.images)
     return (
       <div className="App">
        
@@ -505,8 +537,8 @@ console.log(user2)
         <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />) }/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
-        <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state} comment={this.state.comment}/>}></Route>
-        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser}/>}></Route>
+        <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state} />}></Route>
+        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment}/>}></Route>
         <Route exact path='/followers/:id' render={(props) => <FollowerList {...props} allUsers={this.state.users}/>}/>
         <Route exact path='/following/:id' render={(props) => <FollowingList {...props} allUsers={this.state.users}/>}/>
         <Route exact path="/profile/:id" render={(props) => 

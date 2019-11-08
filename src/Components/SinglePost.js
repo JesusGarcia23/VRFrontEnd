@@ -91,6 +91,7 @@ const SinglePost = props => {
       })
 
       const thePost = theArr[0];
+
         if(thePost){
             return(
               <React.Fragment>
@@ -118,7 +119,8 @@ const SinglePost = props => {
                 </div>
                 </div>
                <p>{postTime(thePost.createdAt)}</p>
-               <CommentSection comment={props.comment}/>
+               {props.currentUser && <CommentSection comment={props.comment} allPostComments={thePost.comments} updateComment={props.onChangeValue} handleComment={props.handleComment} postId={thePost._id}/>}
+               
                 </div>
                 </React.Fragment>
             )
