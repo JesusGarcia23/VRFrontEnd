@@ -69,7 +69,7 @@ return (
     if (currentUser && userDetails) {
         return (
             <div>
-            <button onClick={goBack}>Go back</button>
+            {(theUserId !== profileId) ? <button onClick={goBack}>Go back</button> : ''}
                 <div className="user-profile">
                     {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
                     <p>{userDetails.username}</p>

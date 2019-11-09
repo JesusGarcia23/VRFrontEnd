@@ -170,7 +170,7 @@ this.setState({imageUrl: e})
   }
   }
 
-  //TAGS
+
 
 
   //START OF SIGN UP
@@ -279,14 +279,16 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 handleLike = (e) => {
   axios.post(`http://localhost:5000/updateLikes/${e}`, this.state.currentUser, {withCredentials: true})
   .then(responseFromBack => {
-    // console.log(responseFromBack)
-    // console.log(responseFromBack.data)
-    const newPost = responseFromBack.data
+    console.log(responseFromBack)
+  //  console.log(responseFromBack.data.thePost)
+    const newPost = responseFromBack.data.thePost
     const clone = [...this.state.images]
     const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
-   // console.log(clone[theIndex]);
+   console.log(clone[theIndex]);
     clone[theIndex].likes = newPost.likes
-this.setState({images: clone})
+this.setState({images: clone}, () => {
+  console.log(this.state.images)
+})
   })
   .catch(err => console.log(err));
 }
@@ -523,8 +525,8 @@ this.setState({
 
 
   render() {
-    console.log("LIST OF ALL POSTS")
-    console.log(this.state.images)
+    // console.log("LIST OF ALL POSTS")
+    // console.log(this.state.images)
     return (
       <div className="App">
        

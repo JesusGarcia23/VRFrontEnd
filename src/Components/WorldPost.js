@@ -8,6 +8,8 @@ const WorldPost = props => {
    let arrayOfPosts = []
 
    function isLiked(value, theArray, postId){
+      console.log("LIST OF LIKES")
+      console.log(theArray)
       if(value){
          const myId = value._id;
          if(theArray.findIndex(theId => theId._id === myId) >= 0){
@@ -18,11 +20,12 @@ const WorldPost = props => {
       }
    }
 let {query} = props
-console.log(props.allPosts)
+// console.log(props.allPosts)
 
 
 if(query !== ''){
-let queryList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(query) })
+   let theQuery = query.toLowerCase();
+let queryList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(theQuery)})
 arrayOfPosts = queryList
 }else{
    if(props.allPosts.length > 0){
