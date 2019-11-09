@@ -58,9 +58,10 @@ class App extends Component {
 
     axios.get('http://localhost:5000/auth/loggedin', {withCredentials: true})
     .then(responseFromBackend => {
-
       const { userDoc } = responseFromBackend.data
+      console.log(userDoc)
       this.syncCurrentUser(userDoc);
+      setTimeout(() => {this.get_notifications(userDoc._id) }, 500)
     })
     .catch(err => console.log("Error while getting the user from the loggedin route ", err))
   }
@@ -146,6 +147,24 @@ await uploadData.append("imageUrl", this.state.imageFile);
 
 
   };
+  //END OF GET ALL THE POSTS TO RENDER FROM DB
+
+  //GET ALL NOTIFICATIONS FROM DB
+get_notifications = async (userId) => {
+  try{
+
+    await axios.get(`http://localhost:5000/getNotifications/${userId}`).then(response => {
+      console.log("NOTIFICATIONS!")
+      console.log(response)
+    }).catch(err => console.log(err))
+
+    
+  } catch (err){
+    console.log(err)
+  }
+}
+
+  //END OF GET ALL NOTIFICATIONS FROM DB
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
@@ -253,6 +272,7 @@ axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: tru
     })
   
     alert("You are logged in.")
+    setTimeout(() => {this.get_notifications(userDoc._id) }, 500)
     // return <Redirect to='/profile'/>
 })
 .catch(err => {
@@ -471,7 +491,7 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
   console.log(responseFromBackend.data)
   console.log(currentUser._id)
   const userList = [...this.state.users]
-  const users = responseFromBackend.data
+  const users = responseFromBackend.data.theUsers
   const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
   const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
 console.log(user1)
