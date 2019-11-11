@@ -113,7 +113,7 @@ const SinglePost = props => {
                 {thePost.caption}
                 <div className='tagName'>
                 {thePost.tags.map(eachTag => {
-                  return <Link key={eachTag}>#{eachTag} </Link>
+                  return <Link to='/world' key={eachTag} onClick={e => props.updateQuery(eachTag)}>#{eachTag} </Link>
                 }
                   )}
                 </div>

@@ -537,6 +537,14 @@ this.setState({
 //END OF ADD COMMENTS
 
 
+//CHANGE QUERY WITH TAGS
+updateQueryBar = (theTag) => {
+  console.log(theTag)
+  this.setState({
+    queryInput: theTag 
+  })
+}
+
 
   render() {
     console.log("LIST OF ALL NOTIFICATIONS")
@@ -554,7 +562,7 @@ this.setState({
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state} />}></Route>
-        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment}/>}></Route>
+        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar}/>}></Route>
         <Route exact path='/followers/:id' render={(props) => <FollowerList {...props} allUsers={this.state.users}/>}/>
         <Route exact path='/following/:id' render={(props) => <FollowingList {...props} allUsers={this.state.users}/>}/>
         <Route exact path="/profile/:id" render={(props) => 
