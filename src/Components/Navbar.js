@@ -73,7 +73,7 @@ if(props){
               <Form inline>
               <FormControl type="text" placeholder="Search" value={props.queryInput}  onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2" />
             </Form>
-            <Link to={`/profile/${props.currentUser._id}`}>Profile</Link>
+            <Link to={`/profile/${props.currentUser._id}`} className='nav-link'>Profile</Link>
               </Nav> : 
               <Nav className="mr-auto">
               <Nav.Link href="/login">Login</Nav.Link>
