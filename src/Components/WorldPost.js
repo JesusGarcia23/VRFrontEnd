@@ -42,7 +42,7 @@ if(arrayOfPosts.length > 0){
          {arrayOfPosts && arrayOfPosts.map(image => {
             return <div className="worldPost" key={image._id} >
             <div>
-            <img src={image.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
+            <img src={image.owner.imageUrl} style={{width:"50px", height:"50px", borderRadius:50}} alt="miniProfilePic"></img>
             
            <Link to={`/profile/${image.owner._id}`}> {image.owner.username}</Link>
             </div>

@@ -289,3 +289,9 @@ button:focus {outline:0;}
 .tagName {
   margin: 20px 0px;
 }
+
+.notification-userImage img{
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}

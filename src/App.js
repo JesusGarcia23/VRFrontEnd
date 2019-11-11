@@ -33,6 +33,7 @@ class App extends Component {
       tags: [],
       imageFile: [],
       comment: '',
+      notifications: [],
       showConfirm: false,
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
@@ -48,11 +49,6 @@ class App extends Component {
       queryInput: ''
     };
   
-  // state = {
-  //   url: "http://localhost:5000/api/things",
-  //   images: []
-  // };
-
   async componentDidMount() {
     await this.get_data_torender() 
 
@@ -154,8 +150,10 @@ get_notifications = async (userId) => {
   try{
 
     await axios.get(`http://localhost:5000/getNotifications/${userId}`).then(response => {
-      console.log("NOTIFICATIONS!")
-      console.log(response)
+      const notificationList = response.data;
+      this.setState({
+        notifications: notificationList
+      })
     }).catch(err => console.log(err))
 
     
@@ -165,6 +163,7 @@ get_notifications = async (userId) => {
 }
 
   //END OF GET ALL NOTIFICATIONS FROM DB
+
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
@@ -188,8 +187,7 @@ this.setState({imageUrl: e})
     this.setState({message: "File size is too big!"})
   }
   }
-
-
+//END OF UPDATE FORM VALUES
 
 
   //START OF SIGN UP
@@ -391,10 +389,6 @@ axios.put(`http://localhost:5000/updatePost/${thePost._id}`, {caption: captionTo
     tags: []
   })
   window.location = `/post/${thePost._id}`
-// const NewCaption = theValues.data.caption
-// const NewTags = theValues.data.tags
-// imageList[theIndex].caption = NewCaption
-// imageList[theIndex].tags = NewTags
 }).catch(err => console.log("A problem happened getting the values!"))
 )
 }
@@ -545,12 +539,12 @@ this.setState({
 
 
   render() {
-    // console.log("LIST OF ALL POSTS")
-    // console.log(this.state.images)
+    console.log("LIST OF ALL NOTIFICATIONS")
+    console.log(this.state.notifications)
     return (
       <div className="App">
        
-        <NavBar currentUser={this.state.currentUser} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl} queryInput={this.state.queryInput} onChangeValue={this.updateForm}/>
+        <NavBar currentUser={this.state.currentUser} notifications={this.state.notifications} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl} queryInput={this.state.queryInput} onChangeValue={this.updateForm}/>
           
         <Switch>
         <Route exact path="/" component={Home}/>

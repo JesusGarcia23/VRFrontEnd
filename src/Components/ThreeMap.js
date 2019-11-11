@@ -65,6 +65,7 @@ class ThreeMap extends Component {
       //TO CONTROL THE IMAGE MOVEMENT
       let orbitControls = new /*THREE.OrbitControls*/ Orbitcontrols(camera, container);
       orbitControls.autoRotate = false;
+      orbitControls.enableZoom = false;
       // let clock = new THREE.Clock();
       //THE AMBIENT LIGHT
       let ambi = new THREE.AmbientLight(0x686868);

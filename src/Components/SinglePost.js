@@ -98,7 +98,7 @@ const SinglePost = props => {
               <button onClick={goBack}>Go back</button>
                 <div className="singlePost">
                 <div className="singlePostHeader">
-                <img src={thePost.owner.imageUrl} width="50px" height="50px" alt="miniProfilePic"></img>
+                <img src={thePost.owner.imageUrl}  style={{width:"50px", height:"50px", borderRadius:50}} alt="miniProfilePic"></img>
             <Link to={`/profile/${thePost.owner._id}`}>{thePost.owner.username}</Link>
                 
                 </div>
@@ -113,7 +113,7 @@ const SinglePost = props => {
                 {thePost.caption}
                 <div className='tagName'>
                 {thePost.tags.map(eachTag => {
-                  return <Link>#{eachTag} </Link>
+                  return <Link key={eachTag}>#{eachTag} </Link>
                 }
                   )}
                 </div>
