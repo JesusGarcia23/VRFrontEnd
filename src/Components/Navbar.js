@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
 
 const NavBar = (props) =>{
@@ -8,23 +8,35 @@ const NavBar = (props) =>{
     console.log("WORKING")
     console.log(notifications)
     if(notifications.length){
+      notifications.sort((a,b) => {
+if(a.createdAt < b.createdAt){
+  return 1;
+}else if(a.createdAt > b.createdAt){
+  return -1
+}else{
+  return 0
+}
+      })
 return(
       <NavDropdown title="Notifications" id="basic-nav-dropdown">
       {notifications && notifications.map(eachNotification => {
         if(eachNotification.type === "Like"){
           return (
             <React.Fragment key={eachNotification._id}>
-            <NavDropdown.Item href={`/post/${eachNotification.relatedTo}`}><span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span> {eachNotification.fromWho.username} {eachNotification.event}</NavDropdown.Item>
+            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`}>
+            <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span> {eachNotification.fromWho.username} {eachNotification.event}
+           <span><img src={eachNotification.imageTo.image} style={{width:"30px", height:"30px", borderRadius:50}} alt='notiPostPicture'></img></span>
+            </NavDropdown.Item>
           <NavDropdown.Divider />
           </React.Fragment>)
         }else if(eachNotification.type === "Follow"){
           return (
             <React.Fragment key={eachNotification._id}>
-            <NavDropdown.Item>
-            <Link to={`/profile/${eachNotification.fromWho._id}`} style={{ textDecoration: 'none', color: 'black' }}>
+            
+            <Link to={`/profile/${eachNotification.fromWho._id}`} style={{ textDecoration: 'none', color: 'black' }} className='dropdown-item'>
             <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span> {eachNotification.fromWho.username} {eachNotification.event}
             </Link>
-           </NavDropdown.Item>
+        
           <NavDropdown.Divider />
           </React.Fragment>
           )
