@@ -297,9 +297,9 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
 handleLike = (e) => {
   axios.post(`http://localhost:5000/updateLikes/${e}`, this.state.currentUser, {withCredentials: true})
   .then(responseFromBack => {
-    console.log(responseFromBack)
+    console.log(responseFromBack.data)
   //  console.log(responseFromBack.data.thePost)
-    const newPost = responseFromBack.data.thePost
+    const newPost = responseFromBack.data
     const clone = [...this.state.images]
     const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
    console.log(clone[theIndex]);
@@ -485,7 +485,7 @@ axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
   console.log(responseFromBackend.data)
   console.log(currentUser._id)
   const userList = [...this.state.users]
-  const users = responseFromBackend.data.theUsers
+  const users = responseFromBackend.data
   const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
   const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
 console.log(user1)

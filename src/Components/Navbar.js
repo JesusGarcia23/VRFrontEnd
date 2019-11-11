@@ -20,7 +20,7 @@ if(a.createdAt < b.createdAt){
 return(
       <NavDropdown title="Notifications" id="basic-nav-dropdown">
       {notifications && notifications.map(eachNotification => {
-        if(eachNotification.type === "Like"){
+        if(eachNotification.type === "Like" || eachNotification.type === "Comment" ){
           return (
             <React.Fragment key={eachNotification._id}>
             <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`}>
@@ -63,7 +63,7 @@ if(props){
         return(
           <React.Fragment>
           <Navbar bg="dark" variant='dark' expand="lg">
-          <Navbar.Brand href="/home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="/home">TriShare</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           {props.currentUser ? <Nav className="mr-auto">
