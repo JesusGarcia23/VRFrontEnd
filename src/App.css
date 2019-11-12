@@ -223,11 +223,33 @@ opacity: 1;
 }
 
 .HomeItem{
+ 
   float: left;
   width: 30%;
   height: 90vh;
   margin: 0px 1.5vw;
   border: 1px solid red;
+}
+
+.HomeItem1{
+  background-image: url('/amsterdam-woman-mobile-photo.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 70% 0px;
+}
+
+.HomeItem2{
+  background-image: url('/sharing-the-future-1.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 0px;
+}
+
+.HomeItem3{
+  background-image: url('/Exploring-Petite-France-Strasbourg-by-Geoffrey-Morrison-4-of-10.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 20% 0px;
 }
 
 .iconContainer {

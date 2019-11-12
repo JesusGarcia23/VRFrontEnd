@@ -290,6 +290,7 @@ axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
   this.syncCurrentUser(null)
   this.setState({currentUser: null})
 })
+window.location = `/`
 }
 //END OF LOG OUT USER
 
@@ -388,7 +389,6 @@ axios.put(`http://localhost:5000/updatePost/${thePost._id}`, {caption: captionTo
     caption: '',
     tags: []
   })
-  window.location = `/post/${thePost._id}`
 }).catch(err => console.log("A problem happened getting the values!"))
 )
 }
