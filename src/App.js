@@ -519,7 +519,11 @@ handleComment = (e, postId) => {
   console.log(clone.findIndex(thePost => thePost._id === postId))
   const theIndex = clone.findIndex(thePost => thePost._id === postId)
 if(theIndex >= 0){
-  clone[theIndex].comments.push({user: this.state.currentUser._id, comment: this.state.comment})
+  clone[theIndex].comments.push({user: {
+    _id: this.state.currentUser._id,
+    username: this.state.currentUser.username,
+    imageUrl: this.state.currentUser.imageUrl
+  }, comment: this.state.comment})
 }
 
 this.setState({
