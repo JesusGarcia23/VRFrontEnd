@@ -68,25 +68,6 @@ const SinglePost = props => {
           return new Date(e).toDateString()
         }
 
-        const commentList = (allComments) => {
-          console.log(allComments)
-          return (
-            <div className="listOfComments">
-            {allComments.map(eachComment => {
-              return (
-                <div>
-                <Link to={`/profile/${eachComment.user._id}`}>
-                <span className='userCommentName'><img src={`${eachComment.user.imageUrl}`} style={{width:"30px", height:"30px", borderRadius:50}} alt='commentPicUser' ></img> {eachComment.user.username} </span>
-                </Link>
-                <span>{eachComment.comment}</span>
-                </div>
-                )
-            })}
-            </div>
-          )
-        }
-
-
       //   console.log("PROPS!")
       // console.log(props)
       const id = props.match.params.id
@@ -100,33 +81,47 @@ const SinglePost = props => {
         if(thePost){
             return(
               <React.Fragment>
-              <button onClick={goBack}>Go back</button>
                 <div className="singlePost">
                 <div className="singlePostHeader">
-                <img src={thePost.owner.imageUrl}  style={{width:"50px", height:"50px", borderRadius:50}} alt="miniProfilePic"></img>
-            <Link to={`/profile/${thePost.owner._id}`}>{thePost.owner.username}</Link>
+                <button className='goBack-btn' onClick={goBack}><i class="fas fa-arrow-left"></i></button>
+                <img src={thePost.owner.imageUrl}  style={{width:"65px", height:"65px", borderRadius:50, marginLeft:30, marginRight:30}} alt="miniProfilePic"></img>
+            <Link style={{textDecoration: 'none'}} to={`/profile/${thePost.owner._id}`}>{thePost.owner.username}</Link>
                 
                 </div>
+                <div>
                 <ThreeMap url={thePost.image} height={height} width={width}/>
-                <div>{}</div>
-                <button onClick={fullScreen}>GO FULLSCREEN</button>
-                <div className="singleFooter">
-                <div className="singleLikes">
-                {thePost.likes.length} Likes
-                {isLiked(props.currentUser, thePost.likes, thePost._id)}
                 </div>
+                <button onClick={fullScreen} className='expandBtn'><i class="fas fa-expand-arrows-alt expandIcon"></i><div className='expandText'>Expand</div></button>
+                <div className="singleFooter">
+
+                <div className="singleLikes">
+
+                <div className='like-counter'>
+                {isLiked(props.currentUser, thePost.likes, thePost._id)}
+                <span className='likeCount'>{thePost.likes.length} Likes</span>
+               </div>
+
+               <div className='post-date'>
+               {postTime(thePost.createdAt)}
+               </div>
+                </div>
+
+                <div className='postCaption'>
                 {thePost.caption}
                 <div className='tagName'>
                 {thePost.tags.map(eachTag => {
-                  return <Link to='/world' key={eachTag} onClick={e => props.updateQuery(eachTag)}>#{eachTag} </Link>
+                  return <Link to='/world' style={{fontSize:20}} key={eachTag} onClick={e => props.updateQuery(eachTag)}>#{eachTag} </Link>
                 }
                   )}
                 </div>
                 </div>
-               <p>{postTime(thePost.createdAt)}</p>
-               {commentList(thePost.comments)}
-               {props.currentUser && <CommentSection comment={props.comment} allPostComments={thePost.comments} updateComment={props.onChangeValue} handleComment={props.handleComment} postId={thePost._id}/>}
-               
+
+                <div>
+                {<CommentSection currentUser={props.currentUser} comment={props.comment} allPostComments={thePost.comments} updateComment={props.onChangeValue} handleComment={props.handleComment} postId={thePost._id}/>}
+                </div>
+
+                </div>
+             
                 </div>
                 </React.Fragment>
             )

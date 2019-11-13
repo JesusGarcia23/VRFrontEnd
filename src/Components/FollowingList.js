@@ -20,7 +20,7 @@ const FollowingList = props => {
                     <div>
                     <img src={eachUser.imageUrl} style={{ borderRadius: 70, width: "80px", height: "80px"}} alt="profile-img" />
                     </div>
-                    <Link to={`/profile/${eachUser._id}`}>{eachUser.username}</Link>
+                    <Link style={{textDecoration: 'none'}} to={`/profile/${eachUser._id}`}>{eachUser.username}</Link>
                     </div>
             })}
             </div>
