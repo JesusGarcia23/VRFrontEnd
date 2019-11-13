@@ -159,6 +159,14 @@ img:fullscreen {
   margin-bottom: 2%;
 }
 
+.homeImgContainer{
+
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.527);
+  height: 300px;
+  width: 100%;
+}
+
 .worldImgContainer{
   position: relative;
   background-color: rgba(0, 0, 0, 0.527);
@@ -166,11 +174,16 @@ img:fullscreen {
   width: 100%;
 }
 
-.worldImgContainer:hover {
-  cursor: pointer;
+.homeImgContainer:hover {
   opacity: 1;
 }
 
+.homePostHeader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
 
 .overlayContainer{
   position: absolute;
@@ -191,6 +204,8 @@ opacity: 1;
 
 .textOverlay{
   color: white;
+  width: 40vw;
+  height: 13vh;
   font-size: 20px;
   position: absolute;
   top: 50%;
@@ -199,6 +214,37 @@ opacity: 1;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.homePostFoot{
+  margin-bottom: 40px;
+}
+
+.likeContainerHome{
+  display: flex;
+  float: left;
+  justify-content: center;
+  align-items: center;
+  width: 19.9vw;
+}
+
+.commentlength-container{
+  height: 7vh;
+  width: 19.9vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  border-left: 1px solid white;
+}
+
+.fullPostText{
+  width: 100%;
+  height: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid white;
 }
 
 /* SINGLE POST STYLING */
@@ -269,6 +315,10 @@ opacity: 1;
   overflow: auto;
 }
 
+.CommentsContainer::-webkit-scrollbar { 
+  display: none; 
+} 
+
 .userCommentName:hover{
 cursor: pointer;
 }
@@ -278,7 +328,7 @@ cursor: pointer;
   justify-content: flex-start;
   align-items: center;
   margin: 10px auto;
-  height: 60px;
+  height: 40px;
   width: 25vw;
   border-radius: 25px;
   border: 1px solid gray;
@@ -381,6 +431,11 @@ color: white;
   cursor: pointer;
 }
 
+.likeIconHome{
+  font-size:40px;
+  color: white;
+}
+
 button:focus {outline:0;}
 
 .confirmDelete{
@@ -399,8 +454,12 @@ button:focus {outline:0;}
 }
 
 .feedPost {
+  border: 1px solid grey;
+  border-radius: 10px;
   margin: auto;
+  height: 60vh;
   width: 50vw;
+  margin-bottom: 30px;
 }
 
 .tagsTitle{

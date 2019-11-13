@@ -17,9 +17,18 @@ function isLiked(value, theArray, postId){
     if(value){
        const myId = value._id;
        if(theArray.findIndex(theId => theId._id === myId) >= 0){
-         return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIcon"/>)
+         return( 
+             <div className='likeContainerHome'> 
+             <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIconHome"/> 
+             {theArray.length} Likes
+             </div>
+            )
        }else{
-          return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIcon"/>)
+          return(
+              <div className='likeContainerHome'>
+            <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIconHome"/>
+            <span>{theArray.length} Likes</span>
+            </div>)
        }
     }
  }
@@ -41,24 +50,31 @@ const sortedList = feedList.sort((a, b) => {
             <div>
             {feedList.length > 0 ? sortedList.map(eachPost => {
                 return <div className="col-s-12 feedPost" key={eachPost._id} >
-            <div>
+            <div className='homePostHeader'>
             <img src={eachPost.owner.imageUrl} style={{width:"50px", height:"50px", borderRadius:50}} alt="miniProfilePic"></img>
             
-           <Link style={{textDecoration: 'none'}} to={`/profile/${eachPost.owner._id}`}> {eachPost.owner.username}</Link>
+           <Link style={{textDecoration: 'none', fontSize:20, marginLeft:15}} to={`/profile/${eachPost.owner._id}`}> {eachPost.owner.username}</Link>
             </div>
 
-            <div className="worldImgContainer">
+            <div className="homeImgContainer">
             <img  className="worldImg" src={eachPost.image}  alt="worldPic" width="100%" height="300px"></img>
 
-            <Link to={`/post/${eachPost._id}`}> <div className="overlayContainer" >
-            <div className="textOverlay" id={eachPost._id}>See the full Post</div>
-            </div>
+            <div className="overlayContainer" >
+            <div className="textOverlay" id={eachPost._id}>
+            {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
+            <div className='commentlength-container'>{eachPost.comments.length} Comments</div>
+            <Link style={{textDecoration: 'none', color:'white'}} to={`/post/${eachPost._id}`}> 
+            <div className='fullPostText'>See the full Post</div>
             </Link>
             </div>
-            <p>{eachPost.likes.length} Likes</p>
-            {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
+            </div>
+           
+            </div>
+            <div className='homePostFoot'>
+            
             <p>{eachPost.caption}</p>
             <p>{postTime(eachPost.createdAt)}</p>
+            </div>
             </div>
             }): <div>START FOLLOWING PEOPLE <Link to='/world'>(SEE WORLD) </Link>OR UPLOAD YOUR OWN EXPERIENCES!</div>}
             </div>
