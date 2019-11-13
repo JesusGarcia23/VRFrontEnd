@@ -2,7 +2,7 @@ import React from 'react';
 import ThreeMap from './ThreeMap';
 import Likebtn from './/Likebtn';
 import CommentSection from './CommentSection';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 let height = "50vh"
 let width = "100vw"
@@ -38,20 +38,7 @@ window.addEventListener('MSFullscreenChange', exitFullscreen);
 
 const SinglePost = props => {
 
-      
-
-        // getData = async() => { 
-        //     // return this.props.myUrl
-        //     try {
-        //         await axios.get(`http://localhost:5000${this.props.match.url}`).then(response => {
-        //           this.setState({
-        //             images: response.data
-        //           });
-        //         });
-        //       } catch (err) {
-        //         console.log(err);
-        //       }
-        // }
+    
         function goBack(){
           const  { goBack } = props.history
           goBack();
@@ -81,9 +68,27 @@ const SinglePost = props => {
           return new Date(e).toDateString()
         }
 
+        const commentList = (allComments) => {
+          console.log(allComments)
+          return (
+            <div className="listOfComments">
+            {allComments.map(eachComment => {
+              return (
+                <div>
+                <Link to={`/profile/${eachComment.user._id}`}>
+                <span className='userCommentName'><img src={`${eachComment.user.imageUrl}`} style={{width:"30px", height:"30px", borderRadius:50}} alt='commentPicUser' ></img> {eachComment.user.username} </span>
+                </Link>
+                <span>{eachComment.comment}</span>
+                </div>
+                )
+            })}
+            </div>
+          )
+        }
 
-        console.log("PROPS!")
-      console.log(props)
+
+      //   console.log("PROPS!")
+      // console.log(props)
       const id = props.match.params.id
 
       const theArr = props.postValues.filter(eachItem => {
@@ -119,6 +124,7 @@ const SinglePost = props => {
                 </div>
                 </div>
                <p>{postTime(thePost.createdAt)}</p>
+               {commentList(thePost.comments)}
                {props.currentUser && <CommentSection comment={props.comment} allPostComments={thePost.comments} updateComment={props.onChangeValue} handleComment={props.handleComment} postId={thePost._id}/>}
                
                 </div>

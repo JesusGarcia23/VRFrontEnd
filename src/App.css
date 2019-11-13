@@ -316,3 +316,7 @@ button:focus {outline:0;}
   width: 30px;
   border-radius: 50%;
 }
+
+.userCommentName:hover{
+cursor: pointer;
+}
