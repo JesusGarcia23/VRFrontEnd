@@ -28,7 +28,7 @@ const CommentSection = (props) => {
       }
 
     return (
-        <div className='commentInput'>
+        <div>
         {props.allPostComments && commentList(props.allPostComments)}
         {props.currentUser && 
             <div>

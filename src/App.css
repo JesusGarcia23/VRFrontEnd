@@ -347,7 +347,7 @@ opacity: 1;
 .CommentsContainer{
   float: left;
   border: 1px solid green;
-  height: 26vh;
+  height: 20vh;
   width: 32vw;
   overflow: auto;
 }
@@ -355,6 +355,11 @@ opacity: 1;
 .CommentsContainer::-webkit-scrollbar { 
   display: none; 
 } 
+
+.commentInput{
+margin-top: 3vh;
+width: 20vw;
+}
 
 .userCommentName:hover{
 cursor: pointer;
@@ -517,9 +522,18 @@ button:focus {outline:0;}
   margin: 10px 0px 10px 26vw;
 }
 
-
 .notification-userImage img{
   height: 30px;
   width: 30px;
   border-radius: 50%;
+}
+
+.notificationText{
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+.postPictureNoti{
+  margin-left: 20px;
+  float: right;
 }
