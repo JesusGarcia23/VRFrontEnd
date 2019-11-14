@@ -2,7 +2,7 @@ import React from 'react';
 import ThreeMap from './ThreeMap';
 import Likebtn from './/Likebtn';
 import CommentSection from './CommentSection';
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 let height = "50vh"
 let width = "100vw"

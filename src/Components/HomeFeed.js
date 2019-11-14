@@ -60,16 +60,15 @@ const sortedList = feedList.sort((a, b) => {
             <img  className="worldImg" src={eachPost.image}  alt="worldPic" width="100%" height="300px"></img>
 
             <div className="overlayContainer" >
+
             <div className="textOverlay" id={eachPost._id}>
-            <div>
-            
-            </div>
             {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
             <div className='commentlength-container'>{eachPost.comments.length} Comments</div>
             <Link style={{textDecoration: 'none', color:'white'}} to={`/post/${eachPost._id}`}> 
             <div className='fullPostText'>See the full Post</div>
             </Link>
             </div>
+            
             </div>
            
             </div>

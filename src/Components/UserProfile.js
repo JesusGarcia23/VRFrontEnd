@@ -66,26 +66,30 @@ return (
     const pics = images.filter(image => image.owner._id === profileId)
 
     const userDetails = users.filter(theUser => theUser._id === profileId)[0]
-    if (currentUser && userDetails) {
+    if (userDetails) {
         return (
-            <div>
+            <div className='profileContainer'>
             {(theUserId !== profileId) ? <button onClick={goBack}>Go back</button> : ''}
                 <div className="user-profile">
-                    {currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
-                    <p>{userDetails.username}</p>
-                    <p>{userDetails.bio}</p>
+                   <span className="user-profile-img">{currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}</span> 
+                    
+                   <div>
+                   <div className='user-profile-username'>{userDetails.username}</div>
+                    <div className='user-profile-bio'>{userDetails.bio}</div>
+                    </div>
+
                     <Link to={`/followers/${profileId}`}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
                   <Link to={`/following/${profileId}`}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
                   
                   {haveLogout(userDetails.followers)}
                   {showEdit && <EditUser handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile}/>}
                 </div>
-                    <div className="worldContainer" >
+                    <div className="profilePostContainer" >
                         {pics && pics.map(pic => {
                             return (
-                            <div className="col col-s-12 worldPost" key={pic._id} >
-                                <div className="worldImgContainer">
-                                    <img className="worldImg" src={pic.image} alt="worldPic" width="100%" height="300px" />
+                            <div className="profilePost" key={pic._id} >
+                                <div className="profileImgContainer">
+                                    <img className="profileImg" src={pic.image} alt="worldPic" width="100%" height="300px" />
                                     <Link to={`/post/${pic._id}`}> <div className="overlayContainer" >
                                         <div className="textOverlay" id={pic._id}>See the full Post</div>
                                     </div>
