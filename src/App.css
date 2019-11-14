@@ -533,6 +533,10 @@ button:focus {outline:0;}
   font-size: 12px;
 }
 
+.notifiUser{
+  font-weight: bold;
+}
+
 .postPictureNoti{
   margin-left: 20px;
   float: right;

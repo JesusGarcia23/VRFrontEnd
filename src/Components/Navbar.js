@@ -23,9 +23,10 @@ return(
         if(eachNotification.type === "Like" || eachNotification.type === "Comment" ){
           return (
             <React.Fragment key={eachNotification._id}>
-            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`} style={{width:'19.5vw'}}>
+            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`} style={{width:'19.8vw'}}>
             <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
-            <span className='notificationText'>{eachNotification.fromWho.username} {eachNotification.event}</span> 
+            <span className='notificationText'>
+            <span className='notifiUser'>{eachNotification.fromWho.username}</span> {eachNotification.event}</span> 
            <span className='postPictureNoti'><img src={eachNotification.imageTo.image} style={{width:"30px", height:"30px", borderRadius:50}} alt='notiPostPicture'></img></span>
             </NavDropdown.Item>
           <NavDropdown.Divider />
