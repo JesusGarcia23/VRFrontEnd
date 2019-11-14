@@ -13,9 +13,17 @@ const WorldPost = props => {
       if(value){
          const myId = value._id;
          if(theArray.findIndex(theId => theId._id === myId) >= 0){
-           return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIcon"/>)
+           return( 
+              <div className='likeContainerWorld'>
+            <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIconWorld"/>
+            <span>{theArray.length} Likes</span>
+            </div>)
          }else{
-            return( <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIcon"/>)
+            return(
+               <div className='likeContainerWorld'>
+               <Likebtn onLike={props.handleLike} postId={postId} theIcon="far fa-heart likeIconWorld"/>
+               <span>{theArray.length} Likes</span>
+               </div>)
          }
       }
    }
@@ -37,26 +45,30 @@ if(arrayOfPosts.length > 0){
      return(
         <React.Fragment>
          <div>
-         <h1>World</h1>
+         <h1>Explore the World</h1>
          <div className="worldContainer">
          {arrayOfPosts && arrayOfPosts.map(image => {
             return <div className="worldPost" key={image._id} >
-            <div>
-            <img src={image.owner.imageUrl} style={{width:"50px", height:"50px", borderRadius:50}} alt="miniProfilePic"></img>
-            
-           <Link to={`/profile/${image.owner._id}`}> {image.owner.username}</Link>
-            </div>
 
             <div className="worldImgContainer">
             <img  className="worldImg" src={image.image}  alt="worldPic" width="100%" height="300px"></img>
 
-            <Link to={`/post/${image._id}`}> <div className="overlayContainer" >
-            <div className="textOverlay" id={image._id}>See the full Post</div>
+            <div className="overlayContainer" >
+            <div className='worldPostheader'>
+            <img src={image.owner.imageUrl} style={{width:"70px", height:"70px", borderRadius:50, marginRight:'1vw'}} alt="miniProfilePic"></img>
+            
+           <Link to={`/profile/${image.owner._id}`} style={{textDecoration: 'none', color:'white', fontSize:20}}> {image.owner.username}</Link>
             </div>
-            </Link>
-            </div>
-            <p>{image.likes.length} Likes</p>
+
+            <div className="textOverlayWorld" id={image._id}>
             {isLiked(props.currentUser, image.likes, image._id)}
+            <div className='Worldcommentlength-container'>{image.comments.length} Comments</div>
+            <Link to={`/post/${image._id}`} style={{textDecoration: 'none', color:'white'}}><div className='fullPostText'>See the full Post</div></Link>
+            </div>    
+            </div>
+            
+            </div>
+          
             </div>
          })}
          

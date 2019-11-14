@@ -20,7 +20,7 @@ function isLiked(value, theArray, postId){
          return( 
              <div className='likeContainerHome'> 
              <Likebtn onLike={props.handleLike} postId={postId} theIcon="fas fa-heart likeIconHome"/> 
-             {theArray.length} Likes
+             <span>{theArray.length} Likes</span>
              </div>
             )
        }else{
@@ -61,6 +61,9 @@ const sortedList = feedList.sort((a, b) => {
 
             <div className="overlayContainer" >
             <div className="textOverlay" id={eachPost._id}>
+            <div>
+            
+            </div>
             {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
             <div className='commentlength-container'>{eachPost.comments.length} Comments</div>
             <Link style={{textDecoration: 'none', color:'white'}} to={`/post/${eachPost._id}`}> 
