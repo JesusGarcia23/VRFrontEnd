@@ -18,13 +18,13 @@ const Location = (props) => {
 
     return (
         <div>
-            WAITING FOR API TO WORK
+            {/* WAITING FOR API TO WORK
             {coordinates &&
                 console.log(Geocode.fromLatLng(coordinates.lat, coordinates.long))
-                &&
-                <p> Hello World</p>
+                && */}
+            <p> Hello World</p>
 
-            }
+
 
         </div>
     );

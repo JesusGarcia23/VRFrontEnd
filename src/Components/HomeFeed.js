@@ -2,6 +2,7 @@ import React from 'react';
 import Likebtn from './Likebtn'
 import { Link } from 'react-router-dom';
 import Location from './utils/Location';
+import Maps from './Places'
 
 
 
@@ -68,8 +69,27 @@ const HomeFeed = props => {
                             {isLiked(props.currentUser, eachPost.likes, eachPost._id)}
                             <p>{eachPost.caption}</p>
                             <p>{postTime(eachPost.createdAt)}</p>
+
+
+                            {
+                                eachPost.coordinates !== undefined ?
+                                    <div className="">
+                                        <Maps
+
+                                            images={eachPost.coordinates}
+                                        />
+                                    </div>
+                                    :
+                                    "No Location"
+
+                            }
+
+
+
+
                         </div>
-                    }) : <div>START FOLLOWING PEOPLE <Link to='/world'>(SEE WORLD) </Link>OR UPLOAD YOUR OWN EXPERIENCES!</div>}
+                    })
+                        : <div>START FOLLOWING PEOPLE <Link to='/world'>(SEE WORLD) </Link>OR UPLOAD YOUR OWN EXPERIENCES!</div>}
                 </div>
             </div>
         )
