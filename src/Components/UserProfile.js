@@ -53,10 +53,7 @@ return (
         if(theUserId === profileId){
         return (
         <React.Fragment>
-        <button className="btn btn-sm btn-danger" onClick={e => props.confirmDelete()} >
-        Delete
-        </button>
-        <button onClick={ e => {props.handleEdit(e, thePostId)}}>Edit</button>
+        <div className='editOrDeletePost'><i class="fas fa-edit editIcon" onClick={ e => {props.handleEdit(e, thePostId)}}></i> <i class="fas fa-trash-alt deleteIcon" onClick={e => props.confirmDelete()}></i></div>
     </React.Fragment>)
         }else{
 
@@ -97,12 +94,14 @@ return (
                             <div className="profilePost" key={pic._id} >
                                 <div className="profileImgContainer">
                                     <img className="profileImg" src={pic.image} alt="worldPic" width="100%" height="300px" />
-                                    <Link to={`/post/${pic._id}`}> <div className="overlayContainer" >
-                                        <div className="textOverlay" id={pic._id}>See the full Post</div>
+                                     <div className="profileOverlayContainer" >
+                                        <div className="textOverlayProfile" id={pic._id}>
+                                        {havePermission(pic._id)}
+
+                                        <Link to={`/post/${pic._id}`} style={{ textDecoration: 'none', color:'white'}}>See the full Post</Link>
+                                       </div>
                                     </div>
-                                    </Link>
                                 </div>
-                                {havePermission(pic._id)}
                                 {pic.modal && <Editpost image={pic} handleUpdate={props.onChangeValue} submitUpdate={props.updatePost}></Editpost>}
 
 

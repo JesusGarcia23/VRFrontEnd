@@ -1,8 +1,21 @@
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom'
+import {Link, Redirect, useHistory} from 'react-router-dom'
 import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
 
+
 const NavBar = (props) =>{
+
+  window.addEventListener('keydown', function (event) {
+
+    // if the keyCode is 13 ( enter key was pressed )
+    if (event.keyCode === 13) {
+  
+        // prevents default behaviour
+        event.preventDefault();
+        console.log(useHistory)
+    }
+  
+  });
 
   function displayNotifications(notifications){
     console.log("WORKING")
@@ -73,7 +86,8 @@ if(props){
               <Nav.Link href="/newPost">New Experience</Nav.Link>
               {displayNotifications(props.notifications)}
               <Form inline>
-              <FormControl type="text" placeholder="Search" value={props.queryInput}  onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2" />
+              <FormControl type="text" placeholder="Search" onChange={ e => {props.onChangeValue(e.currentTarget.value)}} name='queryInput' className="mr-sm-2" />
+
             </Form>
             <Link to={`/profile/${props.currentUser._id}`} className='nav-link'>Profile</Link>
               </Nav> : 

@@ -36,8 +36,15 @@ if(query !== ''){
 let queryList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(theQuery)})
 arrayOfPosts = queryList
 }else{
-   if(props.allPosts.length > 0){
+   console.log(window.location.pathname.split('/'))
+   let theLocation = window.location.pathname.split('/')
+   console.log(theLocation)
+   let theWord = theLocation[theLocation.length - 1]
+   if(props.allPosts.length > 0 && theWord === ''){
    arrayOfPosts = props.allPosts
+   }else{
+      let paramList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(theWord)})
+      arrayOfPosts = paramList
    }
 }
 

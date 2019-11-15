@@ -32,7 +32,7 @@ class PostForm extends React.Component{
         "display": "block",
         "margin-top": "100px",
         "margin-left": "auto",
-        "margin-right": "auto",
+        marginRight: "auto",
         "max-width": "600px",
         "height": "300px",
         alignText: "center",
@@ -51,7 +51,7 @@ class PostForm extends React.Component{
     textTagsArea = {
         height: "50px",
         width: "40vw",
-        'margin-right': '50px'
+        marginRight: '50px'
     }
 
     canvasContainer = {
@@ -75,8 +75,8 @@ class PostForm extends React.Component{
 
     tagsContainer = {
         display: "flex",
-        'justify-content': 'flex-start',
-        'align-items': "center",
+        justifyContent: 'flex-start',
+        alignItems: "center",
         border: "1px solid black",
 
     }
@@ -147,7 +147,7 @@ console.log(e.target);
             <form style={this.formStyle} onSubmit={this.props.handleSubmit}>
 
             <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
-            <label for="myFileList">Choose a file</label>
+            <label htmlFor="myFileList">Choose a file</label>
             <label>(File size max 10 Mb)</label>
 
             <button onClick={this.removePicture} className="removeBtn">REMOVE</button>
