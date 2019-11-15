@@ -10,6 +10,7 @@
     "react-bootstrap": "^1.0.0-beta.14",
     "react-bootstrap-sweetalert": "^5.0.1",
     "react-dom": "^16.10.2",
+    "react-geocode": "^0.2.1",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "three": "^0.109.0",

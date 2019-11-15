@@ -16,6 +16,7 @@ import WorldPost from './Components/WorldPost';
 //CLOUDINARY
 import service from './api/service';
 import NavBar from './Components/Navbar';
+import Maps from './Components/Places'
 
 
 class App extends Component {
@@ -46,8 +47,17 @@ class App extends Component {
     message: "",
     singlePost: null,
     showEdit: false,
-    queryInput: ''
+    queryInput: '',
+    coordinates: {
+      lat: 0,
+      long: 0
+    }
   };
+
+
+
+
+
 
   async componentDidMount() {
     await this.get_data_torender()
@@ -118,6 +128,19 @@ class App extends Component {
           console.log(err)
         });
 
+    }
+  }
+
+  handleCoordinates = (coordinate) => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this.setState({
+          coordinates: {
+            lat: position.coords.latitude,
+            long: position.coords.longitude
+          }
+        })
+      })
     }
   }
 
@@ -564,7 +587,7 @@ class App extends Component {
           <Route exact path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser} query={this.state.queryInput} />} />
           <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />} />
           <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />)} />
-          <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state} />} />
+          <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} handleCoords={this.handleCoordinates} formValues={this.state} />} />
           <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser={this.state.currentUser} onUserChange={userDoc => this.syncCurrentUser(userDoc)} formValues={this.state} />}></Route>
           <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm} handleSubmit={this.loginUser} currentUser={this.state.currentUser} formValues={this.state} />}></Route>
           <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar} />}></Route>

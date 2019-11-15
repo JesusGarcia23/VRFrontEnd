@@ -1,7 +1,9 @@
 import React from 'react';
 import Likebtn from './Likebtn'
 import { Link } from 'react-router-dom';
-import Maps from './Places';
+import Location from './utils/Location';
+
+
 
 const HomeFeed = props => {
     let feedList = []
@@ -43,9 +45,15 @@ const HomeFeed = props => {
                     {feedList.length > 0 ? sortedList.map(eachPost => {
                         return <div className=" col-s-12 feedPost" key={eachPost._id} >
                             <div>
+
                                 <img src={eachPost.owner.imageUrl} style={{ width: "50px", height: "50px", borderRadius: 50 }} alt="miniProfilePic"></img>
 
                                 <Link to={`/profile/${eachPost.owner._id}`}> {eachPost.owner.username}</Link>
+                                <p>
+                                    <Location
+                                        images={eachPost}
+                                    />
+                                </p>
                             </div>
 
                             <div className="worldImgContainer">
@@ -63,7 +71,6 @@ const HomeFeed = props => {
                         </div>
                     }) : <div>START FOLLOWING PEOPLE <Link to='/world'>(SEE WORLD) </Link>OR UPLOAD YOUR OWN EXPERIENCES!</div>}
                 </div>
-                <Maps />
             </div>
         )
     } else {
