@@ -78,9 +78,16 @@ return (
                     <div className='user-profile-bio'>{userDetails.bio}</div>
                     </div>
 
+                    <div className='userPostAndFollowers'>
+                    <div className='userPostCounter'>
+                    Posts: {pics.length}
+                    </div>
+                    <div className='userFollowersContainer'>
                     <Link to={`/followers/${profileId}`}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
                   <Link to={`/following/${profileId}`}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
-                  
+                  </div>
+                  </div>
+
                   {haveLogout(userDetails.followers)}
                   {showEdit && <EditUser handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile}/>}
                 </div>
