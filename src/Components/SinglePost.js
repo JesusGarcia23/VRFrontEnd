@@ -2,7 +2,9 @@ import React from 'react';
 import ThreeMap from './ThreeMap';
 import Likebtn from './/Likebtn';
 import CommentSection from './CommentSection';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
+import Editpost from './Editpost'
 
 let height = "50vh"
 let width = "100vw"
@@ -68,6 +70,22 @@ const SinglePost = props => {
           return new Date(e).toDateString()
         }
 
+        //CHECK USER WITH THE POST
+        const checkOwner = (thePost, user) => {
+          let thePostId = ''
+          let userId = ''
+          let thePostOwner = ''
+          if(user)
+          userId = user._id;
+          if(thePost){
+            thePostId = thePost._id
+            thePostOwner = thePost.owner._id
+          }
+          if(userId === thePostOwner){
+            return <div className='editOrDeletePost'><i className="fas fa-edit editIcon" onClick={ e => {props.handleEdit(e, thePostId)}}></i> <i className="fas fa-trash-alt deleteIcon" onClick={e => props.confirmDelete()}></i></div>
+          }
+        }
+
       //   console.log("PROPS!")
       // console.log(props)
       const id = props.match.params.id
@@ -82,11 +100,12 @@ const SinglePost = props => {
             return(
               <React.Fragment>
                 <div className="singlePost">
+                {thePost.modal && <Editpost image={thePost} handleUpdate={props.onChangeValue} submitUpdate={props.updatePost}></Editpost>}
                 <div className="singlePostHeader">
                 <button className='goBack-btn' onClick={goBack}><i class="fas fa-arrow-left"></i></button>
                 <img src={thePost.owner.imageUrl}  style={{width:"65px", height:"65px", borderRadius:50, marginLeft:30, marginRight:30}} alt="miniProfilePic"></img>
             <Link style={{textDecoration: 'none'}} to={`/profile/${thePost.owner._id}`}>{thePost.owner.username}</Link>
-                
+                {checkOwner(thePost, props.currentUser)}
                 </div>
                 <div>
                 <ThreeMap url={thePost.image} height={height} width={width}/>
@@ -121,7 +140,24 @@ const SinglePost = props => {
                 </div>
 
                 </div>
-             
+            
+                {props.showConfirm === true &&
+                  <SweetAlert
+                      warning
+                      showCancel
+                      confirmBtnText="Confirm!"
+                      confirmBtnBsStyle="danger"
+                      cancelBtnBsStyle="default"
+                      confirmBtnCssClass="confirmDelete"
+                      title="Are you sure?"
+                      onConfirm={e => props.onDelete(thePost._id)}
+                      onCancel={e => props.cancelDelete()}
+                  >
+                      Do you want to delete this post?
+             </SweetAlert>
+              }
+
+
                 </div>
                 </React.Fragment>
             )

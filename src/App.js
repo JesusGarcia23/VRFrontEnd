@@ -333,6 +333,8 @@ console.log(theIndex)
  axios.post(`http://localhost:5000/delete/${thePostId}`)
  .then(responseFromBackend => console.log(responseFromBackend))
  .catch(err => console.log(err))
+
+ window.location = '/home'
 }
 
 confirmDelete = e => {
@@ -350,6 +352,7 @@ cancelDelete = e => {
 
 //EDIT POSTS
 editPost = (e, theValue) => {
+  console.log(theValue)
   e.preventDefault();
   const postList = [...this.state.images]
   const theIndex = postList.findIndex(thePost => thePost._id === theValue)
@@ -569,7 +572,7 @@ updateQueryBar = (theTag) => {
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state} />}></Route>
-        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} handleLike={this.handleLike} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar}/>}></Route>
+        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} onDelete={this.handleDelete} cancelDelete={this.cancelDelete} confirmDelete={this.confirmDelete} showConfirm={this.state.showConfirm} handleLike={this.handleLike} handleEdit={this.editPost} updatePost={this.updatePost} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar}/>}></Route>
         <Route exact path='/followers/:id' render={(props) => <FollowerList {...props} allUsers={this.state.users}/>}/>
         <Route exact path='/following/:id' render={(props) => <FollowingList {...props} allUsers={this.state.users}/>}/>
         <Route exact path="/profile/:id" render={(props) => 
@@ -578,18 +581,12 @@ updateQueryBar = (theTag) => {
             images = {this.state.images} 
             currentUser = {this.state.currentUser} 
             users={this.state.users}
-            showEdit={this.state.showEdit}
-            confirmDelete={this.confirmDelete}
-            onDelete={this.handleDelete}
-            cancelDelete={this.cancelDelete}
-            showConfirm={this.state.showConfirm}
+            showEdit={this.state.showEdit} 
             handleFollow={this.handleFollow}
-            handleEdit={this.editPost}
             onChangeValue={this.updateForm}
             handleEditProfile={this.showEditUser}
             changeFile={this.changeFile}
             updateUser={this.updateUser}
-            updatePost={this.updatePost}
             />) : 
           (<Redirect to="/login"/>)}/>
         

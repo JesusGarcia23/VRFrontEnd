@@ -8,8 +8,6 @@ const WorldPost = props => {
    let arrayOfPosts = []
 
    function isLiked(value, theArray, postId){
-      console.log("LIST OF LIKES")
-      console.log(theArray)
       if(value){
          const myId = value._id;
          if(theArray.findIndex(theId => theId._id === myId) >= 0){
@@ -88,9 +86,3 @@ if(currentUser && arrayOfPosts.length > 0){
 
 
 export default WorldPost;
-
-// <div className='worldOverlayText'>
-// {isLiked(props.currentUser, image.likes, image._id)}
-// 
-// <Link to={`/post/${image._id}`} style={{textDecoration: 'none', color:'white'}}><div className='fullPostText'> See the full Post</div></Link>
-// </div>

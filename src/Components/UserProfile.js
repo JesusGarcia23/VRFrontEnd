@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import EditUser from './EditUser'
-import Editpost from '../Components/Editpost'
-import SweetAlert from 'react-bootstrap-sweetalert'
 
 
 const UserProfile = (props) => {
@@ -22,23 +20,9 @@ const UserProfile = (props) => {
         </div>
         }else{
             if(userFollowers.indexOf(theUserId) >= 0){
-return (
-    <button
-                    className="btn btn-sm  btn-primary"
-                    onClick={e => props.handleFollow(profileId)}
-                >
-                    <i className="fa fa-user-minus"> Unfollow </i>
-                </button>
-)
+return (<button className="btn btn-sm  btn-primary" onClick={e => props.handleFollow(profileId)}><i className="fa fa-user-minus"> Unfollow </i></button>)
         }else{
-            return (
-                <button
-                                className="btn btn-sm  btn-primary"
-                                onClick={e => props.handleFollow(profileId)}
-                            >
-                                <i className="fa fa-user-plus"> Follow </i>
-                            </button>
-            )
+            return (<button className="btn btn-sm  btn-primary" onClick={e => props.handleFollow(profileId)}><i className="fa fa-user-plus"> Follow </i></button> )
         }
     }
     }
@@ -50,7 +34,7 @@ return (
         <div className='editOrDeletePost'><i class="fas fa-edit editIcon" onClick={ e => {props.handleEdit(e, thePostId)}}></i> <i class="fas fa-trash-alt deleteIcon" onClick={e => props.confirmDelete()}></i></div>
     </React.Fragment>)
         }else{
-
+            return;
         }
     }
 
@@ -80,8 +64,12 @@ return (
                     Posts: {pics.length}
                     </div>
                     <div className='userFollowersContainer'>
-                    <Link to={`/followers/${profileId}`}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
-                  <Link to={`/following/${profileId}`}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
+                    <div>
+                    <Link to={`/followers/${profileId}`} style={{textDecoration: 'none', color: 'black'}}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
+                    </div>
+                    <div>
+                  <Link to={`/following/${profileId}`} style={{textDecoration: 'none', color: 'black'}}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
+                  </div>
                   </div>
                   </div>
 
@@ -100,24 +88,6 @@ return (
                                        </div>
                                     </div>
                                 </div>
-                                {pic.modal && <Editpost image={pic} handleUpdate={props.onChangeValue} submitUpdate={props.updatePost}></Editpost>}
-
-
-                                {props.showConfirm === true &&
-                                    <SweetAlert
-                                        warning
-                                        showCancel
-                                        confirmBtnText="Confirm!"
-                                        confirmBtnBsStyle="danger"
-                                        cancelBtnBsStyle="default"
-                                        confirmBtnCssClass="confirmDelete"
-                                        title="Are you sure?"
-                                        onConfirm={e => props.onDelete(pic._id)}
-                                        onCancel={e => props.cancelDelete()}
-                                    >
-                                        Do you want to delete this post?
-                               </SweetAlert>
-                                }
 
                             </div>
                             )
@@ -137,9 +107,3 @@ return (
 }
 
 export default UserProfile;
-
-          //<button
-            //     onClick={props.onLogout}
-            //     className="btn btn-sm btn-danger">
-            //     Logout
-            // </button>

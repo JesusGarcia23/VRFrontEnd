@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap'
 
 
 const NavBar = (props) =>{
@@ -68,7 +68,7 @@ if(props){
 
             <Link to={`/profile/${props.currentUser._id}`} className='nav-link'><i className="fas fa-user" style={{marginRight:3}}></i>Profile</Link>
             <NavDropdown title={<i class="fas fa-cog"></i>} id="basic-nav-dropdown">
-            <NavDropdown.Item onClick={props.onLogout}>Logout</NavDropdown.Item>
+            <NavDropdown.Item onClick={props.onLogout} style={{color: 'red'}}>Logout</NavDropdown.Item>
             </NavDropdown>
               </Nav> : 
               <Nav className="mr-auto">
@@ -84,12 +84,3 @@ if(props){
         }
 
 export default NavBar;
-
-// <NavDropdown title="Notifications" id="basic-nav-dropdown">
-// {displayNotifications(props.notifications)}
-// <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-// <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-// <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-
-// <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-// </NavDropdown>

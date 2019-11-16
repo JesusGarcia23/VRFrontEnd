@@ -29,6 +29,7 @@ const EditUser = (props) => {
     return(
         <div className='editUserFormContainer'>
         <div className='editUserHeader'>
+        <h2>Update your Profile</h2>
         <button onClick={e => {props.exitEdit(e)}} className='exitBtnEditUser'><i class="fas fa-times"></i></button>
         </div>
         <form onSubmit={ e => props.submitUpdate(e, currentUser)}>
