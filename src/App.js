@@ -573,7 +573,7 @@ updateQueryBar = (theTag) => {
        
         <NavBar currentUser={this.state.currentUser} notifications={this.state.notifications} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}   onLogout={this.logoutUser} actualUrl={window.location}/>
         <Switch>
-        <Route exact path="/" component={Home}/>
+        <Route exact path="/" render={(props) => !this.state.currentUser ? <Home/> : (<Redirect to="/home"/>)}/>
         <Route path="/world" render={(props) =>  <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser} query={this.state.queryInput} onChangeValue={this.updateForm} />}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />) }/>
