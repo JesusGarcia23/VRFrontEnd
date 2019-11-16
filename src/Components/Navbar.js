@@ -71,7 +71,7 @@ if(props){
               {displayNotifications(props.notifications)}
 
             <Link to={`/profile/${props.currentUser._id}`} className='nav-link'><i className="fas fa-user" style={{marginRight:3}}></i>Profile</Link>
-            <NavDropdown title={<i class="fas fa-cog"></i>} id="basic-nav-dropdown">
+            <NavDropdown title={<i class="fas fa-cog"></i>} id="basic-nav-dropdown" className='gearUserNav'>
             <NavDropdown.Item onClick={props.onLogout} style={{color: 'red'}}>Logout</NavDropdown.Item>
             </NavDropdown>
               </Nav> : 

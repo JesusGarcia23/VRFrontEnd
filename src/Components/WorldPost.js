@@ -73,9 +73,13 @@ if(currentUser && arrayOfPosts.length > 0){
          </div>
          </div>
      )
-   }else if(currentUser && arrayOfPosts.length === 0){
+   }else if(currentUser && arrayOfPosts.length === 0 && query ){
       return (
-         <div>NO POSTS!</div>
+         <div>
+         <input type="text" placeholder="Search" onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2" />
+         <h1>Explore the World</h1>
+         <div>OH NO! THERE ARE NO POSTS!</div>
+         </div>
       )
    }else{
       return (
