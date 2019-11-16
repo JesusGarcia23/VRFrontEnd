@@ -18,6 +18,8 @@ if(a.createdAt < b.createdAt){
   return 0
 }
       })
+
+if(notifications.length > 0){
 return(
       <NavDropdown title="Notifications" id="basic-nav-dropdown">
       {notifications && notifications.map(eachNotification => {
@@ -44,21 +46,23 @@ return(
           </React.Fragment>
           )
         }else{
-          return '';
+          return;
         }
     
       })}
     </NavDropdown>
-    )
+    )}
 
-    }
-  }
+    }else{
+      return  (<NavDropdown title="Notifications" id="basic-nav-dropdown"></NavDropdown>)
+          }
+  }  
   
 if(props){
         return(
           <React.Fragment>
           <Navbar bg="dark" variant='dark' expand="lg">
-          <Navbar.Brand href="/home">TriShare</Navbar.Brand>
+          <Link to="/home" className='nav-link navBarBrand'>TriShare</Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           {props.currentUser ? <Nav className="mr-auto">
