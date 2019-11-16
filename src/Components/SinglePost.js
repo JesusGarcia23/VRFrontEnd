@@ -100,7 +100,10 @@ const SinglePost = props => {
             return(
               <React.Fragment>
                 <div className="singlePost">
-                {thePost.modal && <Editpost image={thePost} handleUpdate={props.onChangeValue} submitUpdate={props.updatePost}></Editpost>}
+                {thePost.modal && 
+                  <div className='editUserProfileContainer'>
+                  <Editpost exitEdit={props.handleEdit} image={thePost} handleUpdate={props.onChangeValue} submitUpdate={props.updatePost}></Editpost>
+                  </div>}
                 <div className="singlePostHeader">
                 <button className='goBack-btn' onClick={goBack}><i class="fas fa-arrow-left"></i></button>
                 <img src={thePost.owner.imageUrl}  style={{width:"65px", height:"65px", borderRadius:50, marginLeft:30, marginRight:30}} alt="miniProfilePic"></img>
@@ -129,9 +132,9 @@ const SinglePost = props => {
                 {thePost.caption}
                 <div className='tagName'>
                 {thePost.tags.map(eachTag => {
-                  return <Link to='/world' style={{fontSize:20}} key={eachTag} onClick={e => props.updateQuery(eachTag)}>#{eachTag} </Link>
-                }
-                  )}
+                    return <Link to='/world' style={{fontSize:20}} key={eachTag} onClick={e => props.updateQuery(eachTag)}>#{eachTag} </Link>
+                  }
+                    )}
                 </div>
                 </div>
 
@@ -171,3 +174,8 @@ const SinglePost = props => {
 }
 
 export default SinglePost;
+
+// {thePost.tags.map(eachTag => {
+//   return <Link to='/world' style={{fontSize:20}} key={eachTag} onClick={e => props.updateQuery(eachTag)}>#{eachTag} </Link>
+// }
+//   )}

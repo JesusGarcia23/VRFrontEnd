@@ -46,7 +46,6 @@ class App extends Component {
       message: "",
       singlePost: null,
       showEdit: false,
-      showHello: true,
       queryInput: ''
     };
   
@@ -353,7 +352,7 @@ cancelDelete = e => {
 //EDIT POSTS
 editPost = (e, theValue) => {
   console.log(theValue)
-  e.preventDefault();
+  // e.preventDefault();
   const postList = [...this.state.images]
   const theIndex = postList.findIndex(thePost => thePost._id === theValue)
  let postToEdit = postList[theIndex]
@@ -371,21 +370,27 @@ const imageList = [...this.state.images];
 const theIndex = imageList.indexOf(thePost)
 let captionToUse = '';
 let tagToUse = []
+let tagsArray = []
+let finalArray = []
 tagToUse = tags
 captionToUse = caption
-
+console.log(theIndex)
 if(captionToUse.length === 0){
-  console.log("THERE IS NOTHING!")
   captionToUse = imageList[theIndex].caption
 }if(tagToUse.length === 0){
   tagToUse = imageList[theIndex].tags 
 }else{
-imageList[theIndex].caption = caption
-imageList[theIndex].tags = [tags]
+
 }
 
+tagsArray = tagToUse.split(/[.,\/ -#]/)
+finalArray = tagsArray.filter(eachTag =>{ return eachTag !== "" })
+
+imageList[theIndex].caption = captionToUse
+imageList[theIndex].tags = finalArray
 console.log(tagToUse)
 console.log(captionToUse)
+console.log(imageList[theIndex])
 imageList[theIndex].modal = !imageList[theIndex].modal
 
 this.setState({images: imageList}, () => 
@@ -395,6 +400,9 @@ axios.put(`http://localhost:5000/updatePost/${thePost._id}`, {caption: captionTo
     caption: '',
     tags: []
   })
+  //() => {
+  //   window.location = `/post/${thePost._id}`
+  // }
 }).catch(err => console.log("A problem happened getting the values!"))
 )
 }
