@@ -18,13 +18,7 @@ const UserProfile = (props) => {
     function haveLogout(userFollowers){
         if(theUserId === profileId){
             return   <div className="buttons" >
-            <button
-                onClick={props.onLogout}
-                className="btn btn-sm btn-danger">
-                Logout
-            </button>
-            <button onClick={props.handleEditProfile}>Edit Profile</button>
-
+            <button onClick={props.handleEditProfile} className='editUserProfileIcon'><i class="fas fa-user-edit"></i></button>
         </div>
         }else{
             if(userFollowers.indexOf(theUserId) >= 0){
@@ -66,10 +60,16 @@ return (
     if (userDetails) {
         return (
             <div className='profileContainer'>
+            {showEdit && <div className='editUserProfileContainer'>
+            <EditUser exitEdit={props.handleEditProfile} handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile}/>
+            </div>}
+               
             {(theUserId !== profileId) ? <button onClick={goBack}>Go back</button> : ''}
                 <div className="user-profile">
-                   <span className="user-profile-img">{currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}</span> 
-                    
+                   <span className="user-profile-img">{currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "150px", height: "150px"}} alt="profile-img" />}
+                   {haveLogout(userDetails.followers)}
+                   </span> 
+                  
                    <div>
                    <div className='user-profile-username'>{userDetails.username}</div>
                     <div className='user-profile-bio'>{userDetails.bio}</div>
@@ -85,9 +85,7 @@ return (
                   </div>
                   </div>
 
-                  {haveLogout(userDetails.followers)}
-                  {showEdit && <EditUser handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile}/>}
-                </div>
+                 </div>
                     <div className="profilePostContainer" >
                         {pics && pics.map(pic => {
                             return (
@@ -140,24 +138,8 @@ return (
 
 export default UserProfile;
 
-// class Profile extends React.Component{
-  
-
-// render(){
-//     const { currentUser } = this.props
-//     if(currentUser !== null){
-//         return (
-//             <div>
-//             <h1> HELL YEAH! PROFILE PAGE!</h1>
-//            </div>
-//         )
-//     }else{
-//     return (
-//         <div>GO TO LOGING PAGE!</div>
-//     )
-// }
-// }
-    
-// }
-
-// export default Profile;
+          //<button
+            //     onClick={props.onLogout}
+            //     className="btn btn-sm btn-danger">
+            //     Logout
+            // </button>

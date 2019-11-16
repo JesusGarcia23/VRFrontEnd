@@ -36,22 +36,15 @@ if(query !== ''){
 let queryList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(theQuery)})
 arrayOfPosts = queryList
 }else{
-   console.log(window.location.pathname.split('/'))
-   let theLocation = window.location.pathname.split('/')
-   console.log(theLocation)
-   let theWord = theLocation[theLocation.length - 1]
-   if(props.allPosts.length > 0 && theWord === ''){
    arrayOfPosts = props.allPosts
-   }else{
-      let paramList = props.allPosts.filter(eachPost => { return  eachPost.tags.join('').toLowerCase().includes(theWord)})
-      arrayOfPosts = paramList
    }
-}
+
 
 if(currentUser && arrayOfPosts.length > 0){
      return(
     
          <div>
+         <input type="text" placeholder="Search" onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2" />
          <h1>Explore the World</h1>
          <div className="worldContainer">
          {arrayOfPosts && arrayOfPosts.map(image => {

@@ -1,21 +1,9 @@
 import React from 'react';
-import {Link, Redirect, useHistory} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Navbar, Nav, NavDropdown, Form, FormControl} from 'react-bootstrap'
 
 
 const NavBar = (props) =>{
-
-  window.addEventListener('keydown', function (event) {
-
-    // if the keyCode is 13 ( enter key was pressed )
-    if (event.keyCode === 13) {
-  
-        // prevents default behaviour
-        event.preventDefault();
-        console.log(useHistory)
-    }
-  
-  });
 
   function displayNotifications(notifications){
     console.log("WORKING")
@@ -63,14 +51,6 @@ return(
     </NavDropdown>
     )
 
-      // notifications.map(eachNotifications => {
-      //   return (
-      //     <React.Fragment>
-      //     <NavDropdown.Item href="#action/3.1">{eachNotifications.event}</NavDropdown.Item>
-      //    
-      //     </React.Fragment>
-      //   )
-      // })
     }
   }
   
@@ -82,18 +62,18 @@ if(props){
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           {props.currentUser ? <Nav className="mr-auto">
-              <Nav.Link href="/world">World</Nav.Link>
-              <Nav.Link href="/newPost">New Experience</Nav.Link>
+              <Link to="/world" className='nav-link'>World</Link>
+              <Link to="/newPost" className='nav-link'>New Experience</Link>
               {displayNotifications(props.notifications)}
-              <Form inline>
-              <FormControl type="text" placeholder="Search" onChange={ e => {props.onChangeValue(e.currentTarget.value)}} name='queryInput' className="mr-sm-2" />
 
-            </Form>
-            <Link to={`/profile/${props.currentUser._id}`} className='nav-link'>Profile</Link>
+            <Link to={`/profile/${props.currentUser._id}`} className='nav-link'><i className="fas fa-user" style={{marginRight:3}}></i>Profile</Link>
+            <NavDropdown title={<i class="fas fa-cog"></i>} id="basic-nav-dropdown">
+            <NavDropdown.Item onClick={props.onLogout}>Logout</NavDropdown.Item>
+            </NavDropdown>
               </Nav> : 
               <Nav className="mr-auto">
-              <Nav.Link href="/login">Login</Nav.Link>
-              <Nav.Link href="/signup">Signup</Nav.Link>
+              <Link to="/login" className='nav-link'>Login</Link>
+              <Link to="/signup" className='nav-link'>Signup</Link>
               </Nav>
             }
           </Navbar.Collapse>

@@ -46,6 +46,7 @@ class App extends Component {
       message: "",
       singlePost: null,
       showEdit: false,
+      showHello: true,
       queryInput: ''
     };
   
@@ -167,19 +168,9 @@ get_notifications = async (userId) => {
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
-    e.preventDefault()
     console.log(e)
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
-    })
- 
-  }
-
-  //UPDATE QUERY NAVBAR
-  updateQuery = (e) => { 
-    console.log(e)
-    this.setState({
-      queryInput: e
     })
  
   }
@@ -565,14 +556,14 @@ updateQueryBar = (theTag) => {
   render() {
     console.log("LIST OF ALL NOTIFICATIONS")
     console.log(this.state.notifications)
+
     return (
       <div className="App">
        
-        <NavBar currentUser={this.state.currentUser} notifications={this.state.notifications} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl} queryInput={this.state.queryInput} onChangeValue={this.updateQuery}/>
-          
+        <NavBar currentUser={this.state.currentUser} notifications={this.state.notifications} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}   onLogout={this.logoutUser} actualUrl={window.location}/>
         <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/world" render={(props) =>  <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser} query={this.state.queryInput}/>}/>
+        <Route path="/world" render={(props) =>  <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser} query={this.state.queryInput} onChangeValue={this.updateForm} />}/>
         <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />}/>
         <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />) }/>
         <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
@@ -589,7 +580,6 @@ updateQueryBar = (theTag) => {
             users={this.state.users}
             showEdit={this.state.showEdit}
             confirmDelete={this.confirmDelete}
-            onLogout={this.logoutUser}
             onDelete={this.handleDelete}
             cancelDelete={this.cancelDelete}
             showConfirm={this.state.showConfirm}
