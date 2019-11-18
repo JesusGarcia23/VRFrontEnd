@@ -41,7 +41,7 @@ class PostForm extends React.Component{
 
     canvasContainer = {
         "display": "block",
-        "border": "1px solid green", 
+        "border": "1px solid gray", 
         "margin": "20px 6vw",
         height: "350px",
         width: "62vw"
@@ -120,7 +120,7 @@ console.log(e.target);
         if(currentUser && !postMade){
         return(
             <div className="formPost">
-            <h1>New Post</h1>
+            <h1>New Experience</h1>
             {this.props.formValues.message}
             <form style={this.formStyle} onSubmit={this.props.handleSubmit}>
             
@@ -129,10 +129,18 @@ console.log(e.target);
             {this.changePreview(this.state.imageUrl)}
             </span>
             <span className='fileHandlePostForm'>
+
+            <div className='chooseFileBtnContainer'>
             <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
-            <label htmlFor="myFileList">Choose a file</label>
-            <label>(File size max 10 Mb)</label>
-            <button onClick={this.removePicture} className="removeBtn">REMOVE</button>
+            <label htmlFor="myFileList">Choose a file <span>|</span><i class="fas fa-upload uploadIcon"></i></label>
+            </div>
+          
+            <div className='fileSizeText'>(File size max 10 Mb)</div>
+
+            <div className='removeBtnContainer'>
+            <button onClick={this.removePicture} className="removeBtn">REMOVE <span>|</span><i class="fas fa-redo"></i></button>
+            </div>
+
             </span>
             </div>
             
@@ -147,7 +155,7 @@ console.log(e.target);
            </span>
            </div>
 
-            <button style={this.createButton}>CREATE NEW EXPERIENCE</button>
+            <button className='createNewPost' style={this.createButton}>CREATE NEW EXPERIENCE</button>
             </form>
 
             <div>
