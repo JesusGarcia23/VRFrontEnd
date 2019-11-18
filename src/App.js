@@ -103,7 +103,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
   images: clone})
 
      setTimeout(
-       this.setState({postMade: false}), 2000)
+       this.setState({postMade: false}), 1000)
  })
  .catch(err => console.log(err));
 

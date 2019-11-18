@@ -39,25 +39,10 @@ class PostForm extends React.Component{
         "border": "1px solid black"
     }
 
-    textAreaStyle = {
-        height: "100px",
-        width: "40vw",
-        "margin": "20px auto",
-        'resize': 'none',
-        fontSize: "20px",
-        display: "block"
-    }
-
-    textTagsArea = {
-        height: "50px",
-        width: "40vw",
-        marginRight: '50px'
-    }
-
     canvasContainer = {
         "display": "block",
         "border": "1px solid green", 
-        "margin": "20px 18vw",
+        "margin": "20px 6vw",
         height: "350px",
         width: "62vw"
     }
@@ -73,13 +58,6 @@ class PostForm extends React.Component{
         alignText: "center"
     }
 
-    tagsContainer = {
-        display: "flex",
-        justifyContent: 'flex-start',
-        alignItems: "center",
-        border: "1px solid black",
-
-    }
 // END OF STYLING
 
     uploadPost = (e) => {
@@ -145,24 +123,27 @@ console.log(e.target);
             <h1>New Post</h1>
             {this.props.formValues.message}
             <form style={this.formStyle} onSubmit={this.props.handleSubmit}>
-
+            
+            <div className='canvasAndFileContainer'>
+            <span style={this.canvasContainer} id="myCanvasContainer">
+            {this.changePreview(this.state.imageUrl)}
+            </span>
+            <span className='fileHandlePostForm'>
             <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
             <label htmlFor="myFileList">Choose a file</label>
             <label>(File size max 10 Mb)</label>
-
             <button onClick={this.removePicture} className="removeBtn">REMOVE</button>
-          
-            
-            <div style={this.canvasContainer} id="myCanvasContainer">
-            {this.changePreview(this.state.imageUrl)}
+            </span>
             </div>
+            
            
-           
-            <textarea style={this.textAreaStyle} type="text" value={caption} onChange={ e => this.props.onChangeValue(e)} name="caption" placeholder="write a caption..."></textarea>
-           <div style={this.tagsContainer}>
+           <div className='mainPostFormContainer'>
+           <span className='captionContainerPostForm'>
+           <textarea className='captionPostForm' type="text" value={caption} onChange={ e => this.props.onChangeValue(e)} name="caption" placeholder="write a caption..."></textarea>
+           </span>
            <span className="tagTitleAndTextarea">
            <span className="tagsTitle">Tags: </span>
-           <textarea style={this.textTagsArea} type="text" value={tags} onChange={ e => this.props.onChangeValue(e)} name="tags" placeholder="e.g: #Beach #Sun #Ocean"></textarea>
+           <textarea className='tagsPostForm' type="text" value={tags} onChange={ e => this.props.onChangeValue(e)} name="tags" placeholder="e.g: #Beach #Sun #Ocean"></textarea>
            </span>
            </div>
 
