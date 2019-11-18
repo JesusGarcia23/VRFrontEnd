@@ -37,7 +37,7 @@ class App extends Component {
       showConfirm: false,
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
-      newPostUrl: 'http://localhost:5000',
+      appUrl: 'http://localhost:5000',
       lastUrl: '/world',
       images: [],
       profileImgDefault: 'https://res.cloudinary.com/thejacex/image/upload/v1572846104/emptyImage_qqqtqp.png',
@@ -52,7 +52,7 @@ class App extends Component {
   async componentDidMount() {
     await this.get_data_torender() 
 
-    axios.get('http://localhost:5000/auth/loggedin', {withCredentials: true})
+    axios.get(`${this.state.appUrl}/auth/loggedin`, {withCredentials: true})
     .then(responseFromBackend => {
       const { userDoc } = responseFromBackend.data
       console.log(userDoc)
@@ -91,7 +91,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
     this.setState({imagePost: response.imageUrl }, () => {
 
  //CALL TO THE NEW POST ROUTE
- axios.post('http://localhost:5000/createNewPost', this.state, {withCredentials: true})
+ axios.post(`${this.state.appUrl}/createNewPost`, this.state, {withCredentials: true})
  .then(theNewPost => {
      console.log("NEW POST!")
      console.log(theNewPost.data)
@@ -124,7 +124,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
   get_data_torender = async () => {
     try {
       // const {url} = this.state
-      await axios.get("http://localhost:5000/createNewPost").then(response => {
+      await axios.get(`${this.state.appUrl}/createNewPost`).then(response => {
         console.log(response)
         this.setState({
           images: response.data
@@ -134,7 +134,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
       console.log(err);
     }
 
-    axios.get("http://localhost:5000/users").then(response => {
+    axios.get(`${this.state.appUrl}/users`).then(response => {
       console.log(response)
 
       this.setState({users: response.data})
@@ -149,7 +149,7 @@ await uploadData.append("imageUrl", this.state.imageFile);
 get_notifications = async (userId) => {
   try{
 
-    await axios.get(`http://localhost:5000/getNotifications/${userId}`).then(response => {
+    await axios.get(`${this.state.appUrl}/getNotifications/${userId}`).then(response => {
       const notificationList = response.data;
       this.setState({
         notifications: notificationList
@@ -206,7 +206,7 @@ this.setState({imageUrl: e})
                    // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
                    this.setState({ imagePost: response.imageUrl }, () => {
                     //CALL TO THE SIGNUP ROUTE
-                    axios.post('http://localhost:5000/auth/signup', this.state, {withCredentials: true})
+                    axios.post(`${this.state.appUrl}/auth/signup`, this.state, {withCredentials: true})
                     .then(theData => {
                         console.log("NEW USER!")
                         console.log(theData)
@@ -230,7 +230,7 @@ this.setState({imageUrl: e})
                 }else{
                    
                    //CALL TO THE SIGNUP ROUTE
-                   axios.post('http://localhost:5000/auth/signup', this.state, {withCredentials: true})
+                   axios.post(`${this.state.appUrl}/auth/signup`, this.state, {withCredentials: true})
                    .then(theData => {
                        console.log("NEW USER!")
                        console.log(theData)
@@ -261,7 +261,7 @@ this.setState({imageUrl: e})
 //LOGIN USER
 loginUser = (e) => {
 e.preventDefault();
-axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: true})
+axios.post(`${this.state.appUrl}/auth/login`, this.state, {withCredentials: true})
 .then(responseFromServer => {
     console.log(responseFromServer.data.userDoc)
     const { userDoc } = responseFromServer.data;
@@ -285,7 +285,7 @@ axios.post('http://localhost:5000/auth/login', this.state, {withCredentials: tru
 
 // LOG OUT USER
 logoutUser = () => {
-axios.delete('http://localhost:5000/auth/logout', {withCredentials: true})
+axios.delete(`${this.state.appUrl}/auth/logout`, {withCredentials: true})
 .then(theUser => {
   console.log("DISCONNECTED!")
   console.log(theUser)
@@ -298,7 +298,7 @@ window.location = `/`
 
 //LIKE POST
 handleLike = (e) => {
-  axios.post(`http://localhost:5000/updateLikes/${e}`, this.state.currentUser, {withCredentials: true})
+  axios.post(`${this.state.appUrl}/updateLikes/${e}`, this.state.currentUser, {withCredentials: true})
   .then(responseFromBack => {
     console.log(responseFromBack.data)
   //  console.log(responseFromBack.data.thePost)
@@ -329,7 +329,7 @@ console.log(theIndex)
    showConfirm: false
  })
 
- axios.post(`http://localhost:5000/delete/${thePostId}`)
+ axios.post(`${this.state.appUrl}/delete/${thePostId}`)
  .then(responseFromBackend => console.log(responseFromBackend))
  .catch(err => console.log(err))
 
@@ -394,7 +394,7 @@ console.log(imageList[theIndex])
 imageList[theIndex].modal = !imageList[theIndex].modal
 
 this.setState({images: imageList}, () => 
-axios.put(`http://localhost:5000/updatePost/${thePost._id}`, {caption: captionToUse, tags: tagToUse})
+axios.put(`${this.state.appUrl}/updatePost/${thePost._id}`, {caption: captionToUse, tags: tagToUse})
 .then(theValues => {
   this.setState({
     caption: '',
@@ -435,7 +435,7 @@ updateUser = (e, theUser) => {
         // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
         this.setState({ imagePost: response.imageUrl }, () => {
          //CALL TO THE SIGNUP ROUTE
-         axios.put(`http://localhost:5000/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser}, {withCredentials: true})
+         axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser}, {withCredentials: true})
          .then(theData => {
              console.log("PROFILE UPDATED!")
              console.log(theData.data)
@@ -463,7 +463,7 @@ updateUser = (e, theUser) => {
    console.log("Error while uploading the file: ", err);
  })   
      }else{
-      axios.put(`http://localhost:5000/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser}, {withCredentials: true})
+      axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser}, {withCredentials: true})
       .then(theData => {
           console.log("PROFILE UPDATED!")
           console.log(theData.data)
@@ -494,7 +494,7 @@ handleFollow = userToFollow => {
 console.log(userToFollow)
 const { currentUser } = this.state
 
-axios.post(`http://localhost:5000/follow/${userToFollow}`, currentUser)
+axios.post(`${this.state.appUrl}/follow/${userToFollow}`, currentUser)
 .then(responseFromBackend => {
   console.log(responseFromBackend.data)
   console.log(currentUser._id)
@@ -545,7 +545,7 @@ this.setState({
   comment: ''
 })
 
-  axios.put(`http://localhost:5000/addComment/${postId}`, newComment)
+  axios.put(`${this.state.appUrl}/addComment/${postId}`, newComment)
   .then(responseFromBackend => console.log(responseFromBackend))
   
   .catch(err => console.log(err))
