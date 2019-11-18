@@ -38,6 +38,7 @@ class App extends Component {
       url: "http://localhost:5000/api/things",
       postImgUrl: "http://localhost:5000/api/upload",
       appUrl: 'http://localhost:5000',
+      herokUrl: 'https://trishare.herokuapp.com',
       lastUrl: '/world',
       images: [],
       profileImgDefault: 'https://res.cloudinary.com/thejacex/image/upload/v1572846104/emptyImage_qqqtqp.png',
@@ -56,8 +57,10 @@ class App extends Component {
     .then(responseFromBackend => {
       const { userDoc } = responseFromBackend.data
       console.log(userDoc)
+      if(userDoc !== undefined){
+        setTimeout(() => {this.get_notifications(userDoc._id) }, 500)
+      }
       this.syncCurrentUser(userDoc);
-      setTimeout(() => {this.get_notifications(userDoc._id) }, 500)
     })
     .catch(err => console.log("Error while getting the user from the loggedin route ", err))
   }
@@ -272,7 +275,10 @@ axios.post(`${this.state.appUrl}/auth/login`, this.state, {withCredentials: true
     })
   
     alert("You are logged in.")
-    setTimeout(() => {this.get_notifications(userDoc._id) }, 500)
+    if(userDoc !== undefined){
+      setTimeout(() => {this.get_notifications(userDoc._id) }, 500)
+    }
+   
     // return <Redirect to='/profile'/>
 })
 .catch(err => {
@@ -567,6 +573,7 @@ updateQueryBar = (theTag) => {
   render() {
     console.log("LIST OF ALL NOTIFICATIONS")
     console.log(this.state.notifications)
+    console.log(this.state.appUrl);
 
     return (
       <div className="App">
