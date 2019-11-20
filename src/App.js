@@ -669,6 +669,18 @@ class App extends Component {
     })
   }
 
+  logoutUser = () => {
+    axios.delete(`${this.state.appUrl}/auth/logout`, { withCredentials: true })
+      .then(theUser => {
+        console.log("DISCONNECTED!")
+        console.log(theUser)
+        this.syncCurrentUser(null)
+        this.setState({ currentUser: null }, () => {
+          window.location = `http://localhost:3000`
+        })
+      })
+  }
+
   render() {
 
     return (
@@ -719,7 +731,7 @@ class App extends Component {
   }
 }
 
-
+// BOTH VERSIONS MERGED!
 
 export default App;
 
