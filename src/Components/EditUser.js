@@ -3,7 +3,7 @@ import React from 'react';
 let img = ''
 
 const EditUser = (props) => {
-    const { currentUser } = props
+    const { currentUser, styling } = props
     
     function changePicture(e){
         if(img === ''){
@@ -27,7 +27,7 @@ const EditUser = (props) => {
     }
 
     return(
-        <div className='editUserFormContainer'>
+        <div className={styling}>
         <div className='editUserHeader'>
         <h2>Update your Profile</h2>
         <button onClick={e => {props.exitEdit(e)}} className='exitBtnEditUser'><i class="fas fa-times"></i></button>

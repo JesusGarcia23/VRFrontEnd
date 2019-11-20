@@ -47,7 +47,10 @@ class App extends Component {
       message: "",
       singlePost: null,
       showEdit: false,
-      queryInput: ''
+      queryInput: '',
+      followContainer: false,
+      listFollowers: false,
+      listFollowing: false
     };
   
   async componentDidMount() {
@@ -560,6 +563,34 @@ this.setState({
 
 //END OF ADD COMMENTS
 
+//DISPLAY FOLLOWING FOLLOWERS LIST CONTAINER
+showFollow = (e) => {
+  e.preventDefault();
+this.setState({
+  followContainer: !this.state.followContainer
+})
+
+} 
+//DISPLAY FOLLOWER/FOLLOWING LIST
+showFollowers = (e, theValue) => {
+  e.preventDefault()
+  let theChoice = e.target.innerHTML
+  console.log(theValue)
+  if(theChoice === 'Followers'){
+    console.log("FOLLOWERS!")
+    this.setState({
+      listFollowers: true,
+      listFollowing: false
+    })
+  }else{
+    console.log("FOLLOWING!")
+    this.setState({
+      listFollowers: false,
+      listFollowing: true
+    })
+  }
+}
+
 
 //CHANGE QUERY WITH TAGS
 updateQueryBar = (theTag) => {
@@ -571,8 +602,8 @@ updateQueryBar = (theTag) => {
 
 
   render() {
-    console.log("LIST OF ALL NOTIFICATIONS")
-    console.log(this.state.notifications)
+    console.log("LIST OF ALL USERS")
+    console.log(this.state.users)
     console.log(this.state.appUrl);
 
     return (
@@ -602,6 +633,11 @@ updateQueryBar = (theTag) => {
             handleEditProfile={this.showEditUser}
             changeFile={this.changeFile}
             updateUser={this.updateUser}
+            handleShowFollow = {this.showFollow}
+            followContainer = {this.state.followContainer}
+            showFollowers = {this.showFollowers}
+            listFollowing = {this.state.listFollowing}
+            listFollowers = {this.state.listFollowers}
             />) : 
           (<Redirect to="/login"/>)}/>
         

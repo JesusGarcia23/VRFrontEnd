@@ -78,7 +78,8 @@ const sortedList = feedList.sort((a, b) => {
             <p>{postTime(eachPost.createdAt)}</p>
             </div>
             </div>
-            }): <div>START FOLLOWING PEOPLE <Link to='/world'>(SEE WORLD) </Link>OR UPLOAD YOUR OWN EXPERIENCES!</div>}
+            }): <div className='startFollowingContainer'><div className='startFollowingWorldText'>START FOLLOWING PEOPLE
+            <p> <Link to='/world' className='seeWorldText'>(EXPLORE WORLD) </Link></p>OR UPLOAD YOUR OWN EXPERIENCES!</div></div>}
             </div>
             </div>
         )

@@ -42,7 +42,7 @@ if(currentUser && arrayOfPosts.length > 0){
      return(
     
          <div>
-         <input type="text" placeholder="Search" onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2" />
+         <input type="text" placeholder="Search" onChange={ e => {props.onChangeValue(e)}} name='queryInput' className="mr-sm-2 worldSearchInput" />
          <h1>Explore the World</h1>
          <div className="worldContainer">
          {arrayOfPosts && arrayOfPosts.map(image => {

@@ -245,6 +245,16 @@ opacity: 1;
   border-left: 1px solid white;
 }
 
+.worldSearchInput{
+  border-radius: 10px;
+  width: 20vw;
+  margin: 10px;
+}
+
+.worldSearchInput:focus{
+  outline-width: 0;
+}
+
 .worldImgContainer{
   position: relative;
   background-color: rgba(0, 0, 0, 0.527);
@@ -561,7 +571,7 @@ max-width: 100vw;
 .user-profile{
   display: flex;
   align-items: center;
-  height: 30vh;
+  height: 32vh;
   border-bottom: 1px solid gray;
 }
 
@@ -702,6 +712,7 @@ cursor: pointer;
 }
 
 .editUserFormContainer{
+  animation: fade-in-keyframes 1s;
 
   justify-content: center;
   border: 1px solid gray;
@@ -709,6 +720,16 @@ cursor: pointer;
   height: 63vh;
   width: 40vw;
   background-color: rgba(255, 254, 254, 0.904);
+}
+
+.editUserFormContainer.hide{
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes fade-in-keyframes {
+  from {opacity: 0}
+  to {opacity: 1}
 }
 
 .editUserCaption{
@@ -731,6 +752,83 @@ cursor: pointer;
 .chooseFileUserEdit{
   margin-bottom: 15px;
 }
+
+.followBtn{
+  width: 7vw;
+}
+
+.followUserContainer{
+  position: absolute;
+  display: flex;
+  top: 0vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.827);
+}
+
+.FollowHeader{
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom: 1px solid gray;
+  font-size: 2vw;
+  
+}
+
+.followerContainerHeader{
+width: 45%;
+border-right: 1px solid gray;
+}
+
+.followingContainerHeader{
+  width: 45%;
+}
+
+.followerContainerHeader:hover{
+  cursor: pointer;
+}
+
+.followingContainerHeader:hover{
+  cursor: pointer;
+}
+
+.exitBtnFollow{
+  background-color: transparent;
+  border: 0px;
+  display: block;
+ height: 40px;
+ font-size:25px;
+}
+.followUserContainer .exitBtnFollow{
+  align-self: flex-end;
+}
+
+.userMiniFollowBox{
+  width: 100%;
+  border: 1px solid yellow;
+  margin: 10px auto;
+}
+
+.pictureFollowList {
+  width:5vw;
+  height:7vh;
+  border-radius: 70%;
+  margin-right: 15px;
+}
+
+.pictureFollowName{
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.pictureFollowName:hover{
+  text-decoration: none;
+  color: black;
+}
+
 /* END OF USER PROFILE STYLE */
 
 /* NEW POST FORM STYLE */
@@ -897,3 +995,50 @@ cursor: pointer;
   background-color: rgb(39, 116, 4);
 }
 /* END NEW POST FORM STYLE */
+
+/* HOME FEED (EMPTY POSTS) */
+
+.startFollowingContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 90vh;
+  width: 100vw;
+  z-index: 1;
+  background-size: cover;
+  line-height: 2.5;
+}
+
+.startFollowingContainer:before {
+  content: " ";
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  height: 90vh;  
+  opacity: .4; 
+  z-index: -1;
+  background:  url('/homeCollage.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+
+.startFollowingWorldText{
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 4vw;
+}
+
+.seeWorldText{
+  text-decoration: none;
+   color: black;
+  }
+
+.seeWorldText:hover{
+  color: gray;
+  text-decoration: none;
+}

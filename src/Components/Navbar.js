@@ -62,11 +62,11 @@ if(props){
         return(
           <React.Fragment>
           <Navbar bg="dark" variant='dark' expand="lg">
-          <Link to="/home" className='nav-link navBarBrand'>TriShare</Link>
+          <Navbar.Brand href="/home" className='nav-link navBarBrand'>TriShare</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           {props.currentUser ? <Nav className="mr-auto">
-              <Link to="/world" className='nav-link'>World</Link>
+              <Nav.Link href="/world" className='nav-link'>World</Nav.Link>
               <Link to="/newPost" className='nav-link'>New Experience</Link>
               {displayNotifications(props.notifications)}
 

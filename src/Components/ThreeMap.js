@@ -82,6 +82,7 @@ class ThreeMap extends Component {
    
       loader.load(url, function(texture) {
         // let geometry = new THREE.SphereGeometry( 200, 20, 20 );
+        //100, 32, 32
         let geometry = new THREE.SphereGeometry(500, 60, Math.pi * 2);
         geometry.scale(-1, 1, 1);
         let material = new THREE.MeshBasicMaterial({ map: texture });
