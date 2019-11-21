@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import EditUser from './EditUser'
 import FollowContainer from './FollowContainer'
 
+//{(theUserId !== profileId) ? <button className='goBackBtn' onClick={goBack}>Go back</button> : ''}
 
 const UserProfile = (props) => {
     const { images, currentUser, users, showEdit, followContainer } = props
@@ -49,13 +50,12 @@ return (<button className="btn btn-sm  btn-primary" onClick={e => props.handleFo
         console.log(userDetails)
         return (
             <div className='profileContainer'>
+            
             {props.handleShowFollow}
-            {followContainer && <div className='followUserContainer'> <FollowContainer users={users} following={userDetails.following} followers={userDetails.followers} listFollowers={props.listFollowers} listFollowing={props.listFollowing} exitContainer={e => props.handleShowFollow(e)} showFollowers={e => props.showFollowers(e)}/> </div>}
+            {followContainer && <div className='followUserContainer'> <FollowContainer users={users} currentUser={currentUser} handleFollow={props.handleFollow} following={userDetails.following} followers={userDetails.followers} listFollowers={props.listFollowers} listFollowing={props.listFollowing} exitContainer={e => props.handleShowFollow(e)} showFollowers={e => props.showFollowers(e)}/> </div>}
             {showEdit && <div className='editUserProfileContainer'>
             <EditUser exitEdit={props.handleEditProfile} handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile} styling={classes}/>
             </div>}
-               
-            {(theUserId !== profileId) ? <button onClick={goBack}>Go back</button> : ''}
                 <div className="user-profile">
                    <span className="user-profile-img">{currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "10vw", height: "20vh", marginBottom: 10}} alt="profile-img" />}
                    {haveLogout(userDetails.followers)}
@@ -72,11 +72,10 @@ return (<button className="btn btn-sm  btn-primary" onClick={e => props.handleFo
                     </div>
                     <div className='userFollowersContainer'>
                     <div>
-                    <Link to={`/followers/${profileId}`} style={{textDecoration: 'none', color: 'black'}}><span className="followUser">Followers: {userDetails.followers.length}</span></Link> 
+                   <span className="followUser"><button className='followBtnProfile' onClick={e => props.handleShowFollow(e)}>Followers:</button> {userDetails.followers.length}</span>
                     </div>
                     <div>
-                    <button onClick={e => props.handleShowFollow(e)}>Followers Here</button>
-                  <Link to={`/following/${profileId}`} style={{textDecoration: 'none', color: 'black'}}> <span className="followUser">Following: {userDetails.following.length}</span></Link> 
+                  <span className="followUser"><button className='followBtnProfile' onClick={e => props.handleShowFollow(e)}>Following:</button> {userDetails.following.length}</span> 
                   </div>
                   </div>
                   </div>

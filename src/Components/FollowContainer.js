@@ -3,47 +3,58 @@ import { Link, Redirect } from 'react-router-dom';
 
 const FollowContainer = (props) => {
 console.log(props)
-const {users, following, followers } = props
+const {users, following, followers, listFollowing, listFollowers, currentUser } = props
 let followingList = [];
-let followerList = [];
-let goToUser = false;
-let userId = ''
+// let followerList = [];
 
-function goToUserProfile(e, theId){
-    e.preventDefault()
-   goToUser = true
-   userId = theId
+let followingClasses = listFollowing ? 'followingContainerHeaderDark' : 'followingContainerHeader'
+let followerClasses = listFollowers ? 'followerContainerHeaderDark' : 'followerContainerHeader'
+
+function isFollowing(myUser, eachUser){
+    console.log(myUser)
+    console.log(eachUser)
+if(eachUser._id !== myUser._id){
+    if(myUser.following.indexOf(eachUser._id) >= 0){
+        return <button className="btn btn-sm  btn-primary" onClick={e => props.handleFollow(eachUser._id)}><i className="fa fa-user-minus followBtn"> Unfollow </i></button>
+    }else{
+        return   <button className="btn btn-sm  btn-primary" onClick={e => props.handleFollow(eachUser._id)}><i className="fa fa-user-plus followBtn"> Follow </i></button>
+    }
+   
+}else{
+    return <div></div>;
 }
-//onClick={e => {goToUserProfile(e, eachUser._id)}}
+}
 
-function displayFollowingUsers(){
-if(following.length > 0 && users.length > 0){
+function displayFollowingUsers(theArray, theUser){
+if(theArray.length > 0 && users.length > 0){
     followingList = users.filter(eachUser => {
-        return following.indexOf(eachUser._id) >= 0
+        return theArray.indexOf(eachUser._id) >= 0
     })
-}
+    console.log(followingList)
+    console.log(theUser.following)
 return followingList.map(eachUser => {
     return <div key={eachUser._id} className='userMiniFollowBox'>
+    <span className='followThumbImgName'>
     <img src={eachUser.imageUrl} alt='thumbFollowing' className='pictureFollowList'></img>
-    <Link to={`/profile/${eachUser._id}`} className='pictureFollowName' >{eachUser.username}</Link>
+    <span onClick={e => {props.exitContainer(e)}}><Link to={`/profile/${eachUser._id}`} className='pictureFollowName' >{eachUser.username}</Link></span>
+    </span>
+    {theUser && isFollowing(theUser, eachUser)}
     </div>
 })
+}else{
+    return <div>NO USERS!</div>
 }
-
-if(goToUser){
-    return <Redirect to={`/profile/${userId}`}></Redirect> 
 }
 
     return (
   
             <div className='editUserFormContainer'>
             <div className='FollowHeader'>
-            <span className='followerContainerHeader' onClick={e => props.showFollowers(e, 'followers')}>Followers</span><span className='followingContainerHeader' onClick={e => props.showFollowers(e, 'following')}>Following</span>
-            <button onClick={e => {props.exitContainer(e)}} className='exitBtnFollow'><i class="fas fa-times"></i></button>          
+            <span className={followerClasses} onClick={e => props.showFollowers(e, 'followers')}>Followers</span><span className={followingClasses} onClick={e => props.showFollowers(e, 'following')}><span className='followingText'>Following</span> <button onClick={e => {props.exitContainer(e)}} className='exitBtnFollow'><i class="fas fa-times"></i></button> </span>        
             </div>
             <div className='followListContainer'>
-            {props.listFollowing && displayFollowingUsers()}
-            {props.listFollowers && <div>THIS IS FOLLOWERS LIST</div>}
+            {listFollowing && displayFollowingUsers(following, currentUser)}
+            {listFollowers && displayFollowingUsers(followers, currentUser)}
             </div>
 
                 </div>

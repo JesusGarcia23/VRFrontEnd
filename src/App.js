@@ -508,6 +508,7 @@ axios.post(`${this.state.appUrl}/follow/${userToFollow}`, currentUser)
   console.log(responseFromBackend.data)
   console.log(currentUser._id)
   const userList = [...this.state.users]
+  const myUser = this.state.currentUser
   const users = responseFromBackend.data
   const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
   const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
@@ -517,13 +518,16 @@ console.log(user2)
   console.log(theIndex1)
   const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)
   console.log(theIndex2)
+  myUser.followers = user1.followers
+  myUser.following = user1.following
   userList[theIndex1].followers = user1.followers
   userList[theIndex1].following = user1.following
   userList[theIndex2].followers = user2.followers
   userList[theIndex2].following = user2.following
   console.log("NEW USER LIST")
   console.log(userList)
-  this.setState({users: userList})
+  this.setState({users: userList,
+  currentUser: myUser})
 })
 
 }
@@ -566,9 +570,22 @@ this.setState({
 //DISPLAY FOLLOWING FOLLOWERS LIST CONTAINER
 showFollow = (e) => {
   e.preventDefault();
-this.setState({
-  followContainer: !this.state.followContainer
-})
+  console.log(e.currentTarget.innerHTML)
+  let theChoice = e.currentTarget.innerHTML 
+  if(theChoice === 'Followers:'){
+    this.setState({
+      followContainer: !this.state.followContainer,
+      listFollowers: true,
+      listFollowing: false
+    })
+  }else{
+    this.setState({
+      followContainer: !this.state.followContainer,
+      listFollowers: false,
+      listFollowing: true
+    })
+  }
+
 
 } 
 //DISPLAY FOLLOWER/FOLLOWING LIST
@@ -577,7 +594,6 @@ showFollowers = (e, theValue) => {
   let theChoice = e.target.innerHTML
   console.log(theValue)
   if(theChoice === 'Followers'){
-    console.log("FOLLOWERS!")
     this.setState({
       listFollowers: true,
       listFollowing: false
@@ -602,8 +618,8 @@ updateQueryBar = (theTag) => {
 
 
   render() {
-    console.log("LIST OF ALL USERS")
-    console.log(this.state.users)
+    console.log("CURRENT USER")
+    console.log(this.state.currentUser)
     console.log(this.state.appUrl);
 
     return (
