@@ -62,7 +62,7 @@ if(props){
         return(
           <React.Fragment>
           <Navbar bg="dark" variant='dark' expand="lg">
-          <Navbar.Brand href="/home" className='nav-link navBarBrand'>TriShare</Navbar.Brand>
+          <Navbar.Brand href="/home" className='nav-link navBarBrand'><img src='./triShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           {props.currentUser ? <Nav className="mr-auto">
