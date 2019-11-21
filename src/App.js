@@ -6,8 +6,6 @@ import Signup from './Components/user-pages/Signup'
 import Login from './Components/user-pages/Login'
 import UserProfile from './Components/UserProfile';
 import Home from './Components/Home';
-import FollowerList from './Components/FollowerList'
-import FollowingList from './Components/FollowingList'
 import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
@@ -635,8 +633,6 @@ updateQueryBar = (theTag) => {
         <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser = {this.state.currentUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} formValues={this.state}/>}></Route>
         <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm}  handleSubmit={this.loginUser} currentUser = {this.state.currentUser} formValues={this.state} />}></Route>
         <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} onDelete={this.handleDelete} cancelDelete={this.cancelDelete} confirmDelete={this.confirmDelete} showConfirm={this.state.showConfirm} handleLike={this.handleLike} handleEdit={this.editPost} updatePost={this.updatePost} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar}/>}></Route>
-        <Route exact path='/followers/:id' render={(props) => <FollowerList {...props} allUsers={this.state.users}/>}/>
-        <Route exact path='/following/:id' render={(props) => <FollowingList {...props} allUsers={this.state.users}/>}/>
         <Route exact path="/profile/:id" render={(props) => 
           this.state.currentUser ? 
           (<UserProfile {...props} 

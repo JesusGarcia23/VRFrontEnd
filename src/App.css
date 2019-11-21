@@ -114,7 +114,7 @@ img:fullscreen {
 .worldContainer{
   display: block;
   max-width: 99vw;
-  border: 1px solid red;
+  border: 1px solid gray;
 }
 
 .worldPost{
@@ -508,6 +508,7 @@ color: white;
   animation-duration: 2s;
   -o-animation: fadein 4s; /* Opera */
   animation-delay: 2s;
+  position: relative;
 }
 
 
@@ -520,6 +521,7 @@ color: white;
   animation-duration: 2s;
   -o-animation: fadein 4s; /* Opera */
   animation-delay: 3s;
+  position: relative;
 }
 
 
@@ -532,6 +534,7 @@ color: white;
   animation-duration: 2s;
   -o-animation: fadein 4s; /* Opera */
   animation-delay: 4s;
+  position: relative;
 }
 
 
@@ -539,33 +542,41 @@ color: white;
 
 @keyframes fadein {
   from {
+    bottom: -10vh;
       opacity:0;
   }
   to {
+    bottom: 0vh;
       opacity:1;
   }
 }
 @-moz-keyframes fadein { /* Firefox */
   from {
+    bottom: -10vh;
       opacity:0;
   }
   to {
+    bottom: 0vh;
       opacity:1;
   }
 }
 @-webkit-keyframes fadein { /* Safari and Chrome */
   from {
+    bottom: -10vh;
       opacity:0;
   }
   to {
+    bottom: 0vh;
       opacity:1;
   }
 }
 @-o-keyframes fadein { /* Opera */
   from {
+    bottom: -10vh;
       opacity:0;
   }
   to {
+    bottom: 0vh;
       opacity: 1;
   }
 }
