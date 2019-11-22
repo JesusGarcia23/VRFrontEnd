@@ -57,24 +57,24 @@ return (<button className="btn btn-sm  btn-primary" onClick={e => props.handleFo
             <EditUser exitEdit={props.handleEditProfile} handleUpdate={props.onChangeValue} currentUser={currentUser} submitUpdate={props.updateUser} changeFile={props.changeFile} styling={classes}/>
             </div>}
                 <div className="user-profile">
-                   <span className="user-profile-img">{currentUser && <img src={userDetails.imageUrl} style={{ borderRadius: 70, width: "10vw", height: "20vh", marginBottom: 10}} alt="profile-img" />}
+                   <span className="user-profile-img">{currentUser && <img src={userDetails.imageUrl} className='userProfileImg' alt="profile-img" />}
                    {haveLogout(userDetails.followers)}
                    </span> 
                   
-                   <div>
+                   <div className='user-profile-nameAbio'>
                    <div className='user-profile-username'>{userDetails.username}</div>
                     <div className='user-profile-bio'>{userDetails.bio}</div>
                     </div>
 
                     <div className='userPostAndFollowers'>
                     <div className='userPostCounter'>
-                    Posts: {pics.length}
+                    <div className='userPostCounterText'>Posts: {pics.length}</div>
                     </div>
                     <div className='userFollowersContainer'>
-                    <div>
+                    <div className='userFollowers'>
                    <span className="followUser"><button className='followBtnProfile' onClick={e => props.handleShowFollow(e)}>Followers:</button> {userDetails.followers.length}</span>
                     </div>
-                    <div>
+                    <div className='userFollowers'>
                   <span className="followUser"><button className='followBtnProfile' onClick={e => props.handleShowFollow(e)}>Following:</button> {userDetails.following.length}</span> 
                   </div>
                   </div>

@@ -25,8 +25,8 @@ class PostForm extends React.Component{
         width: "600px"
     }
 
-    height = "350px"
-    width = "62vw"
+    height = "40vh"
+    width = "80vw"
 
     style = {
         "display": "block",
@@ -41,10 +41,11 @@ class PostForm extends React.Component{
 
     canvasContainer = {
         "display": "block",
-        "border": "1px solid gray", 
-        "margin": "20px 6vw",
-        height: "350px",
-        width: "62vw"
+        "border": "8px solid gray", 
+        'border-radius': '10px',
+        "margin": "5px auto",
+        height: "40vh",
+        width: "80vw"
     }
 
     createButton = {
@@ -91,9 +92,11 @@ console.log(e.target);
     changePreview = (value) => {
     
         return (
+         
             <div style={this.canvasStyle}>
             {this.state.imageUrl && <ThreeMap url={value} height={this.height} width={this.width}/>}
             </div>
+        
         )
    
     }
@@ -125,25 +128,27 @@ console.log(e.target);
             <form style={this.formStyle} onSubmit={this.props.handleSubmit}>
             
             <div className='canvasAndFileContainer'>
+            <div className='borderCanvasPost'>
             <span style={this.canvasContainer} id="myCanvasContainer">
             {this.changePreview(this.state.imageUrl)}
             </span>
-            <span className='fileHandlePostForm'>
-
-            <div className='chooseFileBtnContainer'>
-            <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
-            <label htmlFor="myFileList">Choose a file <span>|</span><i class="fas fa-upload uploadIcon"></i></label>
             </div>
-          
-            <div className='fileSizeText'>(File size max 10 Mb)</div>
-
-            <div className='removeBtnContainer'>
-            <button onClick={this.removePicture} className="removeBtn">REMOVE <span>|</span><i class="fas fa-redo"></i></button>
-            </div>
-
-            </span>
             </div>
             
+            <div className='fileHandlePostForm'>
+
+            <span className='chooseFileBtnContainer'>
+            <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
+            <label htmlFor="myFileList">Choose a file <span>|</span><i class="fas fa-upload uploadIcon"></i></label>
+            </span>
+          
+            <span className='fileSizeText'>(File size max 10 Mb)</span>
+
+            <span className='removeBtnContainer'>
+            <button onClick={this.removePicture} className="removeBtn">REMOVE <span>|</span><i class="fas fa-redo"></i></button>
+            </span>
+
+            </div>
            
            <div className='mainPostFormContainer'>
            <span className='captionContainerPostForm'>

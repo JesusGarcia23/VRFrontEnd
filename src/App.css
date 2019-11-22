@@ -104,7 +104,7 @@ img:fullscreen {
 }
 
 .profilePostContainer{
-  width: 98.9vw;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -622,6 +622,7 @@ button:focus {outline:0;}
 }
 
 .followUser{
+  font-size: 2vw;
   float: left;
   display: block;
   text-decoration: none;
@@ -639,7 +640,7 @@ button:focus {outline:0;}
   border-radius: 10px;
   margin: auto;
   height: 62vh;
-  width: 50vw;
+  width: 80vw;
   margin-bottom: 30px;
 }
 
@@ -651,11 +652,15 @@ button:focus {outline:0;}
 
 .notificationText{
   margin-left: 10px;
-  font-size: 12px;
+  font-size: 1vw;
 }
 
 .notifiUser{
+  font-size: 1vw;
   font-weight: bold;
+}
+.notifiText{
+  font-size: 90%;
 }
 
 .postPictureNoti{
@@ -694,6 +699,13 @@ max-width: 100vw;
   width: 15vw;
 }
 
+.userProfileImg{
+  border-radius: 50%; 
+  width: 10vw; 
+  height: 20vh;
+   margin-bottom: 10px;
+}
+
 .user-profile-username {
   text-align: start;
   height: 8vh;
@@ -701,6 +713,11 @@ max-width: 100vw;
   display: block;
   font-size: 35px;
   font-weight: bold;
+}
+
+.user-profile-nameAbio{
+  display: inline-block;
+  width: 30vw;
 }
 
 .user-profile-bio{
@@ -712,17 +729,18 @@ max-width: 100vw;
 }
 
 .profilePost{
-  width: 32.9vw;
+  width: 33.33%;
 }
 
 .userFollowersContainer{
   display: flex;
   justify-content: center;
   align-items: center;
- width: 50vw;
+ width: 45vw;
 }
 
 .userPostCounter{
+  font-size: 2vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -730,6 +748,7 @@ max-width: 100vw;
 }
 
 .userPostAndFollowers{
+  font-size: 2vw;
   display: flex;
   width: 60vw;
   height: 20.5vh;
@@ -786,7 +805,7 @@ cursor: pointer;
 .editUserProfileIcon{
   position: relative;
   bottom: 7vh;
-  right: -6vw;
+  right: -5vw;
   background: transparent;
   border: 0px;
   font-size: 30px;
@@ -984,42 +1003,54 @@ border-top-right-radius: 17px;
 .canvasAndFileContainer{
   display: flex;
   align-items: center;
+  justify-content: center;
 
+}
+
+.borderCanvasPost{
+  display: flex;
+  align-items: center;
+  border: 1px solid red;
+  border-radius: '10px';
+  height: 43vh;
+  width: 82vw;
 }
 
 .fileHandlePostForm{
-  height: 25vh;
-  width: 27vw;
+  display: flex;
+  justify-content: center;
+  height: 9vh;
+  width: 100vw;
 }
 
 .fileSizeText{
-  margin: 2vh auto;
+  margin: 1vh 2vw 0vh 4vw;
   font-size: 1.5vw;
 }
 
 .chooseFileBtnContainer{
-  width: 27vw;
+  display: flex;
+  width: 10vw;
   height: 8vh;
-  display: inline-block;
 }
 
 .removeBtnContainer{
-  width: 27vw;
-  display: inline-block;
+  display: flex;
+  width: 10vw;
+  height: 8vh;
 }
 
 .inputfile {
-	width: 3vw;
+	width: 0vw;
 	height: 2vh;
 	opacity: 0;
 	overflow: hidden;
   display: block;
+  float: left;
   z-index: -1;
-  margin: auto;
 }
 
 .inputfile + label {
-  margin: auto;
   border-radius: 10px;
   padding: 2vh;
   width: 12vw;
@@ -1067,14 +1098,13 @@ border-top-right-radius: 17px;
   margin-left: 0.5vw;
 }
 .removeBtn {
-  margin: auto;
   border: 1px solid rgb(240, 5, 5);
   border-radius: 10px;
   padding: 2vh;
   width: 12vw;
   height: 7vh;
   font-size: 1vw;
-  font-weight: 700;
+  font-weight: bold;
   color: white;
   background-color: rgb(224, 7, 7);
   display: flex;
@@ -1089,9 +1119,10 @@ border-top-right-radius: 17px;
 
 .mainPostFormContainer{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  height: 20vh;
+  height: 18vh;
+  margin-bottom: 2vh;
 }
 
 
@@ -1102,15 +1133,15 @@ border-top-right-radius: 17px;
 }
 
 .captionPostForm{
-  height: 100px;
+  height: 14vh;
   width: 40vw;
-  margin: 20px auto;
+  margin: 20px 2vw 20px 0px;
   resize: none;
   font-size: 20px;
 }
 
 .tagsPostForm{
-  height: 10vh;
+  height: 14vh;
   width: 20vw;
 }
 
@@ -1189,4 +1220,105 @@ border-top-right-radius: 17px;
 .seeWorldText:hover{
   color: gray;
   text-decoration: none;
+}
+
+/* RESPONSIVE FOR PHONE */
+
+@media only screen and (max-width: 900px) {
+ 
+.TriShareLogo{
+  width: 30vw;
+  height: 5.55vh;
+}
+
+.navbar {
+  font-size: 3vw;
+}
+
+.dropdown-menu{
+  border: 1px solid red;
+  width: 15vw;
+}
+
+/* RESPONSIVE FOR USER PROFILE */
+
+.profilePost{
+  width: 33.33%;
+  height: 25vh;
+}
+
+.profileImg{
+  height: 25vh;
+}
+
+.profileImgContainer{
+  height: 25vh;
+}
+
+.user-profile-img{
+  margin: 0px 15px;
+  height: 20vh;
+  width: 17vw;
+}
+
+.user-profile-nameAbio{
+  display: inline-block;
+  width: 50vw;
+}
+
+.userProfileImg{
+  height: 15vh;
+  width: 17vw;
+}
+
+.userPostAndFollowers{
+  display: block;
+  width: 40vw;
+}
+
+.userPostCounter{
+  display: block;
+  text-align: left;
+  width: 100%;
+  height: 20%;
+  margin-bottom: 5px;
+  font-size: 4vw;
+}
+
+.userPostCounterText{
+  margin-left: 1.3vw;
+}
+
+.userFollowersContainer{
+  display: block;
+  height: 60%;
+  width: 100%;
+}
+
+.userFollowers{
+  display: block;
+  text-align: left;
+  width: 40vw;
+  height: 5vh;
+}
+
+.followUser{
+  display: block;
+  width: 30vw;
+  height: 5vh;
+  font-size: 4vw;
+}
+
+.editUserProfileIcon{
+  position: relative;
+  bottom: 4vh;
+  right: -6vw;
+  background: transparent;
+  border: 0px;
+  font-size: 25px;
+}
+
+/* END OF RESPONSIVE FOR USER PROFILE */
+
+
 }
