@@ -24,8 +24,8 @@ return(
       {notifications && notifications.map(eachNotification => {
         if(eachNotification.type === "Like" || eachNotification.type === "Comment" ){
           return (
-            <React.Fragment key={eachNotification._id}>
-            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`}>
+            <React.Fragment key={eachNotification._id} bsPrefix='dropDownMenu'>
+            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`} bsPrefix='dropdownItem'>
             <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
             <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span> <span className='notifiText'> {eachNotification.event}</span></span> 
            <span className='postPictureNoti'><img src={eachNotification.imageTo.image} style={{width:"30px", height:"30px", borderRadius:50}} alt='notiPostPicture'></img></span>
