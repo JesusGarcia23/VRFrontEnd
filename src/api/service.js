@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-    baseURL: `http://localhost:5000/api`,
+    baseURL: `https://trishare.herokuapp.com/api`,
     // withCredentials: true // => you might need this when having the users in the app 
   });
 
