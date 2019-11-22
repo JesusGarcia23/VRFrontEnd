@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
 
 const NavBar = (props) => {
-const {currentUser} = props
+  const { currentUser } = props
   function displayNotifications(notifications) {
 
     if (notifications.length) {
@@ -18,12 +18,14 @@ const {currentUser} = props
         }
       })
 
-      if (notifications.length > 0) {
+      if (notifications.length) {
         return (
           <NavDropdown title="Notifications" id="dropdown-menu-align-left">
             {notifications && notifications.map(eachNotification => {
               if (eachNotification.type === "Like" || eachNotification.type === "Comment") {
                 return (
+
+
                   <React.Fragment key={eachNotification._id}>
                     <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`}>
                       <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
@@ -31,7 +33,13 @@ const {currentUser} = props
                       <span className='postPictureNoti'><img src={eachNotification.imageTo.image} className='notiPostPicture' alt='notiPostPicture'></img></span>
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                  </React.Fragment>)
+
+
+
+                  </React.Fragment>
+
+
+                )
               } else if (eachNotification.type === "Follow") {
                 return (
                   <React.Fragment key={eachNotification._id}>
@@ -68,10 +76,7 @@ const {currentUser} = props
             {props.currentUser ? <Nav className="mr-auto">
               <Nav.Link href="/world" className='nav-link'>World</Nav.Link>
               <Link to="/newPost" className='nav-link'>New Experience</Link>
-              {console.log(props.notifications)}
-              {
 
-              }
 
               {displayNotifications(props.notifications.filter(notif => notif.toWho._id === currentUser._id))}
 
