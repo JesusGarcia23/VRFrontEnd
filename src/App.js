@@ -61,7 +61,7 @@ class App extends Component {
     socket.on('change_data', this.changingData)
     // await this.get_data_torender()
 
-    axios.get(`${this.state.appUrl}/auth/loggedin`, { withCredentials: true })
+    axios.get(`${this.state.herokUrl}/auth/loggedin`, { withCredentials: true })
       .then(responseFromBackend => {
         const { userDoc } = responseFromBackend.data
         // console.log(userDoc)
@@ -102,7 +102,7 @@ class App extends Component {
           this.setState({ imagePost: response.imageUrl }, () => {
 
             //CALL TO THE NEW POST ROUTE
-            axios.post(`${this.state.appUrl}/createNewPost`, this.state, { withCredentials: true })
+            axios.post(`${this.state.herokUrl}/createNewPost`, this.state, { withCredentials: true })
               .then(theNewPost => {
                 console.log("NEW POST!")
                 console.log(theNewPost.data)
@@ -144,7 +144,7 @@ class App extends Component {
   }
 
   logoutUser = () => {
-    axios.delete(`${this.state.appUrl}/auth/logout`, { withCredentials: true })
+    axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
       .then(theUser => {
         console.log("DISCONNECTED!")
         console.log(theUser)
@@ -157,7 +157,7 @@ class App extends Component {
 
   //LIKE POST	
   handleLike = (e) => {
-    axios.post(`${this.state.appUrl}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
+    axios.post(`${this.state.herokUrl}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
       .then(responseFromBack => {
         console.log(responseFromBack.data)
         //  console.log(responseFromBack.data.thePost)	
@@ -200,7 +200,7 @@ class App extends Component {
   // get_notifications = async (userId) => {
   //   try {
 
-  //     await axios.get(`${this.state.appUrl}/getNotifications/${userId}`).then(response => {
+  //     await axios.get(`${this.state.herokUrl}/getNotifications/${userId}`).then(response => {
   //       const notificationList = response.data;
   //       this.setState({
   //         notifications: notificationList
@@ -259,7 +259,7 @@ class App extends Component {
           // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
           this.setState({ imagePost: response.imageUrl }, () => {
             //CALL TO THE SIGNUP ROUTE
-            axios.post(`${this.state.appUrl}/auth/signup`, this.state, { withCredentials: true })
+            axios.post(`${this.state.herokUrl}/auth/signup`, this.state, { withCredentials: true })
               .then(theData => {
                 console.log("NEW USER!")
                 console.log(theData)
@@ -284,7 +284,7 @@ class App extends Component {
     } else {
 
       //CALL TO THE SIGNUP ROUTE
-      axios.post(`${this.state.appUrl}/auth/signup`, this.state, { withCredentials: true })
+      axios.post(`${this.state.herokUrl}/auth/signup`, this.state, { withCredentials: true })
         .then(theData => {
           console.log("NEW USER!")
           console.log(theData)
@@ -306,7 +306,7 @@ class App extends Component {
   //LOGIN USER
   loginUser = (e) => {
     e.preventDefault();
-    axios.post(`${this.state.appUrl}/auth/login`, this.state, { withCredentials: true })
+    axios.post(`${this.state.herokUrl}/auth/login`, this.state, { withCredentials: true })
       .then(responseFromServer => {
         console.log(responseFromServer.data.userDoc)
         const { userDoc } = responseFromServer.data;
@@ -360,7 +360,7 @@ class App extends Component {
       imageList[theIndex].modal = !imageList[theIndex].modal
 
       this.setState({ images: imageList }, () =>
-        axios.put(`${this.state.appUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
+        axios.put(`${this.state.herokUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
           .then(theValues => {
             this.setState({
               caption: '',
@@ -385,7 +385,7 @@ class App extends Component {
       showConfirm: false
     })
 
-    axios.post(`${this.state.appUrl}/delete/${thePostId}`)
+    axios.post(`${this.state.herokUrl}/delete/${thePostId}`)
       .then(responseFromBackend => console.log(responseFromBackend))
       .catch(err => console.log(err))
 
@@ -454,7 +454,7 @@ class App extends Component {
     imageList[theIndex].modal = !imageList[theIndex].modal
 
     this.setState({ images: imageList }, () =>
-      axios.put(`${this.state.appUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
+      axios.put(`${this.state.herokUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
         .then(theValues => {
           this.setState({
             caption: '',
@@ -495,7 +495,7 @@ class App extends Component {
           // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
           this.setState({ imagePost: response.imageUrl }, () => {
             //CALL TO THE SIGNUP ROUTE
-            axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
+            axios.put(`${this.state.herokUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
               .then(theData => {
                 console.log("PROFILE UPDATED!")
                 console.log(theData.data)
@@ -523,7 +523,7 @@ class App extends Component {
           console.log("Error while uploading the file: ", err);
         })
     } else {
-      axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
+      axios.put(`${this.state.herokUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
         .then(theData => {
           console.log("PROFILE UPDATED!")
           console.log(theData.data)
@@ -554,7 +554,7 @@ class App extends Component {
     console.log(userToFollow)
     const { currentUser } = this.state
 
-    axios.post(`${this.state.appUrl}/follow/${userToFollow}`, currentUser)
+    axios.post(`${this.state.herokUrl}/follow/${userToFollow}`, currentUser)
       .then(responseFromBackend => {
         console.log(responseFromBackend.data)
         console.log(currentUser._id)
@@ -611,7 +611,7 @@ class App extends Component {
       comment: ''
     })
 
-    axios.put(`${this.state.appUrl}/addComment/${postId}`, newComment)
+    axios.put(`${this.state.herokUrl}/addComment/${postId}`, newComment)
       .then(responseFromBackend => console.log(responseFromBackend))
 
       .catch(err => console.log(err))
@@ -670,7 +670,7 @@ class App extends Component {
   }
 
   logoutUser = () => {
-    axios.delete(`${this.state.appUrl}/auth/logout`, { withCredentials: true })
+    axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
       .then(theUser => {
         console.log("DISCONNECTED!")
         console.log(theUser)
