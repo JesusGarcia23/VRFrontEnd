@@ -317,9 +317,6 @@ class App extends Component {
         })
 
         alert("You are logged in.")
-        if (userDoc !== undefined) {
-          setTimeout(() => { this.get_notifications(userDoc._id) }, 500)
-        }
 
         // return <Redirect to='/profile'/>
       })
