@@ -655,7 +655,7 @@ button:focus {outline:0;}
 }
 
 .notificationText{
-  margin-left: 10px;
+  margin-left: 5px;
   font-size: 1vw;
 }
 
@@ -668,7 +668,6 @@ button:focus {outline:0;}
 }
 
 .postPictureNoti{
-  margin-left: 20px;
   float: right;
 }
 
@@ -1241,13 +1240,8 @@ margin-bottom: 10px;
   font-size: 3vw;
 }
 
-.dropdown-menu{
-  border: 1px solid red;
-  width: 15vw;
-}
-
-.dropDownItem{
-  width:30vw
+.dropdDownItem{
+text-align: end;
 }
 
 /* RESPONSIVE FOR USER PROFILE */

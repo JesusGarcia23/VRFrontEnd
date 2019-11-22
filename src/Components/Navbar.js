@@ -25,7 +25,7 @@ return(
         if(eachNotification.type === "Like" || eachNotification.type === "Comment" ){
           return (
             <React.Fragment key={eachNotification._id}>
-            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`} style={{width:'19.8vw'}}>
+            <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`}>
             <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
             <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span> <span className='notifiText'> {eachNotification.event}</span></span> 
            <span className='postPictureNoti'><img src={eachNotification.imageTo.image} style={{width:"30px", height:"30px", borderRadius:50}} alt='notiPostPicture'></img></span>
@@ -35,12 +35,12 @@ return(
         }else if(eachNotification.type === "Follow"){
           return (
             <React.Fragment key={eachNotification._id}>
-            
+            <NavDropdown.Item as="button">
             <Link to={`/profile/${eachNotification.fromWho._id}`} style={{ textDecoration: 'none', color: 'black' }} className='dropdown-item dropdDownItem'>
             <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span> 
             <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span><span className='notifiText'> {eachNotification.event}</span></span>
             </Link>
-        
+            </NavDropdown.Item>
           <NavDropdown.Divider />
           </React.Fragment>
           )
