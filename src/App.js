@@ -634,6 +634,18 @@ class App extends Component {
       })
     }
 
+    logoutUser = () => {
+     axios.delete(`${this.state.appUrl}/auth/logout`, {withCredentials: true})
+     .then(theUser => {
+      console.log("DISCONNECTED!")
+      console.log(theUser)
+      this.syncCurrentUser(null)
+      this.setState({currentUser: null}, () => {
+        window.location = `http://localhost:3000`
+      })
+    })
+    }
+
   render() {
 
     return (
@@ -643,7 +655,6 @@ class App extends Component {
         <NavBar
           notifications={this.state.notifications_collection}
           currentUser={this.state.currentUser}
-          logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}
           onLogout={this.logoutUser} actualUrl={window.location}
         />
         <Switch>
