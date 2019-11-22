@@ -27,11 +27,11 @@ const NavBar = (props) => {
 
 
                   <React.Fragment key={eachNotification._id}>
-                    <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`}>
+                    <Link to={`/post/${eachNotification.imageTo._id}`}>
                       <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
                       <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span> <span className='notifiText'> {eachNotification.event}</span></span>
                       <span className='postPictureNoti'><img src={eachNotification.imageTo.image} className='notiPostPicture' alt='notiPostPicture'></img></span>
-                    </NavDropdown.Item>
+                    </Link>
                     <NavDropdown.Divider />
 
 
