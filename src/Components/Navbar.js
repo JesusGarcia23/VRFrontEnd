@@ -4,7 +4,7 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 
 
 const NavBar = (props) => {
-const {currentUser} = props
+  const { currentUser } = props
   function displayNotifications(notifications) {
 
     if (notifications.length) {
@@ -18,20 +18,37 @@ const {currentUser} = props
         }
       })
 
-      if (notifications.length > 0) {
+      if (notifications.length) {
         return (
           <NavDropdown title="Notifications" id="basic-nav-dropdown">
-            {notifications && notifications.map(eachNotification => {
+            {notifications && props.notifications.map(eachNotification => {
               if (eachNotification.type === "Like" || eachNotification.type === "Comment") {
                 return (
+
+
                   <React.Fragment key={eachNotification._id}>
-                    <NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`} style={{ width: '19.8vw' }}>
-                      <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
-                      <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span> <span className='notifiText'> {eachNotification.event}</span></span>
-                      <span className='postPictureNoti'><img src={eachNotification.imageTo.image} style={{ width: "30px", height: "30px", borderRadius: 50 }} alt='notiPostPicture'></img></span>
-                    </NavDropdown.Item>
+
+                    {eachNotification.length
+                      &&
+                      < NavDropdown.Item href={`/post/${eachNotification.imageTo._id}`} style={{ width: '19.8vw' }}>
+                        <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span>
+                        <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span> <span className='notifiText'> {eachNotification.event}</span></span>
+                        <span className='postPictureNoti'><img src={eachNotification.imageTo.image} style={{ width: "30px", height: "30px", borderRadius: 50 }} alt='notiPostPicture'></img></span>
+                      </NavDropdown.Item>
+                    }
+
+
+
+
+
                     <NavDropdown.Divider />
-                  </React.Fragment>)
+
+
+
+                  </React.Fragment>
+
+
+                )
               } else if (eachNotification.type === "Follow") {
                 return (
                   <React.Fragment key={eachNotification._id}>
@@ -68,10 +85,7 @@ const {currentUser} = props
             {props.currentUser ? <Nav className="mr-auto">
               <Nav.Link href="/world" className='nav-link'>World</Nav.Link>
               <Link to="/newPost" className='nav-link'>New Experience</Link>
-              {console.log(props.notifications)}
-              {
 
-              }
 
               {displayNotifications(props.notifications.filter(notif => notif.toWho._id === currentUser._id))}
 
