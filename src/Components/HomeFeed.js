@@ -53,7 +53,7 @@ const sortedList = feedList.sort((a, b) => {
             <div className='homePostHeader'>
             <img src={eachPost.owner.imageUrl} style={{width:"50px", height:"50px", borderRadius:50}} alt="miniProfilePic"></img>
             
-           <Link style={{textDecoration: 'none', fontSize:20, marginLeft:15}} to={`/profile/${eachPost.owner._id}`}> {eachPost.owner.username}</Link>
+           <Link style={{textDecoration: 'none', fontSize:22, marginLeft:15 , fontWeight:'bold', color:'black'}} to={`/profile/${eachPost.owner._id}`}> {eachPost.owner.username}</Link>
             </div>
 
             <div className="homeImgContainer">

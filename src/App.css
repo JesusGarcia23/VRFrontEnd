@@ -16,6 +16,11 @@ html,body
   height: 40vmin;
 }
 
+.TriShareLogo{
+  width: 10vw;
+  height: 5.55vh;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -33,15 +38,13 @@ html,body
 
 .navbar {
   color: white;
+  background: rgb(253,29,90);
+  background: linear-gradient(to right, rgba(32,124,229,1) 0%, rgba(2,47,89,0.96) 77%, rgba(2,47,89,0.95) 100%);
+  font-size: 1vw;
 }
 
-.navBarBrand{
-    font-size: 23px;
-  color: white;
-}
-
-.navBarBrand:hover{
-  color: white;
+.dropDownItem{
+  width:80vw
 }
 
 #WebGL-output{
@@ -105,7 +108,7 @@ img:fullscreen {
 }
 
 .profilePostContainer{
-  width: 98.9vw;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -115,7 +118,7 @@ img:fullscreen {
 .worldContainer{
   display: block;
   max-width: 99vw;
-  border: 1px solid red;
+  border: 1px solid gray;
 }
 
 .worldPost{
@@ -452,14 +455,23 @@ color: white;
 }
 
 .HomeItem{
- 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
   float: left;
   width: 32.92%;
   height: 92vh;
   margin: 0px 0.2vw;
+  font-size: 7vw;
 }
 
 .HomeItem1{
+  animation: fadein 1s;
+  -moz-animation: fadein 4s; /* Firefox */
+  -webkit-animation: fadein 2s; /* Safari and Chrome */
+  -o-animation: fadein 4s; /* Opera */
+
   background-image: url('/amsterdam-woman-mobile-photo.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -467,6 +479,11 @@ color: white;
 }
 
 .HomeItem2{
+  animation: fadein 3s;
+  -moz-animation: fadein 4s; /* Firefox */
+  -webkit-animation: fadein 3s; /* Safari and Chrome */
+  -o-animation: fadein 4s; /* Opera */
+
   background-image: url('/sharing-the-future-1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
@@ -474,11 +491,101 @@ color: white;
 }
 
 .HomeItem3{
+  animation: fadein 6s;
+  -moz-animation: fadein 12s; /* Firefox */
+  -webkit-animation: fadein 4s; /* Safari and Chrome */
+  -o-animation: fadein 12s; /* Opera */
+
+
   background-image: url('/Exploring-Petite-France-Strasbourg-by-Geoffrey-Morrison-4-of-10.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 20% 0px;
 }
+
+.HomeText1{
+  opacity: 0;
+  animation: fadein 10s;
+  -moz-animation: fadein 4s; /* Firefox */
+  -webkit-animation-name: fadein; /* Safari and Chrome */
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  -o-animation: fadein 4s; /* Opera */
+  animation-delay: 2s;
+  position: relative;
+}
+
+
+.HomeText2{
+  opacity: 0;
+  animation: fadein 10s;
+  -moz-animation: fadein 4s; /* Firefox */
+  -webkit-animation-name: fadein; /* Safari and Chrome */
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  -o-animation: fadein 4s; /* Opera */
+  animation-delay: 3s;
+  position: relative;
+}
+
+
+.HomeText3{
+  opacity: 0;
+  animation: fadein 10s;
+  -moz-animation: fadein 4s; /* Firefox */
+  -webkit-animation-name: fadein; /* Safari and Chrome */
+  animation-fill-mode: forwards;
+  animation-duration: 2s;
+  -o-animation: fadein 4s; /* Opera */
+  animation-delay: 4s;
+  position: relative;
+}
+
+
+/* ANIMATIONS */
+
+@keyframes fadein {
+  from {
+    bottom: -10vh;
+      opacity:0;
+  }
+  to {
+    bottom: 0vh;
+      opacity:1;
+  }
+}
+@-moz-keyframes fadein { /* Firefox */
+  from {
+    bottom: -10vh;
+      opacity:0;
+  }
+  to {
+    bottom: 0vh;
+      opacity:1;
+  }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+    bottom: -10vh;
+      opacity:0;
+  }
+  to {
+    bottom: 0vh;
+      opacity:1;
+  }
+}
+@-o-keyframes fadein { /* Opera */
+  from {
+    bottom: -10vh;
+      opacity:0;
+  }
+  to {
+    bottom: 0vh;
+      opacity: 1;
+  }
+}
+
+/* END OF ANIMATIONS */
 
 .iconContainer {
   height: 100px;
@@ -519,6 +626,7 @@ button:focus {outline:0;}
 }
 
 .followUser{
+  font-size: 2vw;
   float: left;
   display: block;
   text-decoration: none;
@@ -536,7 +644,7 @@ button:focus {outline:0;}
   border-radius: 10px;
   margin: auto;
   height: 62vh;
-  width: 50vw;
+  width: 80vw;
   margin-bottom: 30px;
 }
 
@@ -548,11 +656,15 @@ button:focus {outline:0;}
 
 .notificationText{
   margin-left: 10px;
-  font-size: 12px;
+  font-size: 1vw;
 }
 
 .notifiUser{
+  font-size: 1vw;
   font-weight: bold;
+}
+.notifiText{
+  font-size: 90%;
 }
 
 .postPictureNoti{
@@ -591,6 +703,13 @@ max-width: 100vw;
   width: 15vw;
 }
 
+.userProfileImg{
+  border-radius: 50%; 
+  width: 10vw; 
+  height: 20vh;
+   margin-bottom: 10px;
+}
+
 .user-profile-username {
   text-align: start;
   height: 8vh;
@@ -598,6 +717,11 @@ max-width: 100vw;
   display: block;
   font-size: 35px;
   font-weight: bold;
+}
+
+.user-profile-nameAbio{
+  display: inline-block;
+  width: 30vw;
 }
 
 .user-profile-bio{
@@ -609,17 +733,18 @@ max-width: 100vw;
 }
 
 .profilePost{
-  width: 32.9vw;
+  width: 33.33%;
 }
 
 .userFollowersContainer{
   display: flex;
   justify-content: center;
   align-items: center;
- width: 50vw;
+ width: 45vw;
 }
 
 .userPostCounter{
+  font-size: 2vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -627,6 +752,7 @@ max-width: 100vw;
 }
 
 .userPostAndFollowers{
+  font-size: 2vw;
   display: flex;
   width: 60vw;
   height: 20.5vh;
@@ -683,7 +809,7 @@ cursor: pointer;
 .editUserProfileIcon{
   position: relative;
   bottom: 7vh;
-  right: -6vw;
+  right: -5vw;
   background: transparent;
   border: 0px;
   font-size: 30px;
@@ -881,42 +1007,55 @@ border-top-right-radius: 17px;
 .canvasAndFileContainer{
   display: flex;
   align-items: center;
+  justify-content: center;
+margin-bottom: 10px;
+}
 
+.borderCanvasPost{
+  display: flex;
+  align-items: center;
+  border: 2px solid gray;
+  border-radius: 10px;
+  height: 43vh;
+  width: 82vw;
+  margin-bottom: 10px;
 }
 
 .fileHandlePostForm{
-  height: 25vh;
-  width: 27vw;
+  display: flex;
+  justify-content: center;
+  height: 9vh;
+  width: 100vw;
 }
 
 .fileSizeText{
-  margin: 2vh auto;
+  margin: 1vh 2vw 0vh 2vw;
   font-size: 1.5vw;
 }
 
 .chooseFileBtnContainer{
-  width: 27vw;
+  display: flex;
+  width: 10vw;
   height: 8vh;
-  display: inline-block;
 }
 
 .removeBtnContainer{
-  width: 27vw;
-  display: inline-block;
+  display: flex;
+  width: 10vw;
+  height: 8vh;
 }
 
 .inputfile {
-	width: 3vw;
+	width: 0vw;
 	height: 2vh;
 	opacity: 0;
 	overflow: hidden;
   display: block;
+  float: left;
   z-index: -1;
-  margin: auto;
 }
 
 .inputfile + label {
-  margin: auto;
   border-radius: 10px;
   padding: 2vh;
   width: 12vw;
@@ -936,7 +1075,7 @@ border-top-right-radius: 17px;
 }
 
 .inputDisabled {
-	width: 3vw;
+	width: 0vw;
 	height: 2vh;
 	opacity: 0;
 	overflow: hidden;
@@ -945,7 +1084,6 @@ border-top-right-radius: 17px;
 }
 
 .inputDisabled + label {
-  margin: auto;
   border-radius: 10px;
   padding: 2vh;
   width: 12vw;
@@ -954,7 +1092,9 @@ border-top-right-radius: 17px;
   font-weight: 700;
   color: white;
   background-color: rgb(20, 18, 168);
-  display: block;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .inputfile + label {
@@ -964,14 +1104,13 @@ border-top-right-radius: 17px;
   margin-left: 0.5vw;
 }
 .removeBtn {
-  margin: auto;
   border: 1px solid rgb(240, 5, 5);
   border-radius: 10px;
   padding: 2vh;
   width: 12vw;
   height: 7vh;
   font-size: 1vw;
-  font-weight: 700;
+  font-weight: bold;
   color: white;
   background-color: rgb(224, 7, 7);
   display: flex;
@@ -986,9 +1125,10 @@ border-top-right-radius: 17px;
 
 .mainPostFormContainer{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  height: 20vh;
+  height: 18vh;
+  margin-bottom: 2vh;
 }
 
 
@@ -999,15 +1139,15 @@ border-top-right-radius: 17px;
 }
 
 .captionPostForm{
-  height: 100px;
+  height: 14vh;
   width: 40vw;
-  margin: 20px auto;
+  margin: 20px 2vw 20px 0px;
   resize: none;
   font-size: 20px;
 }
 
 .tagsPostForm{
-  height: 10vh;
+  height: 14vh;
   width: 20vw;
 }
 
@@ -1086,4 +1226,307 @@ border-top-right-radius: 17px;
 .seeWorldText:hover{
   color: gray;
   text-decoration: none;
+}
+
+/* RESPONSIVE FOR PHONE */
+
+@media only screen and (max-width: 900px) {
+ 
+.TriShareLogo{
+  width: 30vw;
+  height: 5.55vh;
+}
+
+.navbar {
+  font-size: 3vw;
+}
+
+.dropdown-menu{
+  border: 1px solid red;
+  width: 15vw;
+}
+
+.dropDownItem{
+  width:30vw
+}
+
+/* RESPONSIVE FOR USER PROFILE */
+
+.user-profile{
+  display: flex;
+  align-items: center;
+height: 23vh;
+}
+
+.profilePost{
+  width: 33.33%;
+  height: 25vh;
+}
+
+.profileImg{
+  height: 25vh;
+}
+
+.profileImgContainer{
+  height: 25vh;
+}
+
+.user-profile-img{
+  margin: 0px 15px;
+  height: 17vh;
+  width: 17vw;
+}
+
+.user-profile-username{
+  font-size: 6vw;
+}
+
+.user-profile-nameAbio{
+  display: inline-block;
+  width: 50vw;
+}
+
+.userProfileImg{
+  height: 15vh;
+  width: 17vw;
+}
+
+.userPostAndFollowers{
+  display: block;
+  width: 40vw;
+}
+
+.userPostCounter{
+  display: block;
+  text-align: left;
+  width: 100%;
+  height: 20%;
+  margin-bottom: 5px;
+  font-size: 4vw;
+}
+
+.userPostCounterText{
+  margin-left: 1.3vw;
+}
+
+.userFollowersContainer{
+  display: block;
+  height: 60%;
+  width: 100%;
+}
+
+.userFollowers{
+  display: block;
+  text-align: left;
+  width: 40vw;
+  height: 5vh;
+}
+
+.followUser{
+  display: block;
+  width: 30vw;
+  height: 5vh;
+  font-size: 4vw;
+}
+
+.editUserProfileIcon{
+  position: relative;
+  bottom: 4vh;
+  right: -6vw;
+  background: transparent;
+  border: 0px;
+  font-size: 25px;
+}
+
+.editUserFormContainer{
+  height: 63vh;
+  width: 70vw;
+}
+
+.FollowHeader{
+  display: flex;
+  justify-content: space-evenly;
+  
+  
+}
+
+.followerContainerHeader{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followingContainerHeader{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followerContainerHeaderDark{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followingContainerHeaderDark{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followThumbImgName{
+  width: 50%;
+ 
+}
+
+.pictureFollowList{
+  width: 10vw;
+}
+
+.pictureFollowName{
+  font-size: 3vw;
+}
+
+.followBtn{
+  width: 10vw;
+}
+
+.btn-primary{
+  width: 100px;
+}
+
+
+/* NEW POST */
+
+.mainPostFormContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18vh;
+  margin-bottom: 2vh;
+}
+.captionContainerPostForm{
+  display: flex;
+  align-items: center;
+  height: 20vh;
+  width: 50vw;
+}
+
+.captionPostForm{
+  height: 14vh;
+  width: 50vw;
+  resize: none;
+  font-size: 3vw;
+}
+
+.tagsPostForm{
+  height: 14vh;
+  resize: none;
+  width: 28vw;
+  font-size: 3vw;
+}
+
+.tagsTitle{
+  font-size: 3vw;
+  margin-right: 2vw;
+}
+
+.inputFileText{
+  font-size: 2vw;
+}
+
+.uploadIcon{
+  font-size: 3vw;
+}
+
+.redoIcon{
+  font-size: 3vw;
+}
+
+.chooseFileBtnContainer{
+  display: flex;
+  width: 28vw;
+  height: 8vh;
+  margin-right: 0px;
+}
+
+.inputfile + label {
+  border-radius: 10px;
+  padding: 2vh;
+  width: 25vw;
+  height: 7vh;
+  font-size: 1vw;
+  font-weight: 700;
+  color: white;
+  background-color: rgb(44, 118, 255);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: rgb(20, 18, 168);
+}
+
+.inputDisabled + label {
+  border-radius: 10px;
+  padding: 2vh;
+  width: 25vw;
+  height: 7vh;
+  font-size: 1vw;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgb(20, 18, 168);
+  
+}
+
+.removeBtnContainer{
+  display: flex;
+  width: 25vw;
+  height: 8vh;
+}
+
+.removeBtn {
+  border: 1px solid rgb(240, 5, 5);
+  border-radius: 10px;
+  padding: 2vh;
+  width: 25vw;
+  height: 7vh;
+  font-size: 1vw;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(224, 7, 7);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer; /* "hand" cursor */
+}
+
+.fileSizeText{
+  margin: 2vh 2vw 0vh 0vw;
+  font-size: 2vw;
+}
+
+.borderCanvasPost{
+  display: flex;
+  align-items: center;
+  border: 2px solid gray;
+  border-radius: 10px;
+  height: 43vh;
+  width: 85vw;
+  margin-bottom: 10px;
+}
+/* END OF NEW POST */
+
+/* END OF RESPONSIVE FOR USER PROFILE */
+
+
 }

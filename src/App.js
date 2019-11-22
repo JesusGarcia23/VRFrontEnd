@@ -6,8 +6,6 @@ import Signup from './Components/user-pages/Signup'
 import Login from './Components/user-pages/Login'
 import UserProfile from './Components/UserProfile';
 import Home from './Components/Home';
-import FollowerList from './Components/FollowerList'
-import FollowingList from './Components/FollowingList'
 import "./index.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
@@ -64,10 +62,6 @@ class App extends Component {
     socket.on('change_data', this.changingData)
     // await this.get_data_torender()
 
-
-
-
-
     axios.get(`${this.state.appUrl}/auth/loggedin`, { withCredentials: true })
       .then(responseFromBackend => {
         const { userDoc } = responseFromBackend.data
@@ -80,7 +74,7 @@ class App extends Component {
       .catch(err => console.log("Error while getting the user from the loggedin route ", err))
   }
 
-  syncCurrentUser(user) {
+  syncCurrentUser = (user) => {
     this.setState({ currentUser: user })
   }
 
@@ -94,7 +88,7 @@ class App extends Component {
     }
   };
 
-  // MAKE A NEW POST
+
   postNewExp = async (e) => {
     e.preventDefault();
     //UPLOAD TO CLOUDINARY
@@ -120,6 +114,8 @@ class App extends Component {
                   postMade: true,
                   caption: "",
                   images: clone,
+                  imagePost: '',
+                  tags: [],
                   imageFile: []
                 })
 
@@ -166,13 +162,7 @@ class App extends Component {
     })
   };
 
-  // GET ALL THE POSTS TO RENDER FROM DB
 
-  // OLD FUNC WENT HERE
-
-  // THESE USED TO GET POSTS
-
-  // THIS CAN BE DELETED NO LONGER USED
   get_notifications = async (userId) => {
     try {
 
@@ -276,16 +266,6 @@ class App extends Component {
         .catch(err => console.log(err));
 
     }
-
-    // this.setState({
-    //   username: "",
-    //   email: "",
-    //   password: "",
-    //   imageUrl: "",
-    //   imageFile: [],
-    // })
-
-
   }
   // END OF SIGN UP
 
@@ -317,89 +297,14 @@ class App extends Component {
   // END OF LOGIN
 
 
-  // LOG OUT USER
-  logoutUser = () => {
-    axios.delete(`${this.state.appUrl}/auth/logout`, { withCredentials: true })
-      .then(theUser => {
-        console.log("DISCONNECTED!")
-        console.log(theUser)
-        this.syncCurrentUser(null)
-        this.setState({ currentUser: null })
-      })
-    window.location = `/`
-  }
-  //END OF LOG OUT USER
-
-  //LIKE POST
-  handleLike = (e) => {
-    axios.post(`${this.state.appUrl}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
-      .then(responseFromBack => {
-        console.log(responseFromBack.data)
-        //  console.log(responseFromBack.data.thePost)
-        const newPost = responseFromBack.data
-        const clone = [...this.state.images]
-        const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
-        console.log(clone[theIndex]);
-        clone[theIndex].likes = newPost.likes
-        this.setState({ images: clone }, () => {
-          console.log(this.state.images)
-        })
-      })
-      .catch(err => console.log(err));
-  }
-  //END OF LIKE POST
-
-
-
-  //DELETING POSTS
-  handleDelete = (thePostId) => {
-    console.log(thePostId)
-    const postArray = [...this.state.images]
-    const theIndex = postArray.findIndex(postToFind => postToFind._id === thePostId)
-    console.log(theIndex)
-    postArray.splice(theIndex, 1)
-    this.setState({
-      images: postArray,
-      showConfirm: false
-    })
-
-    axios.post(`${this.state.appUrl}/delete/${thePostId}`)
-      .then(responseFromBackend => console.log(responseFromBackend))
-      .catch(err => console.log(err))
-
-    window.location = '/home'
-  }
-
-  confirmDelete = e => {
-    this.setState({
-      showConfirm: true
-    })
-  }
-
-  cancelDelete = e => {
-    this.setState({
-      showConfirm: false
-    })
-  }
-  // END OF DELETING POSTS
-
-  //EDIT POSTS
-  editPost = (e, theValue) => {
-    console.log(theValue)
-    // e.preventDefault();
-    const postList = [...this.state.images]
-    const theIndex = postList.findIndex(thePost => thePost._id === theValue)
-    let postToEdit = postList[theIndex]
-    postToEdit.modal = !postList[theIndex].modal
-    this.setState({
-      images: postList
-    })
-  }
-
   updatePost = (e, thePost) => {
     e.preventDefault();
-    const { caption, tags } = this.state
-    console.log(caption)
+    let { caption, tags } = this.state
+
+    if (tags.length !== 0) {
+      tags = tags.split(/[.,\/ -#]/)
+    }
+
     const imageList = [...this.state.images];
     const theIndex = imageList.indexOf(thePost)
     let captionToUse = '';
@@ -408,244 +313,328 @@ class App extends Component {
     let finalArray = []
     tagToUse = tags
     captionToUse = caption
-    console.log(theIndex)
     if (captionToUse.length === 0) {
       captionToUse = imageList[theIndex].caption
     } if (tagToUse.length === 0) {
       tagToUse = imageList[theIndex].tags
     } else {
+      tagsArray = tagToUse
+      finalArray = tagsArray.filter(eachTag => { return eachTag !== "" })
 
+      imageList[theIndex].caption = captionToUse
+      imageList[theIndex].tags = finalArray
+      imageList[theIndex].modal = !imageList[theIndex].modal
+
+      this.setState({ images: imageList }, () =>
+        axios.put(`${this.state.appUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
+          .then(theValues => {
+            this.setState({
+              caption: '',
+              tags: []
+            })
+            //() => {
+            //   window.location = `/post/${thePost._id}`
+            // }
+          }).catch(err => console.log("A problem happened getting the values!"))
+      )
     }
 
-    if (typeof tagsArray === "string") {
-      tagsArray = tagToUse.split(/[.,\/ -#]/)
+
+    //DELETING POSTS
+    handleDelete = (thePostId) => {
+
+      const postArray = [...this.state.images]
+      const theIndex = postArray.findIndex(postToFind => postToFind._id === thePostId)
+      postArray.splice(theIndex, 1)
+      this.setState({
+        images: postArray,
+        showConfirm: false
+      })
+
+      axios.post(`${this.state.appUrl}/delete/${thePostId}`)
+        .then(responseFromBackend => console.log(responseFromBackend))
+        .catch(err => console.log(err))
+
+      window.location = '/home'
     }
 
-    finalArray = tagsArray.filter(eachTag => { return eachTag !== "" })
 
-    imageList[theIndex].caption = captionToUse
-    imageList[theIndex].tags = finalArray
-    console.log(tagToUse)
-    console.log(captionToUse)
-    console.log(imageList[theIndex])
-    imageList[theIndex].modal = !imageList[theIndex].modal
+    confirmDelete = e => {
+      this.setState({
+        showConfirm: true
+      })
+    }
 
-    this.setState({ images: imageList }, () =>
-      axios.put(`${this.state.appUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
-        .then(theValues => {
-          this.setState({
-            caption: '',
-            tags: []
-          })
-          //() => {
-          //   window.location = `/post/${thePost._id}`
-          // }
-        }).catch(err => console.log("A problem happened getting the values!"))
-    )
-  }
+    cancelDelete = e => {
+      this.setState({
+        showConfirm: false
+      })
+    }
+    // END OF DELETING POSTS
 
-  //END OF EDIT POST
+    //EDIT POSTS
+    editPost = (e, theValue) => {
+      console.log(theValue)
+      // e.preventDefault();
+      const postList = [...this.state.images]
+      const theIndex = postList.findIndex(thePost => thePost._id === theValue)
+      let postToEdit = postList[theIndex]
+      postToEdit.modal = !postList[theIndex].modal
+      this.setState({
+        images: postList
+      })
+    }
 
-  //EDIT USER BIO/PICTURE
-  showEditUser = () => {
-    this.setState({
-      showEdit: !this.state.showEdit
-    }, () => {
-      console.log(this.state.showEdit)
-    })
-  }
+    updatePost = (e, thePost) => {
+      e.preventDefault();
+      const { caption, tags } = this.state
+      console.log(caption)
+      const imageList = [...this.state.images];
+      const theIndex = imageList.indexOf(thePost)
+      let captionToUse = '';
+      let tagToUse = []
+      let tagsArray = []
+      let finalArray = []
+      tagToUse = tags
+      captionToUse = caption
+      console.log(theIndex)
+      if (captionToUse.length === 0) {
+        captionToUse = imageList[theIndex].caption
+      } if (tagToUse.length === 0) {
+        tagToUse = imageList[theIndex].tags
+      } else {
 
-  updateUser = (e, theUser) => {
-    e.preventDefault();
-    const { bio, imageFile, currentUser } = this.state
-    console.log(this.state.bio)
-    console.log(this.state.imageFile)
-    if (this.state.imageFile.length !== 0) {
+      }
 
-      //UPLOAD TO CLOUDINARY
-      const uploadData = new FormData();
-      uploadData.append("imageUrl", this.state.imageFile);
+      if (typeof tagsArray === "string") {
+        tagsArray = tagToUse.split(/[.,\/ -#]/)
+      }
 
-      service.handleUpload(uploadData)
-        .then(response => {
-          console.log('response is: ', response);
-          // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
-          this.setState({ imagePost: response.imageUrl }, () => {
-            //CALL TO THE SIGNUP ROUTE
-            axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
-              .then(theData => {
-                console.log("PROFILE UPDATED!")
-                console.log(theData.data)
-                const listUsers = [...this.state.users]
-                const { bio, imageUrl } = theData.data
-                const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
-                listUsers[theIndex].bio = bio
-                listUsers[theIndex].imageUrl = imageUrl
+      finalArray = tagsArray.filter(eachTag => { return eachTag !== "" })
 
-                this.setState({
-                  users: listUsers,
-                  imageUrl: "",
-                  imageFile: [],
-                  showEdit: !this.state.showEdit
+      imageList[theIndex].caption = captionToUse
+      imageList[theIndex].tags = finalArray
+      console.log(tagToUse)
+      console.log(captionToUse)
+      console.log(imageList[theIndex])
+      imageList[theIndex].modal = !imageList[theIndex].modal
+
+      this.setState({ images: imageList }, () =>
+        axios.put(`${this.state.appUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
+          .then(theValues => {
+            this.setState({
+              caption: '',
+              tags: []
+            })
+            //() => {
+            //   window.location = `/post/${thePost._id}`
+            // }
+          }).catch(err => console.log("A problem happened getting the values!"))
+      )
+    }
+
+    //END OF EDIT POST
+
+    //EDIT USER BIO/PICTURE
+    showEditUser = () => {
+      this.setState({
+        showEdit: !this.state.showEdit
+      }, () => {
+        console.log(this.state.showEdit)
+      })
+    }
+
+    updateUser = (e, theUser) => {
+      e.preventDefault();
+      const { bio, imageFile, currentUser } = this.state
+      console.log(this.state.bio)
+      console.log(this.state.imageFile)
+      if (this.state.imageFile.length !== 0) {
+
+        //UPLOAD TO CLOUDINARY
+        const uploadData = new FormData();
+        uploadData.append("imageUrl", this.state.imageFile);
+
+        service.handleUpload(uploadData)
+          .then(response => {
+            console.log('response is: ', response);
+            // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
+            this.setState({ imagePost: response.imageUrl }, () => {
+              //CALL TO THE SIGNUP ROUTE
+              axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
+                .then(theData => {
+                  console.log("PROFILE UPDATED!")
+                  console.log(theData.data)
+                  const listUsers = [...this.state.users]
+                  const { bio, imageUrl } = theData.data
+                  const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
+                  listUsers[theIndex].bio = bio
+                  listUsers[theIndex].imageUrl = imageUrl
+
+                  this.setState({
+                    users: listUsers,
+                    imageUrl: "",
+                    imageFile: [],
+                    showEdit: !this.state.showEdit
+                  })
+
+                  window.location = `/profile/${currentUser._id}`
                 })
-
-                window.location = `/profile/${currentUser._id}`
-              })
-              .catch(err => console.log(err));
+                .catch(err => console.log(err));
 
 
+            })
+
+          }).catch(err => {
+            console.log("Error while uploading the file: ", err);
           })
+      } else {
+        axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
+          .then(theData => {
+            console.log("PROFILE UPDATED!")
+            console.log(theData.data)
+            const listUsers = [...this.state.users]
+            const { bio } = theData.data
+            const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
+            listUsers[theIndex].bio = bio
 
-        }).catch(err => {
-          console.log("Error while uploading the file: ", err);
-        })
-    } else {
-      axios.put(`${this.state.appUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
-        .then(theData => {
-          console.log("PROFILE UPDATED!")
-          console.log(theData.data)
-          const listUsers = [...this.state.users]
-          const { bio } = theData.data
-          const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
-          listUsers[theIndex].bio = bio
+            this.setState({
+              users: listUsers,
+              imageUrl: "",
+              imageFile: [],
+              showEdit: !this.state.showEdit
+            })
+            window.location.reload();
+          })
+          .catch(err => console.log(err));
 
+      }
+
+    }
+
+    //END OF EDIT USER BIO/PICTURE
+
+
+    //FOLLOWING FUNCTIONALITY
+    handleFollow = userToFollow => {
+      console.log(userToFollow)
+      const { currentUser } = this.state
+
+      axios.post(`${this.state.appUrl}/follow/${userToFollow}`, currentUser)
+        .then(responseFromBackend => {
+          console.log(responseFromBackend.data)
+          console.log(currentUser._id)
+          const userList = [...this.state.users]
+          const myUser = this.state.currentUser
+          const users = responseFromBackend.data
+          const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
+          const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
+          console.log(user1)
+          console.log(user2)
+          const theIndex1 = userList.findIndex(userToFind => userToFind._id === user1._id)
+          console.log(theIndex1)
+          const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)
+          console.log(theIndex2)
+          myUser.followers = user1.followers
+          myUser.following = user1.following
+          userList[theIndex1].followers = user1.followers
+          userList[theIndex1].following = user1.following
+          userList[theIndex2].followers = user2.followers
+          userList[theIndex2].following = user2.following
+          console.log("NEW USER LIST")
+          console.log(userList)
           this.setState({
-            users: listUsers,
-            imageUrl: "",
-            imageFile: [],
-            showEdit: !this.state.showEdit
+            users: userList,
+            currentUser: myUser
           })
-          window.location.reload();
         })
-        .catch(err => console.log(err));
+
+    }
+    //END OF FOLLOWING FUNCTIONALITY
+
+    // ADD COMMENTS
+    handleComment = (e, postId) => {
+      e.preventDefault();
+      const newComment = {
+        owner: this.state.currentUser,
+        message: this.state.comment
+      }
+      const clone = [...this.state.images]
+      console.log(clone.findIndex(thePost => thePost._id === postId))
+      const theIndex = clone.findIndex(thePost => thePost._id === postId)
+      if (theIndex >= 0) {
+        clone[theIndex].comments.push({
+          user: {
+            _id: this.state.currentUser._id,
+            username: this.state.currentUser.username,
+            imageUrl: this.state.currentUser.imageUrl
+          }, comment: this.state.comment
+        })
+      }
+
+      this.setState({
+        images: clone,
+        comment: ''
+      })
+
+      axios.put(`${this.state.appUrl}/addComment/${postId}`, newComment)
+        .then(responseFromBackend => console.log(responseFromBackend))
+
+        .catch(err => console.log(err))
 
     }
 
-  }
+    //END OF ADD COMMENTS
 
-  //END OF EDIT USER BIO/PICTURE
-
-
-  //FOLLOWING FUNCTIONALITY
-  handleFollow = userToFollow => {
-    console.log(userToFollow)
-    const { currentUser } = this.state
-
-    axios.post(`${this.state.appUrl}/follow/${userToFollow}`, currentUser)
-      .then(responseFromBackend => {
-        console.log(responseFromBackend.data)
-        console.log(currentUser._id)
-        const userList = [...this.state.users]
-        const myUser = this.state.currentUser
-        const users = responseFromBackend.data
-        const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
-        const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
-        console.log(user1)
-        console.log(user2)
-        const theIndex1 = userList.findIndex(userToFind => userToFind._id === user1._id)
-        console.log(theIndex1)
-        const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)
-        console.log(theIndex2)
-        myUser.followers = user1.followers
-        myUser.following = user1.following
-        userList[theIndex1].followers = user1.followers
-        userList[theIndex1].following = user1.following
-        userList[theIndex2].followers = user2.followers
-        userList[theIndex2].following = user2.following
-        console.log("NEW USER LIST")
-        console.log(userList)
+    //DISPLAY FOLLOWING FOLLOWERS LIST CONTAINER
+    showFollow = (e) => {
+      e.preventDefault();
+      console.log(e.currentTarget.innerHTML)
+      let theChoice = e.currentTarget.innerHTML
+      if (theChoice === 'Followers:') {
         this.setState({
-          users: userList,
-          currentUser: myUser
+          followContainer: !this.state.followContainer,
+          listFollowers: true,
+          listFollowing: false
         })
-      })
+      } else {
+        this.setState({
+          followContainer: !this.state.followContainer,
+          listFollowers: false,
+          listFollowing: true
+        })
+      }
 
-  }
-  //END OF FOLLOWING FUNCTIONALITY
 
-  // ADD COMMENTS
-  handleComment = (e, postId) => {
-    e.preventDefault();
-    const newComment = {
-      owner: this.state.currentUser,
-      message: this.state.comment
     }
-    const clone = [...this.state.images]
-    console.log(clone.findIndex(thePost => thePost._id === postId))
-    const theIndex = clone.findIndex(thePost => thePost._id === postId)
-    if (theIndex >= 0) {
-      clone[theIndex].comments.push({
-        user: {
-          _id: this.state.currentUser._id,
-          username: this.state.currentUser.username,
-          imageUrl: this.state.currentUser.imageUrl
-        }, comment: this.state.comment
-      })
-    }
-
-    this.setState({
-      images: clone,
-      comment: ''
-    })
-
-    axios.put(`${this.state.appUrl}/addComment/${postId}`, newComment)
-      .then(responseFromBackend => console.log(responseFromBackend))
-
-      .catch(err => console.log(err))
-
-  }
-
-  //END OF ADD COMMENTS
-
-  //DISPLAY FOLLOWING FOLLOWERS LIST CONTAINER
-  showFollow = (e) => {
-    e.preventDefault();
-    console.log(e.currentTarget.innerHTML)
-    let theChoice = e.currentTarget.innerHTML
-    if (theChoice === 'Followers:') {
-      this.setState({
-        followContainer: !this.state.followContainer,
-        listFollowers: true,
-        listFollowing: false
-      })
-    } else {
-      this.setState({
-        followContainer: !this.state.followContainer,
-        listFollowers: false,
-        listFollowing: true
-      })
+    //DISPLAY FOLLOWER/FOLLOWING LIST
+    showFollowers = (e, theValue) => {
+      e.preventDefault()
+      let theChoice = e.target.innerHTML
+      console.log(theValue)
+      if (theChoice === 'Followers') {
+        this.setState({
+          listFollowers: true,
+          listFollowing: false
+        })
+      } else {
+        console.log("FOLLOWING!")
+        this.setState({
+          listFollowers: false,
+          listFollowing: true
+        })
+      }
     }
 
 
-  }
-  //DISPLAY FOLLOWER/FOLLOWING LIST
-  showFollowers = (e, theValue) => {
-    e.preventDefault()
-    let theChoice = e.target.innerHTML
-    console.log(theValue)
-    if (theChoice === 'Followers') {
+    //CHANGE QUERY WITH TAGS
+    updateQueryBar = (theTag) => {
+      console.log(theTag)
       this.setState({
-        listFollowers: true,
-        listFollowing: false
-      })
-    } else {
-      console.log("FOLLOWING!")
-      this.setState({
-        listFollowers: false,
-        listFollowing: true
+        queryInput: theTag
       })
     }
   }
-
-
-  //CHANGE QUERY WITH TAGS
-  updateQueryBar = (theTag) => {
-    console.log(theTag)
-    this.setState({
-      queryInput: theTag
-    })
-  }
-
 
   render() {
 
@@ -669,8 +658,7 @@ class App extends Component {
           <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser={this.state.currentUser} onUserChange={userDoc => this.syncCurrentUser(userDoc)} formValues={this.state} />}></Route>
           <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm} handleSubmit={this.loginUser} currentUser={this.state.currentUser} formValues={this.state} />}></Route>
           <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} onDelete={this.handleDelete} cancelDelete={this.cancelDelete} confirmDelete={this.confirmDelete} showConfirm={this.state.showConfirm} handleLike={this.handleLike} handleEdit={this.editPost} updatePost={this.updatePost} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar} />}></Route>
-          <Route exact path='/followers/:id' render={(props) => <FollowerList {...props} allUsers={this.state.users} />} />
-          <Route exact path='/following/:id' render={(props) => <FollowingList {...props} allUsers={this.state.users} />} />
+
           <Route exact path="/profile/:id" render={(props) =>
             this.state.currentUser ?
               (<UserProfile {...props}
@@ -692,69 +680,12 @@ class App extends Component {
               (<Redirect to="/login" />)} />
 
         </Switch>
-
-
       </div>
     );
   }
 }
-//<Route exact path="/">{this.state.images && this.renderImages()}</Route>
+
 
 export default App;
 
 
-
-//OLD CODE 
- // renderImages = () => {
-  //   const {images} = this.state.images
-  //   return images.map(image => {
-  //     return (
-  //       <div>
-  //       <div>
-  //       <ThreeMap 
-  //         key={image._id}
-  //         {...image}
-  //         url={image.imageUrl}
-  //       />
-  //       </div>
-  //       <div>HELLO MY NAME IS JESUS </div>
-  //       </div>
-  //     )
-  //   })
-  // };
-
-  //SINGLE POST
-// getData = async() => { 
-//   // return this.props.myUrl
-//   try {
-//       await axios.get(`http://localhost:5000${this.props.match.url}`).then(response => {
-//         this.setState({
-//           images: response.data
-//         });
-//       });
-//     } catch (err) {
-//       console.log(err);
-//     }
-// }
-
-//END SINGLE POST
-
- //OLD WAY OF MAKE A NEW POST
-  // post_new_experience = async e => {
-  //   try{
-  //   e.preventDefault();
-  //   const { postImgUrl } = this.state;
-  //   const clone = [...this.state.images];
-  //   await axios.post(postImgUrl, this.state.selectedFile)
-  //   .then(response => {
-  //     clone.push(response.data);
-  //     this.setState({
-  //       images: clone
-  //     });
-  //   });
-  // }catch(err){
-  //   console.log(err)
-  // }  
-  // };
-
-  // END OF MAKE A NEW POST
