@@ -63,6 +63,8 @@ class App extends Component {
 
     axios.get(`${this.state.herokUrl}/auth/loggedin`, { withCredentials: true })
       .then(responseFromBackend => {
+        console.log("TESTING LOGGED IN")
+        console.log(userDoc)
         const { userDoc } = responseFromBackend.data
         // console.log(userDoc)
         // if (userDoc !== undefined) {
