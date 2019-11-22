@@ -43,10 +43,6 @@ html,body
   font-size: 1vw;
 }
 
-.dropDownItem{
-  width:80vw
-}
-
 #WebGL-output{
   margin-bottom: -5.5vh;
 }
@@ -93,6 +89,14 @@ img:fullscreen {
 .navbar {
   margin-bottom: 1px;
 }
+
+.dropdown-item{
+  display: flex !important; 
+  align-items: center !important;
+  justify-content: flex-start  !important;
+  width: 20vw !important;
+  height: 4vh !important;
+} 
 
 .SignupForm {
   margin-top: 200px;
@@ -325,7 +329,7 @@ opacity: 1;
   border: 1px solid blue;
   height: 30vh;
   width: 45vw;
-  font-size: 30px;
+  font-size: 1.5vw;
 }
 
 .singleLikes{
@@ -649,13 +653,14 @@ button:focus {outline:0;}
 }
 
 .notification-userImage img{
-  height: 30px;
-  width: 30px;
+  width: 2vw;
+  height: 3.8vh;
   border-radius: 50%;
 }
 
 .notificationText{
   margin-left: 5px;
+  width: 80%;
   font-size: 1vw;
 }
 
@@ -663,12 +668,27 @@ button:focus {outline:0;}
   font-size: 1vw;
   font-weight: bold;
 }
+
 .notifiText{
   font-size: 90%;
 }
 
-.postPictureNoti{
+.notiFollow{
+  padding-bottom: 4vh !important;
+}
+
+.notiPostPicture{
+  display: flex;
+  justify-content: flex-end;
   float: right;
+  width: 2vw;
+  height: 3.8vh;
+  border-radius: 50%;
+}
+
+.postPictureNoti{
+  display: flex;
+  justify-content: flex-end;
 }
 
 .followBtnProfile{
@@ -1229,8 +1249,10 @@ margin-bottom: 10px;
 
 /* RESPONSIVE FOR PHONE */
 
-@media only screen and (max-width: 900px) {
+@media screen and (max-width: 900px) {
  
+
+  /* NAVBAR */
 .TriShareLogo{
   width: 30vw;
   height: 5.55vh;
@@ -1240,9 +1262,64 @@ margin-bottom: 10px;
   font-size: 3vw;
 }
 
-.dropdown-item{
-text-align: end;
+.notifiUser{
+  margin-right: 5px;
+  font-size: 3vw;
 }
+
+.notifiText{
+  font-size: 3vw;
+}
+
+.notiFollow{
+  padding-bottom: 5vh !important;
+}
+.dropdown-menu {
+  border: 1px solid red !important;
+width: 60vw !important;
+}
+
+.notificationText{
+  border: 1px solid blue;
+  margin-left: 5px;
+  width: 550px;
+  font-size: 1vw;
+}
+
+.notification-userImage img{
+  width: 5vw;
+  height: 5vh;
+  border-radius: 50%;
+}
+
+.notification-userImage{
+  width: 5vw;
+  height: 5vh;
+}
+
+.postPictureNoti{
+  display: inline;
+
+}
+
+.notiPostPicture{
+  display: block;
+  float: left;
+  width: 5vw;
+  height: 5vh;
+  border-radius: 50%;
+}
+
+.dropdown-item{
+  border: 1px solid purple !important;
+  display: flex !important; 
+  align-items: center !important;
+  justify-content: flex-start  !important;
+  width: 5px !important;
+  height: 4vh !important;
+} 
+
+/* NAVBAR */
 
 /* RESPONSIVE FOR USER PROFILE */
 

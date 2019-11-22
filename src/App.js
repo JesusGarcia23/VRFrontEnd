@@ -625,6 +625,24 @@ class App extends Component {
       }
     }
 
+    //HANDLE LIKE
+    handleLike = (e) => {
+      axios.post(`${this.state.appUrl}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
+        .then(responseFromBack => {
+          console.log(responseFromBack.data)
+          //  console.log(responseFromBack.data.thePost)	
+          const newPost = responseFromBack.data
+          const clone = [...this.state.images]
+          const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
+          console.log(clone[theIndex]);
+          clone[theIndex].likes = newPost.likes
+          this.setState({ images: clone }, () => {
+            console.log(this.state.images)
+          })
+        })
+        .catch(err => console.log(err));
+    }
+
 
     //CHANGE QUERY WITH TAGS
     updateQueryBar = (theTag) => {
