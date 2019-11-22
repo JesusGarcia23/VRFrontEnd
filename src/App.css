@@ -43,6 +43,10 @@ html,body
   font-size: 1vw;
 }
 
+.dropDownItem{
+  width:80vw
+}
+
 #WebGL-output{
   margin-bottom: -5.5vh;
 }
@@ -1004,16 +1008,17 @@ border-top-right-radius: 17px;
   display: flex;
   align-items: center;
   justify-content: center;
-
+margin-bottom: 10px;
 }
 
 .borderCanvasPost{
   display: flex;
   align-items: center;
-  border: 1px solid red;
-  border-radius: '10px';
+  border: 2px solid gray;
+  border-radius: 10px;
   height: 43vh;
   width: 82vw;
+  margin-bottom: 10px;
 }
 
 .fileHandlePostForm{
@@ -1024,7 +1029,7 @@ border-top-right-radius: 17px;
 }
 
 .fileSizeText{
-  margin: 1vh 2vw 0vh 4vw;
+  margin: 1vh 2vw 0vh 2vw;
   font-size: 1.5vw;
 }
 
@@ -1070,7 +1075,7 @@ border-top-right-radius: 17px;
 }
 
 .inputDisabled {
-	width: 3vw;
+	width: 0vw;
 	height: 2vh;
 	opacity: 0;
 	overflow: hidden;
@@ -1079,7 +1084,6 @@ border-top-right-radius: 17px;
 }
 
 .inputDisabled + label {
-  margin: auto;
   border-radius: 10px;
   padding: 2vh;
   width: 12vw;
@@ -1088,7 +1092,9 @@ border-top-right-radius: 17px;
   font-weight: 700;
   color: white;
   background-color: rgb(20, 18, 168);
-  display: block;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .inputfile + label {
@@ -1240,7 +1246,17 @@ border-top-right-radius: 17px;
   width: 15vw;
 }
 
+.dropDownItem{
+  width:30vw
+}
+
 /* RESPONSIVE FOR USER PROFILE */
+
+.user-profile{
+  display: flex;
+  align-items: center;
+height: 23vh;
+}
 
 .profilePost{
   width: 33.33%;
@@ -1257,8 +1273,12 @@ border-top-right-radius: 17px;
 
 .user-profile-img{
   margin: 0px 15px;
-  height: 20vh;
+  height: 17vh;
   width: 17vw;
+}
+
+.user-profile-username{
+  font-size: 6vw;
 }
 
 .user-profile-nameAbio{
@@ -1317,6 +1337,194 @@ border-top-right-radius: 17px;
   border: 0px;
   font-size: 25px;
 }
+
+.editUserFormContainer{
+  height: 63vh;
+  width: 70vw;
+}
+
+.FollowHeader{
+  display: flex;
+  justify-content: space-evenly;
+  
+  
+}
+
+.followerContainerHeader{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followingContainerHeader{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followerContainerHeaderDark{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followingContainerHeaderDark{
+  display: flex;
+  align-items: center;
+  font-size: 3vw;
+  justify-content: center;
+}
+
+.followThumbImgName{
+  width: 50%;
+ 
+}
+
+.pictureFollowList{
+  width: 10vw;
+}
+
+.pictureFollowName{
+  font-size: 3vw;
+}
+
+.followBtn{
+  width: 10vw;
+}
+
+.btn-primary{
+  width: 100px;
+}
+
+
+/* NEW POST */
+
+.mainPostFormContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 18vh;
+  margin-bottom: 2vh;
+}
+.captionContainerPostForm{
+  display: flex;
+  align-items: center;
+  height: 20vh;
+  width: 50vw;
+}
+
+.captionPostForm{
+  height: 14vh;
+  width: 50vw;
+  resize: none;
+  font-size: 3vw;
+}
+
+.tagsPostForm{
+  height: 14vh;
+  resize: none;
+  width: 28vw;
+  font-size: 3vw;
+}
+
+.tagsTitle{
+  font-size: 3vw;
+  margin-right: 2vw;
+}
+
+.inputFileText{
+  font-size: 2vw;
+}
+
+.uploadIcon{
+  font-size: 3vw;
+}
+
+.redoIcon{
+  font-size: 3vw;
+}
+
+.chooseFileBtnContainer{
+  display: flex;
+  width: 28vw;
+  height: 8vh;
+  margin-right: 0px;
+}
+
+.inputfile + label {
+  border-radius: 10px;
+  padding: 2vh;
+  width: 25vw;
+  height: 7vh;
+  font-size: 1vw;
+  font-weight: 700;
+  color: white;
+  background-color: rgb(44, 118, 255);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+  background-color: rgb(20, 18, 168);
+}
+
+.inputDisabled + label {
+  border-radius: 10px;
+  padding: 2vh;
+  width: 25vw;
+  height: 7vh;
+  font-size: 1vw;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgb(20, 18, 168);
+  
+}
+
+.removeBtnContainer{
+  display: flex;
+  width: 25vw;
+  height: 8vh;
+}
+
+.removeBtn {
+  border: 1px solid rgb(240, 5, 5);
+  border-radius: 10px;
+  padding: 2vh;
+  width: 25vw;
+  height: 7vh;
+  font-size: 1vw;
+  font-weight: bold;
+  color: white;
+  background-color: rgb(224, 7, 7);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  cursor: pointer; /* "hand" cursor */
+}
+
+.fileSizeText{
+  margin: 2vh 2vw 0vh 0vw;
+  font-size: 2vw;
+}
+
+.borderCanvasPost{
+  display: flex;
+  align-items: center;
+  border: 2px solid gray;
+  border-radius: 10px;
+  height: 43vh;
+  width: 85vw;
+  margin-bottom: 10px;
+}
+/* END OF NEW POST */
 
 /* END OF RESPONSIVE FOR USER PROFILE */
 

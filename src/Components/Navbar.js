@@ -36,7 +36,7 @@ return(
           return (
             <React.Fragment key={eachNotification._id}>
             
-            <Link to={`/profile/${eachNotification.fromWho._id}`} style={{ textDecoration: 'none', color: 'black', width:'19.8vw' }} className='dropdown-item'>
+            <Link to={`/profile/${eachNotification.fromWho._id}`} style={{ textDecoration: 'none', color: 'black' }} className='dropdown-item dropdDownItem'>
             <span className='notification-userImage'><img src={eachNotification.fromWho.imageUrl} alt='notiPicture'></img></span> 
             <span className='notificationText'><span className='notifiUser'>{eachNotification.fromWho.username}</span><span className='notifiText'> {eachNotification.event}</span></span>
             </Link>

@@ -21,12 +21,12 @@ class PostForm extends React.Component{
 
     //STYLING 
     canvasStyle = {
-        height: "200px",
-        width: "600px"
+        height: "38vh",
+        width: "77vw"
     }
 
-    height = "40vh"
-    width = "80vw"
+    height = "38vh"
+    width = "78.95vw"
 
     style = {
         "display": "block",
@@ -139,20 +139,21 @@ console.log(e.target);
 
             <span className='chooseFileBtnContainer'>
             <input type="file" onChange={this.seePreview} id="myFileList" className="inputfile"></input>
-            <label htmlFor="myFileList">Choose a file <span>|</span><i class="fas fa-upload uploadIcon"></i></label>
+            <label htmlFor="myFileList"> <span className='inputFileText'>Choose a file</span> <span className='inputFileText'>|</span><i class="fas fa-upload uploadIcon"></i></label>
             </span>
           
             <span className='fileSizeText'>(File size max 10 Mb)</span>
 
             <span className='removeBtnContainer'>
-            <button onClick={this.removePicture} className="removeBtn">REMOVE <span>|</span><i class="fas fa-redo"></i></button>
+            <button onClick={this.removePicture} className="removeBtn"> <span className='inputFileText'>REMOVE</span> <span className='inputFileText'>|</span><i class="fas fa-redo redoIcon"></i></button>
             </span>
 
             </div>
            
            <div className='mainPostFormContainer'>
            <span className='captionContainerPostForm'>
-           <textarea className='captionPostForm' type="text" value={caption} onChange={ e => this.props.onChangeValue(e)} name="caption" placeholder="write a caption..."></textarea>
+           <span className="tagsTitle">Caption: </span>
+           <textarea className='captionPostForm' type="text" value={caption} onChange={ e => this.props.onChangeValue(e)} name="caption" ></textarea>
            </span>
            <span className="tagTitleAndTextarea">
            <span className="tagsTitle">Tags: </span>

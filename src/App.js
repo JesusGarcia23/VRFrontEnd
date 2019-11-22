@@ -104,7 +104,11 @@ await uploadData.append("imageUrl", this.state.imageFile);
      clone.push(newPost);
      this.setState({postMade: true,
     caption: "",
-  images: clone})
+  images: clone,
+imagePost: '',
+tags: [],
+imageFile: []
+})
 
      setTimeout(
        this.setState({postMade: false}), 1000)
@@ -371,8 +375,12 @@ editPost = (e, theValue) => {
 
 updatePost = (e, thePost) => {
   e.preventDefault();
-const {caption, tags} = this.state
-console.log(caption)
+let {caption, tags} = this.state
+
+if(tags.length !== 0){
+  tags = tags.split(/[.,\/ -#]/)
+}
+
 const imageList = [...this.state.images];
 const theIndex = imageList.indexOf(thePost)
 let captionToUse = '';
@@ -381,7 +389,6 @@ let tagsArray = []
 let finalArray = []
 tagToUse = tags
 captionToUse = caption
-console.log(theIndex)
 if(captionToUse.length === 0){
   captionToUse = imageList[theIndex].caption
 }if(tagToUse.length === 0){
@@ -390,14 +397,14 @@ if(captionToUse.length === 0){
 
 }
 
-tagsArray = tagToUse.split(/[.,\/ -#]/)
+tagsArray = tagToUse
 finalArray = tagsArray.filter(eachTag =>{ return eachTag !== "" })
 
 imageList[theIndex].caption = captionToUse
 imageList[theIndex].tags = finalArray
-console.log(tagToUse)
-console.log(captionToUse)
-console.log(imageList[theIndex])
+// console.log(tagToUse)
+// console.log(captionToUse)
+// console.log(imageList[theIndex])
 imageList[theIndex].modal = !imageList[theIndex].modal
 
 this.setState({images: imageList}, () => 
