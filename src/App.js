@@ -64,8 +64,11 @@ class App extends Component {
     axios.get(`${this.state.herokUrl}/auth/loggedin`, { withCredentials: true })
       .then(responseFromBackend => {
         console.log("TESTING LOGGED IN")
-        console.log(userDoc)
+        socket.on('loggedin', function(data){
+          console.log(data)
+        })
         const { userDoc } = responseFromBackend.data
+        console.log(userDoc)
         // console.log(userDoc)
         // if (userDoc !== undefined) {
         //   setTimeout(() => { this.get_notifications(userDoc._id) }, 500)
