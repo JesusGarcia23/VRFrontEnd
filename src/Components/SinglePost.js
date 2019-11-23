@@ -84,8 +84,8 @@ const SinglePost = props => {
     }
   }
 
-  //   console.log("PROPS!")
-  // console.log(props)
+    console.log("PROPS!")
+  console.log(props)
   const id = props.match.params.id
 
   const theArr = props.postValues.filter(eachItem => {
@@ -164,7 +164,7 @@ const SinglePost = props => {
     )
   }
   return (
-    <div>OH NO!</div>
+    <div>OH NO THE POST DOES NOT EXIST!</div>
   )
 
 

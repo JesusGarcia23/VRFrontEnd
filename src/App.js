@@ -37,7 +37,7 @@ class App extends Component {
     showConfirm: false,
     url: "http://localhost:5000/api/things",
     postImgUrl: "http://localhost:5000/api/upload",
-    //herokUrl: 'http://localhost:5000',
+   // herokUrl: 'http://localhost:5000',
      herokUrl: 'https://trishare.herokuapp.com',
     lastUrl: '/world',
     images: [],
@@ -150,7 +150,7 @@ class App extends Component {
         this.syncCurrentUser(null)
         this.setState({ currentUser: null })
       })
-    // window.location = `/`
+    window.location = `/`
   }
   //END OF LOG OUT USER	
 

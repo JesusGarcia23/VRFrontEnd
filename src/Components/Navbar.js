@@ -73,7 +73,7 @@ const NavBar = (props) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             {props.currentUser ? <Nav className="mr-auto">
-            <Link to="/home" className='nav-link navBarBrand'><img src='/triShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Link>
+            <Link to="/home" className='nav-link navBarBrand'><img src='../../triShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Link>
               <Link to="/world" className='nav-link'>World</Link>
               <Link to="/newPost" className='nav-link'>New Experience</Link>
 
