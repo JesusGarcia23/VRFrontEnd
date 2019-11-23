@@ -37,8 +37,8 @@ class App extends Component {
     showConfirm: false,
     url: "http://localhost:5000/api/things",
     postImgUrl: "http://localhost:5000/api/upload",
-    appUrl: 'http://localhost:5000',
-    herokUrl: 'https://trishare.herokuapp.com',
+    //herokUrl: 'http://localhost:5000',
+     herokUrl: 'https://trishare.herokuapp.com',
     lastUrl: '/world',
     images: [],
     profileImgDefault: 'https://res.cloudinary.com/thejacex/image/upload/v1572846104/emptyImage_qqqtqp.png',
@@ -46,6 +46,8 @@ class App extends Component {
     postMade: false,
     message: "",
     singlePost: null,
+    showSignup: false,
+      showLogin: false,
     showEdit: false,
     queryInput: '',
     followContainer: false,
@@ -59,21 +61,18 @@ class App extends Component {
     socket.on('get_users', this.get_user_data)
     socket.on('get_notifications', this.get_public_notifications)
     socket.on('change_data', this.changingData)
-    // await this.get_data_torender()
+    // socket.on('loggedin', this.syncCurrentUser)
 
     axios.get(`${this.state.herokUrl}/auth/loggedin`, { withCredentials: true })
       .then(responseFromBackend => {
-        console.log("TESTING LOGGED IN")
-        socket.on('loggedin', function(data){
-          console.log(data)
-        })
-        const { userDoc } = responseFromBackend.data
-        console.log(userDoc)
+ 
+        // const { userDoc } = responseFromBackend.data
+        // console.log(userDoc)
         // console.log(userDoc)
         // if (userDoc !== undefined) {
         //   setTimeout(() => { this.get_notifications(userDoc._id) }, 500)
         // }
-        this.syncCurrentUser(userDoc);
+        
       })
       .catch(err => console.log("Error while getting the user from the loggedin route ", err))
   }
@@ -109,8 +108,6 @@ class App extends Component {
             //CALL TO THE NEW POST ROUTE
             axios.post(`${this.state.herokUrl}/createNewPost`, this.state, { withCredentials: true })
               .then(theNewPost => {
-                console.log("NEW POST!")
-                console.log(theNewPost.data)
                 const newPost = theNewPost.data
                 const clone = [...this.state.images]
                 clone.push(newPost);
@@ -142,7 +139,6 @@ class App extends Component {
 
 
   get_user_data = (users) => {
-    console.log('this is users', users)
     this.setState({
       users: users
     })
@@ -151,12 +147,10 @@ class App extends Component {
   logoutUser = () => {
     axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
       .then(theUser => {
-        console.log("DISCONNECTED!")
-        console.log(theUser)
         this.syncCurrentUser(null)
         this.setState({ currentUser: null })
       })
-    window.location = `/`
+    // window.location = `/`
   }
   //END OF LOG OUT USER	
 
@@ -164,25 +158,20 @@ class App extends Component {
   handleLike = (e) => {
     axios.post(`${this.state.herokUrl}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
       .then(responseFromBack => {
-        console.log(responseFromBack.data)
         //  console.log(responseFromBack.data.thePost)	
         const newPost = responseFromBack.data
         const clone = [...this.state.images]
         const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
-        console.log(clone[theIndex]);
         clone[theIndex].likes = newPost.likes
         this.setState({ images: clone }, () => {
-          console.log(this.state.images)
         })
       })
       .catch(err => console.log(err));
   }
 
-
-
-
-
-
+  get_data_torender = (listOfPosts) => {
+    console.log(listOfPosts)
+  }
 
   get_public_notifications = (notification) => {
     this.setState({
@@ -223,7 +212,7 @@ class App extends Component {
 
   //uPDATE FORMS VALUES
   updateForm = (e) => {
-    console.log(e)
+   // console.log(e)
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
@@ -237,7 +226,6 @@ class App extends Component {
 
   //CHANGE IMAGE FILES
   changeFile = (e) => {
-    console.log(e)
     if (e.size <= 10485760) {
       this.setState({
         imageFile: e,
@@ -260,14 +248,11 @@ class App extends Component {
 
       service.handleUpload(uploadData)
         .then(response => {
-          console.log('response is: ', response);
           // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
           this.setState({ imagePost: response.imageUrl }, () => {
             //CALL TO THE SIGNUP ROUTE
             axios.post(`${this.state.herokUrl}/auth/signup`, this.state, { withCredentials: true })
               .then(theData => {
-                console.log("NEW USER!")
-                console.log(theData)
                 this.setState({
                   finished: true,
                   username: "",
@@ -291,8 +276,6 @@ class App extends Component {
       //CALL TO THE SIGNUP ROUTE
       axios.post(`${this.state.herokUrl}/auth/signup`, this.state, { withCredentials: true })
         .then(theData => {
-          console.log("NEW USER!")
-          console.log(theData)
           this.setState({
             finished: true,
             username: "",
@@ -313,7 +296,6 @@ class App extends Component {
     e.preventDefault();
     axios.post(`${this.state.herokUrl}/auth/login`, this.state, { withCredentials: true })
       .then(responseFromServer => {
-        console.log(responseFromServer.data.userDoc)
         const { userDoc } = responseFromServer.data;
         this.syncCurrentUser(userDoc);
         this.setState({
@@ -410,7 +392,6 @@ class App extends Component {
 
   //EDIT POSTS
   editPost = (e, theValue) => {
-    console.log(theValue)
     // e.preventDefault();
     const postList = [...this.state.images]
     const theIndex = postList.findIndex(thePost => thePost._id === theValue)
@@ -424,7 +405,6 @@ class App extends Component {
   updatePost = (e, thePost) => {
     e.preventDefault();
     const { caption, tags } = this.state
-    console.log(caption)
     const imageList = [...this.state.images];
     const theIndex = imageList.indexOf(thePost)
     let captionToUse = '';
@@ -433,7 +413,6 @@ class App extends Component {
     let finalArray = []
     tagToUse = tags
     captionToUse = caption
-    console.log(theIndex)
     if (captionToUse.length === 0) {
       captionToUse = imageList[theIndex].caption
     } if (tagToUse.length === 0) {
@@ -450,9 +429,6 @@ class App extends Component {
 
     imageList[theIndex].caption = captionToUse
     imageList[theIndex].tags = finalArray
-    console.log(tagToUse)
-    console.log(captionToUse)
-    console.log(imageList[theIndex])
     imageList[theIndex].modal = !imageList[theIndex].modal
 
     this.setState({ images: imageList }, () =>
@@ -475,16 +451,12 @@ class App extends Component {
   showEditUser = () => {
     this.setState({
       showEdit: !this.state.showEdit
-    }, () => {
-      console.log(this.state.showEdit)
     })
   }
 
   updateUser = (e, theUser) => {
     e.preventDefault();
     const { bio, imageFile, currentUser } = this.state
-    console.log(this.state.bio)
-    console.log(this.state.imageFile)
     if (this.state.imageFile.length !== 0) {
 
       //UPLOAD TO CLOUDINARY
@@ -499,8 +471,6 @@ class App extends Component {
             //CALL TO THE SIGNUP ROUTE
             axios.put(`${this.state.herokUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
               .then(theData => {
-                console.log("PROFILE UPDATED!")
-                console.log(theData.data)
                 const listUsers = [...this.state.users]
                 const { bio, imageUrl } = theData.data
                 const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
@@ -514,7 +484,7 @@ class App extends Component {
                   showEdit: !this.state.showEdit
                 })
 
-                window.location = `/profile/${currentUser._id}`
+                // window.location = `/profile/${currentUser._id}`
               })
               .catch(err => console.log(err));
 
@@ -527,8 +497,6 @@ class App extends Component {
     } else {
       axios.put(`${this.state.herokUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
         .then(theData => {
-          console.log("PROFILE UPDATED!")
-          console.log(theData.data)
           const listUsers = [...this.state.users]
           const { bio } = theData.data
           const theIndex = listUsers.findIndex(theUser => theUser._id === currentUser._id)
@@ -540,7 +508,7 @@ class App extends Component {
             imageFile: [],
             showEdit: !this.state.showEdit
           })
-          window.location.reload();
+          // window.location.reload();
         })
         .catch(err => console.log(err));
 
@@ -558,27 +526,19 @@ class App extends Component {
 
     axios.post(`${this.state.herokUrl}/follow/${userToFollow}`, currentUser)
       .then(responseFromBackend => {
-        console.log(responseFromBackend.data)
-        console.log(currentUser._id)
         const userList = [...this.state.users]
         const myUser = this.state.currentUser
         const users = responseFromBackend.data
         const user1 = users[users.findIndex(theUser => theUser._id === currentUser._id)]
         const user2 = users[users.findIndex(theUser => theUser._id === userToFollow)]
-        console.log(user1)
-        console.log(user2)
         const theIndex1 = userList.findIndex(userToFind => userToFind._id === user1._id)
-        console.log(theIndex1)
         const theIndex2 = userList.findIndex(userToFind => userToFind._id === user2._id)
-        console.log(theIndex2)
         myUser.followers = user1.followers
         myUser.following = user1.following
         userList[theIndex1].followers = user1.followers
         userList[theIndex1].following = user1.following
         userList[theIndex2].followers = user2.followers
         userList[theIndex2].following = user2.following
-        console.log("NEW USER LIST")
-        console.log(userList)
         this.setState({
           users: userList,
           currentUser: myUser
@@ -662,6 +622,38 @@ class App extends Component {
     }
   }
 
+  //DISPLAY LOGIN FORM
+showLoginForm = (e) => {
+  e.preventDefault();
+  this.setState({
+    showLogin: !this.state.showLogin
+  })
+}
+
+//DISPLAY SIGNUP FORM
+showSignupForm = (e) => {
+  e.preventDefault();
+  this.setState({
+    showSignup: !this.state.showSignup
+  })
+}
+
+//EXIT LOGIN FORM
+exitLogin = (e) => {
+  e.preventDefault();
+  this.setState({
+    showLogin: false
+  })
+}
+
+// EXIT SIGNUP FORM
+exitSignup = (e) => {
+  e.preventDefault();
+  this.setState({
+    showSignup: false
+  })
+}
+
 
   //CHANGE QUERY WITH TAGS
   updateQueryBar = (theTag) => {
@@ -672,62 +664,56 @@ class App extends Component {
   }
 
   logoutUser = () => {
+    socket.emit('end', this.state.currentUser)
     axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
       .then(theUser => {
         console.log("DISCONNECTED!")
         console.log(theUser)
         this.syncCurrentUser(null)
         this.setState({ currentUser: null }, () => {
-          window.location = `http://localhost:3000`
+          // window.location = `http://localhost:3000`
         })
       })
   }
 
   render() {
-
+    // console.log("CURRENT USER")
+    // console.log(this.state.currentUser)
+    // console.log(this.state.appUrl);
     return (
       <div className="App">
-        <Header />
-
-        <NavBar
-          notifications={this.state.notifications_collection}
-          currentUser={this.state.currentUser}
-          logoutUser={this.logoutUser}
-          lastUrl={this.state.lastUrl}
-          onLogout={this.logoutUser}
-          actualUrl={window.location}
-        />
+      <Header/>
+       
+        <NavBar currentUser={this.state.currentUser} notifications={this.state.notifications} revealLoginForm={this.showLoginForm} revealSignupForm={this.showSignupForm} logoutUser={this.logoutUser} lastUrl={this.state.lastUrl}   onLogout={this.logoutUser} actualUrl={window.location}/>
         <Switch>
-          <Route exact path="/" render={(props) => !this.state.currentUser ? <Home /> : (<Redirect to="/home" />)} />
-          <Route path="/world" render={(props) => <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser} query={this.state.queryInput} onChangeValue={this.updateForm} />} />
-          <Route exact path="/theImg" render={(props) => <SinglePost {...props} myUrl={this.state.images} />} />
-          <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />)} />
-          <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state} />} />
-          <Route exact path="/signup" render={(props) => <Signup {...props} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.makeNewUser} currentUser={this.state.currentUser} onUserChange={userDoc => this.syncCurrentUser(userDoc)} formValues={this.state} />}></Route>
-          <Route exact path="/login" render={(props) => <Login {...props} onChangeValue={this.updateForm} handleSubmit={this.loginUser} currentUser={this.state.currentUser} formValues={this.state} />}></Route>
-          <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} onDelete={this.handleDelete} cancelDelete={this.cancelDelete} confirmDelete={this.confirmDelete} showConfirm={this.state.showConfirm} handleLike={this.handleLike} handleEdit={this.editPost} updatePost={this.updatePost} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar} />}></Route>
-
-          <Route exact path="/profile/:id" render={(props) =>
-            this.state.currentUser ?
-              (<UserProfile {...props}
-                images={this.state.images}
-                currentUser={this.state.currentUser}
-                users={this.state.users}
-                showEdit={this.state.showEdit}
-                handleFollow={this.handleFollow}
-                onChangeValue={this.updateForm}
-                handleEditProfile={this.showEditUser}
-                changeFile={this.changeFile}
-                updateUser={this.updateUser}
-                handleShowFollow={this.showFollow}
-                followContainer={this.state.followContainer}
-                showFollowers={this.showFollowers}
-                listFollowing={this.state.listFollowing}
-                listFollowers={this.state.listFollowers}
-              />) :
-              (<Redirect to="/login" />)} />
-
+        <Route exact path="/" render={(props) => !this.state.currentUser ? <Home {...props} showSignup={this.state.showSignup} showLogin={this.state.showLogin} exitLogin={this.exitLogin} exitSignup={this.exitSignup} onChangeValue={this.updateForm} changeFile={this.changeFile} handleSubmit={this.loginUser} handleSignUp={this.makeNewUser} onUserChange = { userDoc => this.syncCurrentUser(userDoc)} currentUser = {this.state.currentUser} formValues={this.state}/> : (<Redirect to="/home"/>)}/>
+        <Route path="/world" render={(props) =>  <WorldPost {...props} allPosts={this.state.images} renderPosts={this.worldRender} handleLike={this.handleLike} currentUser={this.state.currentUser} query={this.state.queryInput} onChangeValue={this.updateForm} />}/>
+        <Route exact path="/home" render={(props) => (<HomeFeed {...props} allPosts={this.state.images} currentUser={this.state.currentUser} handleLike={this.handleLike} />) }/>
+        <Route exact path="/newPost" render={(props) => <PostForm {...props} handleSubmit={this.postNewExp} changeFile={this.changeFile} changeUrl={this.changeImgUrl} onChangeValue={this.updateForm} formValues={this.state}/>}/>
+        <Route exact path="/post/:id" render={(props) => <SinglePost {...props} postValues={this.state.images} onDelete={this.handleDelete} cancelDelete={this.cancelDelete} confirmDelete={this.confirmDelete} showConfirm={this.state.showConfirm} handleLike={this.handleLike} handleEdit={this.editPost} updatePost={this.updatePost} currentUser={this.state.currentUser} onChangeValue={this.updateForm} comment={this.state.comment} handleComment={this.handleComment} updateQuery={this.updateQueryBar}/>}></Route>
+        <Route exact path="/profile/:id" render={(props) => 
+          this.state.currentUser ? 
+          (<UserProfile {...props} 
+            images = {this.state.images} 
+            currentUser = {this.state.currentUser} 
+            users={this.state.users}
+            showEdit={this.state.showEdit} 
+            handleFollow={this.handleFollow}
+            onChangeValue={this.updateForm}
+            handleEditProfile={this.showEditUser}
+            changeFile={this.changeFile}
+            updateUser={this.updateUser}
+            handleShowFollow = {this.showFollow}
+            followContainer = {this.state.followContainer}
+            showFollowers = {this.showFollowers}
+            listFollowing = {this.state.listFollowing}
+            listFollowers = {this.state.listFollowers}
+            />) : 
+          (<Redirect to="/login"/>)}/>
+        
         </Switch>
+        
+        
       </div>
     );
   }

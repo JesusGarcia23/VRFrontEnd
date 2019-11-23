@@ -25,7 +25,6 @@ var requestFullscreen = function (ele) {
 
 var exitFullscreen = function () {
   let theCanvas = document.getElementsByTagName('canvas')[0];
-  console.log(theCanvas);
   if (theCanvas.style.height === "100vh") {
     theCanvas.style.height = "50vh"
   } else {
@@ -39,9 +38,6 @@ window.addEventListener('mozfullscreenchange', exitFullscreen);
 window.addEventListener('MSFullscreenChange', exitFullscreen);
 
 const SinglePost = props => {
-
-  console.log("this is signle post", props)
-
 
   function goBack() {
     const { goBack } = props.history

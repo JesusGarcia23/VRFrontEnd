@@ -6,7 +6,6 @@ const CommentSection = (props) => {
     // console.log(props.allPostComments)
     
     const commentList = (allComments) => {
-        console.log(allComments)
         if(allComments.length !== 0){
         return (
           <div className="CommentsContainer">

@@ -10,6 +10,7 @@ class Header extends Component {
             endpoint: `https://trishare.herokuapp.com`
         }
         socket = io(this.state.endpoint)
+        
     }
 
     render() {
@@ -20,3 +21,5 @@ class Header extends Component {
 }
 
 export { Header, socket };
+
+//`https://trishare.herokuapp.com`

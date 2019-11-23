@@ -6,7 +6,7 @@ const Edit = (props) => {
     if(image){
         theImageId = image._id 
     }
-    console.log(theImageId)
+    // console.log(theImageId)
 return (
     <div className='editUserFormContainer'>
     <div className='editPostHeader'>

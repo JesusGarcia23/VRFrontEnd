@@ -35,8 +35,7 @@ class ThreeMap extends Component {
 
   initThree() {
     const {url} = this.props
-    console.log("MY URL");
-    console.log(url);
+
    // let stats;
     let camera, scene, renderer;
    // let group;

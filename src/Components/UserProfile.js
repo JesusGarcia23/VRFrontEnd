@@ -9,17 +9,11 @@ const UserProfile = (props) => {
     const { images, currentUser, users, showEdit, followContainer } = props
     const theUserId = currentUser._id
     const profileId = props.match.params.id
-    console.log('these are users', users)
-    console.log('these is currentUSer', currentUser)
 
-    console.log("THESE ARE THE PROPS", props)
-    console.log('these are the images', images)
-    console.log('THERE IS FOLLOWCONTAINER', followContainer)
-
-    function goBack() {
-        const { goBack } = props.history
-        goBack();
-    }
+    // function goBack() {
+    //     const { goBack } = props.history
+    //     goBack();
+    // }
 
     function haveLogout(userFollowers) {
         if (theUserId === profileId) {
@@ -27,8 +21,6 @@ const UserProfile = (props) => {
                 <button onClick={props.handleEditProfile} className='editUserProfileIcon'><i class="fas fa-user-edit"></i></button>
             </div>
         } else {
-            console.log(userFollowers)
-            console.log(userFollowers.indexOf(theUserId))
             if (userFollowers.indexOf(theUserId) >= 0) {
                 return (<button className="btn btn-sm  btn-primary" onClick={e => props.handleFollow(profileId)}><i className="fa fa-user-minus followBtn"> Unfollow </i></button>)
             } else {
@@ -50,8 +42,8 @@ const UserProfile = (props) => {
 
     const pics = images.filter(image => image.owner._id === profileId)
 
-    const test = users.filter(theUser => theUser._id === profileId)
-    console.log("these are the test", test)
+    // const test = users.filter(theUser => theUser._id === profileId)
+    // console.log("these are the test", test)
 
     const userDetails = users.filter(theUser => theUser._id === profileId)[0]
 

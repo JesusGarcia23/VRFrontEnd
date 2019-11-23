@@ -4,7 +4,7 @@ import Likebtn from './Likebtn';
 
 const WorldPost = props => {
 
-   console.log(props)
+   // console.log(props)
    let arrayOfPosts = []
 
    function isLiked(value, theArray, postId) {

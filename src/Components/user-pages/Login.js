@@ -1,45 +1,47 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom'
-class Login extends React.Component {
+import { Redirect } from 'react-router-dom';
 
-    message = null
+const Login = (props) => {
 
-    render(){
-        const { username, password, currentUser } = this.props.formValues
-        if(currentUser){
-            return (
-                <Redirect to={`/home`}/>
-            )
-        }else{
-        return(
-            <div>
-            <section>
-
-            <h2> Login </h2>
-
-            <form onSubmit ={this.props.handleSubmit} >
-
-                <label> Username: </label>
-                 <input value={username} onChange={ e => this.props.onChangeValue(e)} type="text" name="username" placeholder="username" />
-
-
-
-                <label> Password</label>
-                <input value={password} onChange={ e => this.props.onChangeValue(e)} type="password" name="password" placeholder="***********"/>
-                 <button> Login </button>
-
-            </form>
-
-            {/* if the message is not null (basically if there's a message) then show it in this <div> tag */}
-
-            { this.message && <div> { this.message } </div> }
-
-        </section>
-            
-            </div>
+    const { username, password, currentUser } = props.formValues
+    if(currentUser){
+        return (
+            <Redirect to={`/home`}/>
         )
-    }
-    }
+    }else{
+    return(
+        <div className={props.styling}>
+    <div className='loginFormContainer'>
+    
+        <div className='loginFormHeader'>
+        <div className='loginTitleForm'>
+        <h1> Login </h1>
+        </div>
+        <button onClick={e => {props.exitLogin(e)}} className='exitBtnEditUser '><i class="fas fa-times"></i></button>
+        </div>
+        <form onSubmit ={props.handleSubmit} className='loginFormBody' >
+
+        <div className='loginFormInput'>
+        <label> Username: </label>
+         <input value={username} onChange={ e => props.onChangeValue(e)} type="text" name="username" placeholder="username" />
+         </div>
+
+         <div className='loginFormInput'>
+        <label> Password: </label>
+        <input value={password} onChange={ e => props.onChangeValue(e)} type="password" name="password" placeholder="***********"/>
+        </div>
+         <button className='loginFormBtn'> Login </button>
+
+    </form>
+
+    <section>
+    {props.message  && <div> { props.message } </div> }
+    </section>
+    </div>
+    </div> 
+  
+    )
+}
 }
 
 export default Login;

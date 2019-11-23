@@ -82,13 +82,13 @@ const NavBar = (props) => {
 
 
               <Link to={`/profile/${props.currentUser._id}`} className='nav-link'><i className="fas fa-user" style={{ marginRight: 3 }}></i>Profile</Link>
-              <NavDropdown title={<i class="fas fa-cog"></i>} id="basic-nav-dropdown" className='gearUserNav'>
+              <NavDropdown title={<i className="fas fa-cog"></i>} id="basic-nav-dropdown" className='gearUserNav'>
                 <NavDropdown.Item onClick={props.onLogout} style={{ color: 'red' }}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav> :
               <Nav className="mr-auto">
-                <Link to="/login" className='nav-link'>Login</Link>
-                <Link to="/signup" className='nav-link'>Signup</Link>
+              <Nav.Item as='button' onClick={e => props.revealLoginForm(e)} className='nav-link navBarBtn'>Login</Nav.Item>
+              <Nav.Item as='button' onClick={e => props.revealSignupForm(e)}  className='nav-link navBarBtn'>Signup</Nav.Item>
               </Nav>
             }
           </Navbar.Collapse>

@@ -4,54 +4,78 @@ import { Redirect } from 'react-router-dom';
 
 let img = ""
 
-class Signup extends React.Component{
+const Signup = (props) => {
 
  
-     finished = false;
+    let finished = false;
 
 
-    seePreview = (e) => {
+  function seePreview(e) {
         e.preventDefault();
         console.log(e.target.files[0]);
         if(e.target.files[0].size <= 10485760){
         let newImg = URL.createObjectURL(e.target.files[0])
         img = newImg;
-        this.props.changeFile(e.target.files[0])
+        props.changeFile(e.target.files[0])
     }
         // this.setState({imageFile: e.target.files[0]})
 
     }
-
-
-    render(){
-        console.log(this.props);
-        const {username, email, password} = this.props.formValues
-        if(this.finished || this.props.currentUser){
+   
+        console.log(props);
+        const {username, email, password} = props.formValues
+        if(finished || props.currentUser){
             return (
-                <Redirect to={`/profile/${this.props.currentUser._id}`}/>
+                <Redirect to={`/profile/${props.currentUser._id}`}/>
             )
         }
         return(
-            <div className="SignupForm">
-            <section>
-            <h2>Sign Up</h2>
-            <form onSubmit={this.props.handleSubmit}>
-            <label>Username: </label>
-            <input type="text" name="username" value={username} onChange={ e => this.props.onChangeValue(e)}></input>
-            <label>Email: </label>
-            <input type="email" name="email" value={email} onChange={ e => this.props.onChangeValue(e)}></input>
-            <label>Password </label>
-            <input type="password" name="password" value={password} onChange={ e => this.props.onChangeValue(e)}></input>
-            <label>Image </label>
-            <input type="file" onChange={this.seePreview} name="imageFile"></input>
-            <img src={img} alt="Choose a file"></img>
-            <button>Submit</button>
-            </form>
-            </section>
+            <div className={props.styling}>
+        <div className='signupFormContainer'>
+        
+        <div className='signupContainerForm'>
+            <div className='signupFormHeader'>
+            <div className='signupTitleForm'>
+            <h1> Sign up </h1>
             </div>
-        )
-    }
+            <button onClick={e => {props.exitSignup(e)}} className='exitBtnEditUser exitSignup'><i class="fas fa-times"></i></button>
+            </div>
 
+            <form onSubmit={props.handleSubmit} className='signupFormBody'>
+
+            <div className='signupPicContainer'>
+            <img src={img} alt="Choose a file" className='signupPic'></img>
+            </div>
+            
+            <div className='signupFormInput'>
+            <label>Username: </label>
+            <input type="text" name="username" value={username} onChange={ e => props.onChangeValue(e)}></input>
+            </div>
+
+            <div className='signupFormInput'>
+            <label>Email: </label>
+            <input type="email" name="email" value={email} onChange={ e => props.onChangeValue(e)}></input>
+            </div>
+
+            <div className='signupFormInput'>
+            <label>Password: </label>
+            <input type="password" name="password" value={password} onChange={ e => props.onChangeValue(e)}></input>
+            </div>
+
+            <div className='signupFormInput'>
+            <label>Profile Picture </label>
+            <input type="file" onChange={seePreview} name="imageFile"></input>
+            </div>
+            <button className='signupFormBtn'>Join</button>
+            </form>
+
+        </div>
+        </div>
+        {props.message  && <div> { props.message } </div> }
+        </div> 
+
+        )
+  
 }
 
 export default Signup;

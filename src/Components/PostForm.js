@@ -63,13 +63,11 @@ class PostForm extends React.Component{
 
     uploadPost = (e) => {
 e.preventDefault();
-console.log(e.target);
     }
 
     seePreview = (e) => {
         e.preventDefault();
 
-        console.log(e.target.files);
         if(e.target.files[0] && e.target.files[0].size <= 10485760){
         let newImg = URL.createObjectURL(e.target.files[0])
         this.props.changeFile(e.target.files[0])

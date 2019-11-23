@@ -38,7 +38,6 @@ html,body
 
 .navbar {
   color: white;
-  background: rgb(253,29,90);
   background: linear-gradient(to right, rgba(32,124,229,1) 0%, rgba(2,47,89,0.96) 77%, rgba(2,47,89,0.95) 100%);
   font-size: 1vw;
 }
@@ -90,6 +89,11 @@ img:fullscreen {
   margin-bottom: 1px;
 }
 
+.navBarBtn{
+  border: 0px;
+  background-color: transparent;
+}
+
 .dropdown-item{
   display: flex !important; 
   align-items: center !important;
@@ -97,6 +101,181 @@ img:fullscreen {
   width: 20vw !important;
   height: 4vh !important;
 } 
+
+
+/* LOGIN FORM */
+.LoginFormContainer{
+  position: absolute;
+  display: flex;
+  top: 0vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.827);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.loginFormContainer{
+  animation: fade-in-keyframes 1s;
+  justify-content: center;
+  border: 1px solid gray;
+  border-radius: 20px;
+  height: 50vh;
+  width: 40vw;
+  background-color: rgba(255, 254, 254, 0.904);
+  /* background-image: url('/lifeIn3D.jpg'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.loginFormContainer.hide{
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loginFormContainer{
+  height: 60vh;
+  width: 40vw;
+}
+
+.loginFormHeader{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 10vh;
+  margin-bottom: 10vh
+}
+
+.loginTitleForm{
+  color: black;
+  width: 92%
+}
+
+.loginFormBody{
+color: black;
+font-weight: bold;
+  width:100%;
+  height: 50%;
+}
+
+.loginFormInput{
+  width: 40vw;
+  margin:5vh auto
+}
+
+.loginFormInput label{
+  font-size: 3vh;
+  margin-right: 2vw;
+}
+
+.loginFormBtn{
+  border: 2px solid rgb(8, 41, 104);
+  background-color: rgb(16, 57, 134);
+  width: 6vw;
+  color: white;
+}
+/* END OF LOGIN BUTTON */
+
+/* SIGN UP FORM */
+.SignupFormContainer{
+  position: absolute;
+  display: flex;
+  top: 0vh;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.827);
+}
+
+.signupFormContainer{
+  display: flex;
+  justify-content: flex-end;
+  animation: fade-in-keyframes 1s;
+  border: 1px solid gray;
+  border-radius: 20px;
+  height: 85vh;
+  width: 65vw;
+  background-color: rgba(255, 254, 254, 0.904);
+  background-image: url('/Immersive_studio.jpg');
+}
+
+.signupFormContainer.hide{
+  opacity: 0;
+  pointer-events: none;
+}
+
+.signupFormHeader{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  border: 1px solid gray;
+  height: 10vh;
+  margin-bottom: 5vh
+}
+
+.signupTitleForm{
+  color: white;
+  width: 92%
+}
+
+.signupFormBody{
+  width: 100%;
+  height: 70vh;
+}
+
+.signupContainerForm{
+  width: 70vw;
+}
+
+.signupFormInput{
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 3vh auto
+}
+
+.signupFormInput input{
+  width: 25vw;
+ 
+}
+
+.signupFormInput label{
+  font-size: 1.5vw;
+  width: 10vw;
+  margin-left: 3vw;
+}
+
+.exitSignupFormBtn{
+  align-self: flex-end;
+}
+
+
+.signupPic{
+  width: 10vw; 
+  border-radius:100px;
+   margin-bottom: 3vh;
+
+}
+.signupFormBtn{
+  border: 2px solid rgb(5, 54, 145);
+  background-color: rgb(10, 72, 185);
+  width: 10vw;
+  color: white;
+}
+
+.exitSignup{
+  color: white;
+}
+/* END OF SIGN UP FORM */
 
 .SignupForm {
   margin-top: 200px;
@@ -107,7 +286,6 @@ img:fullscreen {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: 1px solid green;
   justify-content: flex-start;
 }
 
@@ -130,7 +308,6 @@ img:fullscreen {
   width: 32.8vw;
   height: 40vh;
   margin: 1px;
-  border: 1px solid green;
  /* 32:18, i.e. 16:9 */
 
 }
@@ -281,7 +458,6 @@ opacity: 1;
 
 .worldOverlayText{
   float: left;
-  border: 1px solid green;
   width: 40vw;
   height: 5vh;
 }
@@ -312,7 +488,6 @@ opacity: 1;
 }
 
 .singleFooter{
-  border: 1px solid brown;
   height: 30vh;
 }
 
@@ -326,7 +501,7 @@ opacity: 1;
 
 .postCaption{
   float: left;
-  border: 1px solid blue;
+  border: 1px solid gray;
   height: 30vh;
   width: 45vw;
   font-size: 1.5vw;
@@ -336,7 +511,6 @@ opacity: 1;
   float: left;
   height: 30vh;
   width: 22vw;
-  border: 1px solid purple;
 }
 
 
@@ -346,7 +520,6 @@ opacity: 1;
   width: 22vw;
   height: 10vh;
   margin-top: 2vh;
-  border: 1px solid orange;
 }
 
 .likeCount{
@@ -356,7 +529,6 @@ opacity: 1;
 
 .CommentsContainer{
   float: left;
-  border: 1px solid green;
   height: 20vh;
   width: 32vw;
   overflow: auto;
@@ -417,7 +589,6 @@ color: white;
 .post-date{
   margin-top: 10vh;
   display: inline-block;
-  border: 1px solid orchid;
   height: 5vh;
   width: 22vw;
   font-size: 20px;
@@ -1251,6 +1422,27 @@ margin-bottom: 10px;
 
 @media screen and (max-width: 900px) {
  
+  .signupFormInput label{
+    font-size: 2vw;
+    width: 10vw;
+    margin-left: 3vw;
+  }
+
+  .signupPicContainer{
+    display: block;
+    width: 30vw; 
+    height: 30vh;
+    border: 1px solid red;
+  }
+
+  .signupPic{
+    width: 30vw; 
+    border-radius:100px;
+     margin-bottom: 3vh;
+  
+  }
+  
+
 
   /* NAVBAR */
 .TriShareLogo{
@@ -1275,12 +1467,10 @@ margin-bottom: 10px;
   padding-bottom: 5vh !important;
 }
 .dropdown-menu {
-  border: 1px solid red !important;
 width: 60vw !important;
 }
 
 .notificationText{
-  border: 1px solid blue;
   margin-left: 5px;
   width: 550px;
   font-size: 1vw;
@@ -1311,7 +1501,6 @@ width: 60vw !important;
 }
 
 .dropdown-item{
-  border: 1px solid purple !important;
   display: flex !important; 
   align-items: center !important;
   justify-content: flex-start  !important;

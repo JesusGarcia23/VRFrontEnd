@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 const FollowContainer = (props) => {
-console.log(props)
+//console.log(props)
 const {users, following, followers, listFollowing, listFollowers, currentUser } = props
 let followingList = [];
 // let followerList = [];
@@ -11,8 +11,6 @@ let followingClasses = listFollowing ? 'followingContainerHeaderDark' : 'followi
 let followerClasses = listFollowers ? 'followerContainerHeaderDark' : 'followerContainerHeader'
 
 function isFollowing(myUser, eachUser){
-    console.log(myUser)
-    console.log(eachUser)
 if(eachUser._id !== myUser._id){
     if(myUser.following.indexOf(eachUser._id) >= 0){
         return <button className="btn btn-sm  btn-primary" onClick={e => props.handleFollow(eachUser._id)}><i className="fa fa-user-minus followBtn"> Unfollow </i></button>
@@ -30,8 +28,6 @@ if(theArray.length > 0 && users.length > 0){
     followingList = users.filter(eachUser => {
         return theArray.indexOf(eachUser._id) >= 0
     })
-    console.log(followingList)
-    console.log(theUser.following)
 return followingList.map(eachUser => {
     return <div key={eachUser._id} className='userMiniFollowBox'>
     <span className='followThumbImgName'>

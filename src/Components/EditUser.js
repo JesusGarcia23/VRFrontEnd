@@ -16,7 +16,7 @@ const EditUser = (props) => {
 
     function seePreview(e){
         e.preventDefault();
-        console.log(e.target.files[0]);
+        // console.log(e.target.files[0]);
         if(e.target.files[0].size <= 10485760){
         let newImg = URL.createObjectURL(e.target.files[0])
         img = newImg;
