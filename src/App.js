@@ -372,8 +372,7 @@ class App extends Component {
     axios.post(`${this.state.herokUrl}/delete/${thePostId}`)
       .then(responseFromBackend => console.log(responseFromBackend))
       .catch(err => console.log(err))
-
-    window.location = '/home'
+    // window.location = '/home'
   }
 
 
