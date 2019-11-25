@@ -144,14 +144,14 @@ class App extends Component {
     })
   }
 
-  logoutUser = () => {
-    axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
-      .then(theUser => {
-        this.syncCurrentUser(null)
-        this.setState({ currentUser: null })
-      })
-    window.location = `/`
-  }
+  // logoutUser = () => {
+  //   axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
+  //     .then(theUser => {
+  //       this.syncCurrentUser(null)
+  //       this.setState({ currentUser: null })
+  //     })
+  //   window.location = `${this.state.herokUrl}`
+  // }
   //END OF LOG OUT USER	
 
   //LIKE POST	
@@ -261,7 +261,7 @@ class App extends Component {
                   imageUrl: "",
                   imageFile: [],
                 })
-
+                window.location = `${this.state.herokUrl}`
               })
               .catch(err => console.log(err));
 
@@ -284,6 +284,7 @@ class App extends Component {
             imageUrl: "",
             imageFile: [],
           })
+          window.location = `${this.state.herokUrl}`
         })
         .catch(err => console.log(err));
 
@@ -670,7 +671,7 @@ exitSignup = (e) => {
         console.log(theUser)
         this.syncCurrentUser(null)
         this.setState({ currentUser: null }, () => {
-          // window.location = `http://localhost:3000`
+          window.location = `${this.state.herokUrl}`
         })
       })
   }

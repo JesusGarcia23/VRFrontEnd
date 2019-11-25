@@ -73,7 +73,7 @@ const NavBar = (props) => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             {props.currentUser ? <Nav className="mr-auto">
-            <Link to="/home" className='nav-link navBarBrand'><img src='../../triShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Link>
+            <Link to="/home" className='nav-link navBarBrand' style={{textDecoration: 'none', color:'white'}}><img src='/TriShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Link>
               <Link to="/world" className='nav-link'>World</Link>
               <Link to="/newPost" className='nav-link'>New Experience</Link>
 
@@ -87,7 +87,7 @@ const NavBar = (props) => {
               </NavDropdown>
             </Nav> :
               <Nav className="mr-auto">
-              <Link to="/" className='nav-link navBarBrand'><img src='/triShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Link>
+              <Link to="/" className='nav-link navBarBrand' style={{textDecoration: 'none', color:'white'}}><img src='/TriShareLogo2.png' className='TriShareLogo' alt='logoApp'></img></Link>
               <Nav.Item as='button' onClick={e => props.revealLoginForm(e)} className='nav-link navBarBtn'>Login</Nav.Item>
               <Nav.Item as='button' onClick={e => props.revealSignupForm(e)}  className='nav-link navBarBtn'>Signup</Nav.Item>
               </Nav>
@@ -100,3 +100,4 @@ const NavBar = (props) => {
 }
 
 export default NavBar;
+//<img src='/TriShareLogo2.png' className='TriShareLogo' alt='logoApp'></img>
