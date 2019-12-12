@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Switch, Route, Redirect } from 'react-router-dom'
 import SinglePost from './Components/SinglePost';
 import PostForm from './Components/PostForm';
-import Signup from './Components/user-pages/Signup'
-import Login from './Components/user-pages/Login'
 import UserProfile from './Components/UserProfile';
 import Home from './Components/Home';
 import "./index.css";
@@ -37,8 +35,6 @@ class App extends Component {
     showConfirm: false,
     url: "http://localhost:5000/api/things",
     postImgUrl: "http://localhost:5000/api/upload",
-   // herokUrl: 'http://localhost:5000',
-     herokUrl: 'https://trishare.herokuapp.com',
     lastUrl: '/world',
     images: [],
     profileImgDefault: 'https://res.cloudinary.com/thejacex/image/upload/v1572846104/emptyImage_qqqtqp.png',
@@ -63,16 +59,13 @@ class App extends Component {
     socket.on('change_data', this.changingData)
     // socket.on('loggedin', this.syncCurrentUser)
 
-    axios.get(`${this.state.herokUrl}/auth/loggedin`, { withCredentials: true })
+    axios.get(`${process.env.REACT_APP_HEROKU}/auth/loggedin`, { withCredentials: true })
       .then(responseFromBackend => {
- 
-        // const { userDoc } = responseFromBackend.data
-        // console.log(userDoc)
-        // console.log(userDoc)
-        // if (userDoc !== undefined) {
-        //   setTimeout(() => { this.get_notifications(userDoc._id) }, 500)
-        // }
-        
+        console.log(responseFromBackend.data)
+        const { userDoc } = responseFromBackend.data
+        if(userDoc !== undefined){
+          this.syncCurrentUser(userDoc)
+        }
       })
       .catch(err => console.log("Error while getting the user from the loggedin route ", err))
   }
@@ -106,7 +99,7 @@ class App extends Component {
           this.setState({ imagePost: response.imageUrl }, () => {
 
             //CALL TO THE NEW POST ROUTE
-            axios.post(`${this.state.herokUrl}/createNewPost`, this.state, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_HEROKU}/createNewPost`, this.state, { withCredentials: true })
               .then(theNewPost => {
                 const newPost = theNewPost.data
                 const clone = [...this.state.images]
@@ -145,20 +138,22 @@ class App extends Component {
   }
 
   // logoutUser = () => {
-  //   axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
+  //   axios.delete(`${process.env.REACT_APP_HEROKU}/auth/logout`, { withCredentials: true })
   //     .then(theUser => {
   //       this.syncCurrentUser(null)
   //       this.setState({ currentUser: null })
   //     })
-  //   window.location = `${this.state.herokUrl}`
+  //   window.location = `${process.env.REACT_APP_HEROKU}`
   // }
   //END OF LOG OUT USER	
 
   //LIKE POST	
   handleLike = (e) => {
-    axios.post(`${this.state.herokUrl}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
+    console.log(e)
+    
+    axios.post(`${process.env.REACT_APP_HEROKU}/updateLikes/${e}`, this.state.currentUser, { withCredentials: true })
       .then(responseFromBack => {
-        //  console.log(responseFromBack.data.thePost)	
+         console.log(responseFromBack.data.thePost)	
         const newPost = responseFromBack.data
         const clone = [...this.state.images]
         const theIndex = clone.findIndex(postToFind => postToFind._id === newPost._id)
@@ -189,25 +184,6 @@ class App extends Component {
       images: posts,
     })
   };
-
-
-  // get_notifications = async (userId) => {
-  //   try {
-
-  //     await axios.get(`${this.state.herokUrl}/getNotifications/${userId}`).then(response => {
-  //       const notificationList = response.data;
-  //       this.setState({
-  //         notifications: notificationList
-  //       })
-  //     }).catch(err => console.log(err))
-
-
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-  //END OF GET ALL NOTIFICATIONS FROM DB
 
 
   //uPDATE FORMS VALUES
@@ -251,7 +227,7 @@ class App extends Component {
           // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
           this.setState({ imagePost: response.imageUrl }, () => {
             //CALL TO THE SIGNUP ROUTE
-            axios.post(`${this.state.herokUrl}/auth/signup`, this.state, { withCredentials: true })
+            axios.post(`${process.env.REACT_APP_HEROKU}/auth/signup`, this.state, { withCredentials: true })
               .then(theData => {
                 this.setState({
                   finished: true,
@@ -261,7 +237,7 @@ class App extends Component {
                   imageUrl: "",
                   imageFile: [],
                 })
-                window.location = `${this.state.herokUrl}`
+                window.location = `${process.env.REACT_APP_HEROKU}`
               })
               .catch(err => console.log(err));
 
@@ -274,7 +250,7 @@ class App extends Component {
     } else {
 
       //CALL TO THE SIGNUP ROUTE
-      axios.post(`${this.state.herokUrl}/auth/signup`, this.state, { withCredentials: true })
+      axios.post(`${process.env.REACT_APP_HEROKU}/auth/signup`, this.state, { withCredentials: true })
         .then(theData => {
           this.setState({
             finished: true,
@@ -284,7 +260,7 @@ class App extends Component {
             imageUrl: "",
             imageFile: [],
           })
-          window.location = `${this.state.herokUrl}`
+          window.location = `${process.env.REACT_APP_HEROKU}`
         })
         .catch(err => console.log(err));
 
@@ -295,7 +271,7 @@ class App extends Component {
   //LOGIN USER
   loginUser = (e) => {
     e.preventDefault();
-    axios.post(`${this.state.herokUrl}/auth/login`, this.state, { withCredentials: true })
+    axios.post(`${process.env.REACT_APP_HEROKU}/auth/login`, this.state, { withCredentials: true })
       .then(responseFromServer => {
         const { userDoc } = responseFromServer.data;
         this.syncCurrentUser(userDoc);
@@ -345,7 +321,7 @@ class App extends Component {
       imageList[theIndex].modal = !imageList[theIndex].modal
 
       this.setState({ images: imageList }, () =>
-        axios.put(`${this.state.herokUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
+        axios.put(`${process.env.REACT_APP_HEROKU}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
           .then(theValues => {
             this.setState({
               caption: '',
@@ -370,7 +346,7 @@ class App extends Component {
       showConfirm: false
     })
 
-    axios.post(`${this.state.herokUrl}/delete/${thePostId}`)
+    axios.post(`${process.env.REACT_APP_HEROKU}/delete/${thePostId}`)
       .then(responseFromBackend => console.log(responseFromBackend))
       .catch(err => console.log(err))
     // window.location = '/home'
@@ -432,7 +408,7 @@ class App extends Component {
     imageList[theIndex].modal = !imageList[theIndex].modal
 
     this.setState({ images: imageList }, () =>
-      axios.put(`${this.state.herokUrl}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
+      axios.put(`${process.env.REACT_APP_HEROKU}/updatePost/${thePost._id}`, { caption: captionToUse, tags: tagToUse })
         .then(theValues => {
           this.setState({
             caption: '',
@@ -469,7 +445,7 @@ class App extends Component {
           // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
           this.setState({ imagePost: response.imageUrl }, () => {
             //CALL TO THE SIGNUP ROUTE
-            axios.put(`${this.state.herokUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
+            axios.put(`${process.env.REACT_APP_HEROKU}/auth/updateUser/${currentUser._id}`, { bio, imageFile: this.state.imagePost, currentUser }, { withCredentials: true })
               .then(theData => {
                 const listUsers = [...this.state.users]
                 const { bio, imageUrl } = theData.data
@@ -495,7 +471,7 @@ class App extends Component {
           console.log("Error while uploading the file: ", err);
         })
     } else {
-      axios.put(`${this.state.herokUrl}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
+      axios.put(`${process.env.REACT_APP_HEROKU}/auth/updateUser/${currentUser._id}`, { bio, imageFile, currentUser }, { withCredentials: true })
         .then(theData => {
           const listUsers = [...this.state.users]
           const { bio } = theData.data
@@ -524,7 +500,7 @@ class App extends Component {
     console.log(userToFollow)
     const { currentUser } = this.state
 
-    axios.post(`${this.state.herokUrl}/follow/${userToFollow}`, currentUser)
+    axios.post(`${process.env.REACT_APP_HEROKU}/follow/${userToFollow}`, currentUser)
       .then(responseFromBackend => {
         const userList = [...this.state.users]
         const myUser = this.state.currentUser
@@ -573,7 +549,7 @@ class App extends Component {
       comment: ''
     })
 
-    axios.put(`${this.state.herokUrl}/addComment/${postId}`, newComment)
+    axios.put(`${process.env.REACT_APP_HEROKU}/addComment/${postId}`, newComment)
       .then(responseFromBackend => console.log(responseFromBackend))
 
       .catch(err => console.log(err))
@@ -665,13 +641,13 @@ exitSignup = (e) => {
 
   logoutUser = () => {
     socket.emit('end', this.state.currentUser)
-    axios.delete(`${this.state.herokUrl}/auth/logout`, { withCredentials: true })
+    axios.delete(`${process.env.REACT_APP_HEROKU}/auth/logout`, { withCredentials: true })
       .then(theUser => {
         console.log("DISCONNECTED!")
         console.log(theUser)
         this.syncCurrentUser(null)
         this.setState({ currentUser: null }, () => {
-          window.location = `${this.state.herokUrl}`
+          window.location = `${process.env.REACT_APP_HEROKU}`
         })
       })
   }
